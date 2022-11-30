@@ -1,3 +1,11 @@
+## [6.1.1](https://github.com/DuCanhGH/next-pwa/compare/v6.1.0...v6.1.1) (2022-11-30)
+
+
+### Bug Fixes
+
+* added webpack to peerDeps, fast-glob to deps ([bc38707](https://github.com/DuCanhGH/next-pwa/commit/bc38707e7865c3496247928d7b5dcd7d2dcb453f))
+* update lockfile ([646554b](https://github.com/DuCanhGH/next-pwa/commit/646554bff4115d2da93228306c0a2a40ba53d825))
+
 # [6.1.0](https://github.com/DuCanhGH/next-pwa/compare/v6.0.11...v6.1.0) (2022-11-30)
 
 
