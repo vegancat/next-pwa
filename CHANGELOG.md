@@ -1,3 +1,10 @@
+## [6.0.4](https://github.com/DuCanhGH/next-pwa/compare/v6.0.3...v6.0.4) (2022-11-30)
+
+
+### Bug Fixes
+
+* check if nextConfig.webpack is present ([53d3955](https://github.com/DuCanhGH/next-pwa/commit/53d39554daf97c4592f60f01c714e4ee8dc440cd))
+
 ## [6.0.3](https://github.com/DuCanhGH/next-pwa/compare/v6.0.2...v6.0.3) (2022-11-30)
 
 
