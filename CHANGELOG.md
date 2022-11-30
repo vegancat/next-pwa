@@ -1,3 +1,14 @@
+## [6.0.12](https://github.com/DuCanhGH/next-pwa/compare/v6.0.11...v6.0.12) (2022-11-30)
+
+
+### Bug Fixes
+
+* **not really:** test protected branch ([4cc9aa4](https://github.com/DuCanhGH/next-pwa/commit/4cc9aa47040fcf0e03f7a15aeb86afb53468657a))
+* **not really:** test protected branch ([894af1e](https://github.com/DuCanhGH/next-pwa/commit/894af1e289836a63377ec496823d637495bb3fda))
+* **not really:** test protected branch ([6e1183a](https://github.com/DuCanhGH/next-pwa/commit/6e1183aedab4aaf12b81b773b18f13c64ec1ef38))
+* **not really:** test protected branch ([aa0482f](https://github.com/DuCanhGH/next-pwa/commit/aa0482f0081aed771c6d7eb75c3c0e6ae4624991))
+* **not really:** test protected branch ([a53bdd0](https://github.com/DuCanhGH/next-pwa/commit/a53bdd02a7649d1058f5b64b901af10f9aa0a9c8))
+
 ## [6.0.11](https://github.com/DuCanhGH/next-pwa/compare/v6.0.10...v6.0.11) (2022-11-30)
 
 
