@@ -28,3 +28,6 @@ CHANGELOG.md
 
 # typescript
 tsconfig.tsbuildinfo
+
+# examples
+examples/*/.next
