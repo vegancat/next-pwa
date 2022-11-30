@@ -1,3 +1,10 @@
+## [6.0.3](https://github.com/DuCanhGH/next-pwa/compare/v6.0.2...v6.0.3) (2022-11-30)
+
+
+### Bug Fixes
+
+* make NextConfig optional ([51e8dd3](https://github.com/DuCanhGH/next-pwa/commit/51e8dd3f1c3b58e16b92cab1411ab4079abc953c))
+
 ## [6.0.2](https://github.com/DuCanhGH/next-pwa/compare/v6.0.1...v6.0.2) (2022-11-30)
 
 
