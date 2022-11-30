@@ -1,9 +1,9 @@
 ---
 name: Bug
 about: Report a bug
-title: ''
+title: ""
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 # Summary
@@ -12,7 +12,7 @@ What can I help with? Please keep this clear and concise.
 
 # Versions
 
-- `next-pwa`: 
+- `next-pwa`:
 - `next`:
 
 # How To Reproduce

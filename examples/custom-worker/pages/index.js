@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 const Index = () => (
   <>
@@ -7,6 +7,6 @@ const Index = () => (
     </Head>
     <h1>Next.js + PWA = AWESOME!</h1>
   </>
-)
+);
 
-export default Index
+export default Index;

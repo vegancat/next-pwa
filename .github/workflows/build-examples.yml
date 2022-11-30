@@ -22,7 +22,7 @@ jobs:
             next-image,
             offline-fallback,
             offline-fallback-v2,
-            web-push
+            web-push,
           ]
     runs-on: ubuntu-latest
     steps:

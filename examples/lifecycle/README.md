@@ -14,7 +14,7 @@ This example also demonstrates how to [prompt the user to reload the page when a
 
 [![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
 
-``` bash
+```bash
 cd examples/lifecycle
 yarn install
 yarn build

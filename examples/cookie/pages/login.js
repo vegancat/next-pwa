@@ -1,14 +1,14 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Login = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleLoginClick = () => {
-    Cookies.set('user', 'FakeUserID-0527VND927SDF', { expires: 30 })
-    router.replace('/')
-  }
+    Cookies.set("user", "FakeUserID-0527VND927SDF", { expires: 30 });
+    router.replace("/");
+  };
 
   return (
     <>
@@ -18,7 +18,7 @@ const Login = () => {
       <h1>Login Page</h1>
       <button onClick={handleLoginClick}>Click to login</button>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

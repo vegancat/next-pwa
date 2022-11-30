@@ -18,7 +18,7 @@ The idea of implementing comprehensive fallbacks can be found [here](https://dev
 
 [![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
 
-``` bash
+```bash
 cd examples/offline-fallback
 yarn install
 yarn build
@@ -31,6 +31,3 @@ yarn start
 **/public/workbox-*.js
 **/public/sw.js
 ```
-
-
-

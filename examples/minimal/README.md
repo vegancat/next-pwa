@@ -12,10 +12,9 @@ It uses `fastify` as a custom server in order to serve `sw.js` and `precache` sc
 
 [![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
 
-``` bash
+```bash
 cd examples/minimal
 yarn install
 yarn build
 yarn start
 ```
-

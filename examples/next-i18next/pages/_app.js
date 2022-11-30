@@ -1,10 +1,10 @@
-import React from 'react'
-import { appWithTranslation } from '../i18n'
+import React from "react";
+import { appWithTranslation } from "../i18n";
 
 const App = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />
-}
+  return <Component {...pageProps} />;
+};
 
-const AppWithTranslation = appWithTranslation(App)
+const AppWithTranslation = appWithTranslation(App);
 
-export default AppWithTranslation
+export default AppWithTranslation;

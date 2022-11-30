@@ -12,7 +12,7 @@ Thanks to **Next.js 9+**, we can use `public` folder to serve static files from 
 
 [![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
 
-``` bash
+```bash
 cd examples/next-9
 yarn install
 yarn build
@@ -25,6 +25,3 @@ yarn start
 **/public/workbox-*.js
 **/public/sw.js
 ```
-
-
-

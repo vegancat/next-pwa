@@ -50,13 +50,13 @@ yarn add next-pwa
 Update or create `next.config.js` with
 
 ```javascript
-const withPWA = require('next-pwa')({
-  dest: 'public'
-})
+const withPWA = require("next-pwa")({
+  dest: "public",
+});
 
 module.exports = withPWA({
   // next.js config
-})
+});
 ```
 
 After running `next build`, this will generate two files in your `public`: `workbox-*.js` and `sw.js`, which will automatically be served statically.
@@ -80,29 +80,32 @@ When an HTTP request is received, test if those files are requested, then return
 Example `server.js`
 
 ```javascript
-const { createServer } = require('http')
-const { join } = require('path')
-const { parse } = require('url')
-const next = require('next')
+const { createServer } = require("http");
+const { join } = require("path");
+const { parse } = require("url");
+const next = require("next");
 
-const app = next({ dev: process.env.NODE_ENV !== 'production' })
-const handle = app.getRequestHandler()
+const app = next({ dev: process.env.NODE_ENV !== "production" });
+const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   createServer((req, res) => {
-    const parsedUrl = parse(req.url, true)
-    const { pathname } = parsedUrl
+    const parsedUrl = parse(req.url, true);
+    const { pathname } = parsedUrl;
 
-    if (pathname === '/sw.js' || /^\/(workbox|worker|fallback)-\w+\.js$/.test(pathname)) {
-      const filePath = join(__dirname, '.next', pathname)
-      app.serveStatic(req, res, filePath)
+    if (
+      pathname === "/sw.js" ||
+      /^\/(workbox|worker|fallback)-\w+\.js$/.test(pathname)
+    ) {
+      const filePath = join(__dirname, ".next", pathname);
+      app.serveStatic(req, res, filePath);
     } else {
-      handle(req, res, parsedUrl)
+      handle(req, res, parsedUrl);
     }
   }).listen(3000, () => {
-    console.log(`> Ready on http://localhost:${3000}`)
-  })
-})
+    console.log(`> Ready on http://localhost:${3000}`);
+  });
+});
 ```
 
 > The following setup has nothing to do with `next-pwa` plugin, and you probably have already set them up. If not, go ahead and set them up.
@@ -159,29 +162,60 @@ Add the following into `_document.jsx` or `_app.tsx`, in `<Head>`:
 <meta name="theme-color" content="#000000" />
 
 <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="/icons/touch-icon-ipad.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/icons/touch-icon-iphone-retina.png" />
-<link rel="apple-touch-icon" sizes="167x167" href="/icons/touch-icon-ipad-retina.png" />
+<link
+  rel="apple-touch-icon"
+  sizes="152x152"
+  href="/icons/touch-icon-ipad.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="/icons/touch-icon-iphone-retina.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="167x167"
+  href="/icons/touch-icon-ipad-retina.png"
+/>
 
-<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="/icons/favicon-32x32.png"
+/>
+<link
+  rel="icon"
+  type="image/png"
+  sizes="16x16"
+  href="/icons/favicon-16x16.png"
+/>
 <link rel="manifest" href="/manifest.json" />
 <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+/>
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:url" content="https://yourdomain.com" />
 <meta name="twitter:title" content="PWA App" />
 <meta name="twitter:description" content="Best PWA App in the world" />
-<meta name="twitter:image" content="https://yourdomain.com/icons/android-chrome-192x192.png" />
+<meta
+  name="twitter:image"
+  content="https://yourdomain.com/icons/android-chrome-192x192.png"
+/>
 <meta name="twitter:creator" content="@DavidWShadow" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="PWA App" />
 <meta property="og:description" content="Best PWA App in the world" />
 <meta property="og:site_name" content="PWA App" />
 <meta property="og:url" content="https://yourdomain.com" />
-<meta property="og:image" content="https://yourdomain.com/icons/apple-touch-icon.png" />
+<meta
+  property="og:image"
+  content="https://yourdomain.com/icons/apple-touch-icon.png"
+/>
 
 <!-- apple splash screen images -->
 <!--
@@ -199,8 +233,8 @@ Add the following into `_document.jsx` or `_app.tsx`, in `<Head>`:
 
 ```typescript
 <meta
-  name='viewport'
-  content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+  name="viewport"
+  content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
 />
 ```
 
@@ -221,18 +255,18 @@ You can also setup `precacheFallback.fallbackURL` in your [runtimeCaching config
 There are options you can use to customize the behavior of this plugin by adding `pwa` object in the next config in `next.config.js`:
 
 ```javascript
-const withPWA = require('next-pwa')({
-  dest: 'public'
+const withPWA = require("next-pwa")({
+  dest: "public",
   // disable: process.env.NODE_ENV === 'development',
   // register: true,
   // scope: '/app',
   // sw: 'service-worker.js',
   //...
-})
+});
 
 module.exports = withPWA({
   // next.js config
-})
+});
 ```
 
 ### Available Options

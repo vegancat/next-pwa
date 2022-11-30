@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 const Fallback = () => (
   <>
@@ -8,6 +8,6 @@ const Fallback = () => (
     <h1>This is offline fallback page</h1>
     <h2>When offline, any page route will fallback to this page</h2>
   </>
-)
+);
 
-export default Fallback
+export default Fallback;

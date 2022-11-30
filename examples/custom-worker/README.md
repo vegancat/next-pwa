@@ -36,14 +36,14 @@ In this example, `next-pwa` would look for `serviceworker/index.js`.
 Basically you need to create a file such as `worker.js` in `public` folder, then add an option `importScripts` to `pwa` object in `next.config.js`:
 
 ```javascript
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  importScripts: ['/worker.js']
-})
+const withPWA = require("next-pwa")({
+  dest: "public",
+  importScripts: ["/worker.js"],
+});
 
 module.exports = withPWA({
   // next.js config
-})
+});
 ```
 
 Then service worker generated will automatically import your code and run it before other workbox code.

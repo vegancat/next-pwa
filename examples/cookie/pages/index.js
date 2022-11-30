@@ -1,19 +1,19 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
-import nextCookies from 'next-cookies'
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import nextCookies from "next-cookies";
 
 const Index = ({ user }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleLogoutClick = () => {
-    Cookies.remove('user')
-    router.replace('/login')
-  }
+    Cookies.remove("user");
+    router.replace("/login");
+  };
 
   const handleLoginClick = () => {
-    router.replace('/login')
-  }
+    router.replace("/login");
+  };
 
   return (
     <>
@@ -30,25 +30,25 @@ const Index = ({ user }) => {
         <button onClick={handleLoginClick}>Click to login</button>
       )}
     </>
-  )
-}
+  );
+};
 
-export const getServerSideProps = context => {
-  const { user } = nextCookies(context)
+export const getServerSideProps = (context) => {
+  const { user } = nextCookies(context);
   if (!user) {
-    console.log('❌ User Not Login, Redirect To Login Page')
-    context.res.setHeader('location', '/login')
-    context.res.statusCode = 302
-    context.res.end()
-    return { props: {} }
+    console.log("❌ User Not Login, Redirect To Login Page");
+    context.res.setHeader("location", "/login");
+    context.res.statusCode = 302;
+    context.res.end();
+    return { props: {} };
   } else {
-    console.log(`✅ User (id=${user}) Already Login, Show Home Page.`)
+    console.log(`✅ User (id=${user}) Already Login, Show Home Page.`);
     return {
       props: {
-        user
-      }
-    }
+        user,
+      },
+    };
   }
-}
+};
 
-export default Index
+export default Index;

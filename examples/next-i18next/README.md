@@ -14,7 +14,7 @@ Because service worker `sw.js` must be served directly without any redirection, 
 
 [![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
 
-``` bash
+```bash
 cd examples/next-i18next
 yarn install
 yarn build
@@ -28,4 +28,3 @@ https://localhost:3000/
 https://localhost:3000/en
 https://localhost:3000/zh
 ```
-

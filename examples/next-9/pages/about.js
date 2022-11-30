@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import Head from "next/head";
+import Link from "next/link";
 
 const About = () => (
   <>
@@ -7,8 +7,8 @@ const About = () => (
       <title>next-pwa example</title>
     </Head>
     <h1>About</h1>
-    <Link href='/'>Home</Link>
+    <Link href="/">Home</Link>
   </>
-)
+);
 
-export default About
+export default About;

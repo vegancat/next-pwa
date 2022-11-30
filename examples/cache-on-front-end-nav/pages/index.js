@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import Head from "next/head";
+import Link from "next/link";
 
 const Index = () => (
   <>
@@ -8,15 +8,15 @@ const Index = () => (
     </Head>
     <h1>Next.js + PWA = AWESOME!</h1>
     <h2>
-      <Link href='/'>Go to Home</Link>
+      <Link href="/">Go to Home</Link>
     </h2>
     <h2>
-      <Link href='/a'>Go to route /a</Link>
+      <Link href="/a">Go to route /a</Link>
     </h2>
     <h2>
-      <Link href='/b'>Go to route /b</Link>
+      <Link href="/b">Go to route /b</Link>
     </h2>
   </>
-)
+);
 
-export default Index
+export default Index;

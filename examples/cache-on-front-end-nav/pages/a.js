@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import Head from "next/head";
+import Link from "next/link";
 
 const A = () => (
   <>
@@ -8,15 +8,15 @@ const A = () => (
     </Head>
     <h1>This is route /a</h1>
     <h2>
-      <Link href='/'>Go to Home</Link>
+      <Link href="/">Go to Home</Link>
     </h2>
     <h2>
-      <Link href='/a'>Go to route /a</Link>
+      <Link href="/a">Go to route /a</Link>
     </h2>
     <h2>
-      <Link href='/b'>Go to route /b</Link>
+      <Link href="/b">Go to route /b</Link>
     </h2>
   </>
-)
+);
 
-export default A
+export default A;
