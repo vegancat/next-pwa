@@ -44,6 +44,8 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies for package
         run: pnpm install
+      - name: Build package
+        run: pnpm build
       - name: Install dependencies for app
         run: pnpm link --dir examples/${{ matrix.example }}
       - name: Build app
