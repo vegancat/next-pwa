@@ -1,3 +1,10 @@
+## [6.0.6](https://github.com/DuCanhGH/next-pwa/compare/v6.0.5...v6.0.6) (2022-11-30)
+
+
+### Bug Fixes
+
+* export defaultCache ([78bc00d](https://github.com/DuCanhGH/next-pwa/commit/78bc00d4454fbca88d56b2921ce39531f4da5489))
+
 ## [6.0.5](https://github.com/DuCanhGH/next-pwa/compare/v6.0.4...v6.0.5) (2022-11-30)
 
 
