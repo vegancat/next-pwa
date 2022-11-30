@@ -1,3 +1,10 @@
+## [6.0.5](https://github.com/DuCanhGH/next-pwa/compare/v6.0.4...v6.0.5) (2022-11-30)
+
+
+### Bug Fixes
+
+* replaced self.fallback with fallback ([43db63a](https://github.com/DuCanhGH/next-pwa/commit/43db63a6902d2033ab364c4a289cf2e5f6093993))
+
 ## [6.0.4](https://github.com/DuCanhGH/next-pwa/compare/v6.0.3...v6.0.4) (2022-11-30)
 
 
