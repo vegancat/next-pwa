@@ -18,7 +18,7 @@ const getRevision = (file: fs.PathOrFileDescriptor) =>
 
 const withPWAInit = (
   pluginOptions: PluginOptions = {}
-): ((_: NextConfig) => NextConfig) => {
+): ((_?: NextConfig) => NextConfig) => {
   return (nextConfig: NextConfig = {}) => ({
     ...nextConfig,
     ...({
