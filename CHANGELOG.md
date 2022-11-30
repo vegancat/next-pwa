@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/DuCanhGH/next-pwa/compare/v6.0.0...v6.0.1) (2022-11-30)
+
+
+### Bug Fixes
+
+* multiple output format ([75357a8](https://github.com/DuCanhGH/next-pwa/commit/75357a8b324fb0e654c210cc7e21079a2a710901))
+
 # [6.0.0](https://github.com/DuCanhGH/next-pwa/compare/v5.6.0...v6.0.0) (2022-11-30)
 
 
