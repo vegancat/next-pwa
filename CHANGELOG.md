@@ -1,3 +1,15 @@
+# [6.1.0](https://github.com/DuCanhGH/next-pwa/compare/v6.0.11...v6.1.0) (2022-11-30)
+
+
+### Bug Fixes
+
+* update lockfile ([e34c06b](https://github.com/DuCanhGH/next-pwa/commit/e34c06b738e6522dd22415b35f3ac3fbebadb9ed))
+
+
+### Features
+
+* support for appDir ([d0cb3fb](https://github.com/DuCanhGH/next-pwa/commit/d0cb3fb28c3e8d467e9dc5ba5aaee44c24a37be1))
+
 ## [6.0.11](https://github.com/DuCanhGH/next-pwa/compare/v6.0.10...v6.0.11) (2022-11-30)
 
 
