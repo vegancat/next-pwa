@@ -1,3 +1,13 @@
+# [6.0.0](https://github.com/DuCanhGH/next-pwa/compare/v5.6.0...v6.0.0) (2022-11-30)
+
+
+* replace Microbundle with Rollup ([c7fcce7](https://github.com/DuCanhGH/next-pwa/commit/c7fcce7729eaebb64e768bca668c573b10ca9e0c))
+
+
+### BREAKING CHANGES
+
+* nothing, triggering test release
+
 ## 5.6.0
 ### BREAKING CHANGE
 
