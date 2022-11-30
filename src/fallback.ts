@@ -1,4 +1,4 @@
-self.fallback = async (request) => {
+export const fallback = async (request: Request) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/RequestDestination
   switch (request.destination) {
     case "document":
@@ -50,5 +50,3 @@ self.fallback = async (request) => {
       return Response.error();
   }
 };
-
-export {};

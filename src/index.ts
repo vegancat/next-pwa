@@ -11,6 +11,7 @@ import WorkboxPlugin, { GenerateSWConfig } from "workbox-webpack-plugin";
 import buildCustomWorker from "./build-custom-worker";
 import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
+import { fallback } from "./fallback";
 import { Fallbacks, PluginOptions } from "./types";
 
 const getRevision = (file: fs.PathOrFileDescriptor) =>
@@ -352,8 +353,7 @@ const withPWAInit = (
                   c.options.plugins = [];
                 }
                 c.options.plugins.push({
-                  handlerDidError: async ({ request }) =>
-                    self.fallback(request),
+                  handlerDidError: async ({ request }) => fallback(request),
                 });
               });
             }
