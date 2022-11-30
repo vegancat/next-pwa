@@ -22,9 +22,7 @@ specifiers:
   eslint-plugin-prettier: 4.2.1
   eslint-plugin-simple-import-sort: 8.0.0
   fast-glob: 3.2.12
-  globby: 11.1.0
   husky: 8.0.2
-  lodash-es: 4.17.21
   next: 13.0.5
   prettier: 2.8.0
   prettier-plugin-jsdoc: 0.4.2
@@ -69,9 +67,7 @@ devDependencies:
   eslint-plugin-prettier: 4.2.1_cwlo2dingkvfydnaculr42urve
   eslint-plugin-simple-import-sort: 8.0.0_eslint@8.28.0
   fast-glob: 3.2.12
-  globby: 11.1.0
   husky: 8.0.2
-  lodash-es: 4.17.21
   next: 13.0.5_672uxklweod7ene3nqtsh262ca
   prettier: 2.8.0
   prettier-plugin-jsdoc: 0.4.2_prettier@2.8.0
@@ -3852,10 +3848,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: 5.0.0
-    dev: true
-
-  /lodash-es/4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: true
 
   /lodash.capitalize/4.2.1:
