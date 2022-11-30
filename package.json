@@ -79,7 +79,7 @@
     "webpack": "5.75.0"
   },
   "peerDependencies": {
-    "next": ">=9",
-    "webpack": ">=5"
+    "next": ">=9.1.0",
+    "webpack": ">=5.9.0"
   }
 }

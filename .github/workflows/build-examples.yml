@@ -42,9 +42,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Install dependencies for package
+        run: pnpm install
       - name: Install dependencies for app
-        run: pnpm install --frozen-lockfile=false
-        working-directory: examples/${{ matrix.example }}
+        run: pnpm link --dir examples/${{ matrix.example }}
       - name: Build app
         run: pnpm build
         working-directory: examples/${{ matrix.example }}

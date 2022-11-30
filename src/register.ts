@@ -1,5 +1,17 @@
 import { Workbox } from "workbox-window";
 
+declare const __PWA_START_URL__: URL | RequestInfo;
+declare const __PWA_SW__: string;
+declare const __PWA_ENABLE_REGISTER__: boolean;
+declare const __PWA_CACHE_ON_FRONT_END_NAV__: boolean;
+declare const __PWA_RELOAD_ON_ONLINE__: boolean;
+declare const __PWA_SCOPE__: string;
+declare global {
+  interface Window {
+    workbox: Workbox;
+  }
+}
+
 if (
   typeof window !== "undefined" &&
   "serviceWorker" in navigator &&
@@ -58,7 +70,7 @@ if (
   }
 
   if (__PWA_CACHE_ON_FRONT_END_NAV__ || __PWA_START_URL__) {
-    const cacheOnFrontEndNav = function (url) {
+    const cacheOnFrontEndNav = function (url: any) {
       if (!window.navigator.onLine) return;
       if (__PWA_CACHE_ON_FRONT_END_NAV__ && url !== __PWA_START_URL__) {
         return caches.open("others").then((cache) =>
@@ -77,17 +89,18 @@ if (
           return Promise.resolve();
         });
       }
+      return;
     };
 
     const pushState = history.pushState;
     history.pushState = function () {
-      pushState.apply(history, arguments);
+      pushState.apply(history, arguments as any);
       cacheOnFrontEndNav(arguments[2]);
     };
 
     const replaceState = history.replaceState;
     history.replaceState = function () {
-      replaceState.apply(history, arguments);
+      replaceState.apply(history, arguments as any);
       cacheOnFrontEndNav(arguments[2]);
     };
 

@@ -3,6 +3,18 @@ import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 
+/** @type {import("rollup").InputPluginOption} */
+const plugins = [
+  typescript({
+    noForceEmit: true,
+    noEmitOnError: true,
+    outDir: "dist",
+    declaration: true,
+    noEmit: false,
+  }),
+  ...[process.env.NODE_ENV === "production" ? [terser()] : []],
+];
+
 export default [
   defineConfig({
     input: "src/index.ts",
@@ -21,16 +33,7 @@ export default [
         format: "esm",
       },
     ],
-    plugins: [
-      typescript({
-        noForceEmit: true,
-        noEmitOnError: true,
-        outDir: "dist",
-        declaration: true,
-        noEmit: false,
-      }),
-      ...[process.env.NODE_ENV === "production" ? [terser()] : []],
-    ],
+    plugins,
     external: [
       "clean-webpack-plugin",
       "terser-webpack-plugin",
@@ -45,12 +48,12 @@ export default [
     ],
   }),
   defineConfig({
-    input: "src/register.js",
+    input: "src/register.ts",
     output: {
       file: "dist/register.js",
       format: "esm",
     },
-    plugins: [...[process.env.NODE_ENV === "production" ? [terser()] : []]],
+    plugins,
     external: ["workbox-window"],
   }),
 ];
