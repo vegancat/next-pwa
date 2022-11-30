@@ -8,8 +8,7 @@
   "license": "MIT",
   "private": false,
   "files": [
-    "dist",
-    "register.js"
+    "dist"
   ],
   "source": "./src/index.ts",
   "exports": {
@@ -17,8 +16,7 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/ducanh2912-next-pwa.js",
       "default": "./dist/ducanh2912-next-pwa.modern.mjs"
-    },
-    "./register": "./register.js"
+    }
   },
   "main": "./dist/ducanh2912-next-pwa.js",
   "module": "./dist/ducanh2912-next-pwa.module.js",
