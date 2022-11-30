@@ -28,12 +28,12 @@ const Index = () => {
         console.log(event);
       });
 
-      // A common UX pattern for progressive web apps is to show a banner when a service worker has updated and waiting to install.
+      // A common UX pattern for progressive web apps is to show a banner when a Service Worker has updated and waiting to install.
       // NOTE: MUST set skipWaiting to false in next.config.js pwa object
       // https://developers.google.com/web/tools/workbox/guides/advanced-recipes#offer_a_page_reload_for_users
       const promptNewVersionAvailable = (event) => {
-        // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated service worker is waiting.
-        // When `event.wasWaitingBeforeRegister` is true, a previously updated service worker is still waiting.
+        // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated Service Worker is waiting.
+        // When `event.wasWaitingBeforeRegister` is true, a previously updated Service Worker is still waiting.
         // You may want to customize the UI prompt accordingly.
         if (
           confirm(
@@ -44,7 +44,7 @@ const Index = () => {
             window.location.reload();
           });
 
-          // Send a message to the waiting service worker, instructing it to activate.
+          // Send a message to the waiting Service Worker, instructing it to activate.
           wb.messageSkipWaiting();
         } else {
           console.log(

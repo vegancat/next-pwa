@@ -1,7 +1,7 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import crypto from "crypto";
+import fg from "fast-glob";
 import fs from "fs";
-import { globbySync } from "globby";
 import type { NextConfig } from "next";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -105,7 +105,9 @@ const withPWAInit = (
         );
 
         const registerJs = path.join(__dirname, "register.js");
-        const entry = config.entry;
+        const entry = config.entry as () => Promise<
+          Record<string, string[] | string>
+        >;
         config.entry = () =>
           entry().then((entries: any) => {
             if (
@@ -113,6 +115,16 @@ const withPWAInit = (
               !entries["main.js"].includes(registerJs)
             ) {
               entries["main.js"].unshift(registerJs);
+            }
+            if (
+              entries["main-app"] &&
+              !entries["main-app"].includes(registerJs)
+            ) {
+              if (Array.isArray(entries["main-app"])) {
+                entries["main-app"].unshift(registerJs);
+              } else if (typeof entries["main-app"] === "string") {
+                entries["main-app"] = [registerJs, entries["main-app"]];
+              }
             }
             return entries;
           });
@@ -136,18 +148,18 @@ const withPWAInit = (
 
           if (register) {
             console.log(
-              `> [PWA] Auto register service worker with: ${path.resolve(
+              `> [PWA] Auto register Service Worker with: ${path.resolve(
                 registerJs
               )}`
             );
           } else {
             console.log(
-              `> [PWA] Auto register service worker is disabled, please call following code in componentDidMount callback or useEffect hook`
+              `> [PWA] Auto register Service Worker is disabled, please call following code in componentDidMount callback or useEffect hook`
             );
             console.log(`> [PWA]   window.workbox.register()`);
           }
 
-          console.log(`> [PWA] Service worker: ${path.join(_dest, sw)}`);
+          console.log(`> [PWA] Service Worker: ${path.join(_dest, sw)}`);
           console.log(`> [PWA]   url: ${_sw}`);
           console.log(`> [PWA]   scope: ${_scope}`);
 
@@ -165,26 +177,28 @@ const withPWAInit = (
           // precache files in public folder
           let manifestEntries = additionalManifestEntries ?? [];
           if (!manifestEntries) {
-            manifestEntries = globbySync(
-              [
-                "**/*",
-                "!workbox-*.js",
-                "!workbox-*.js.map",
-                "!worker-*.js",
-                "!worker-*.js.map",
-                "!fallback-*.js",
-                "!fallback-*.js.map",
-                `!${sw.replace(/^\/+/, "")}`,
-                `!${sw.replace(/^\/+/, "")}.map`,
-                ...publicExcludes,
-              ],
-              {
-                cwd: "public",
-              }
-            ).map((f) => ({
-              url: path.posix.join(basePath, `/${f}`),
-              revision: getRevision(`public/${f}`),
-            }));
+            manifestEntries = fg
+              .sync(
+                [
+                  "**/*",
+                  "!workbox-*.js",
+                  "!workbox-*.js.map",
+                  "!worker-*.js",
+                  "!worker-*.js.map",
+                  "!fallback-*.js",
+                  "!fallback-*.js.map",
+                  `!${sw.replace(/^\/+/, "")}`,
+                  `!${sw.replace(/^\/+/, "")}.map`,
+                  ...publicExcludes,
+                ],
+                {
+                  cwd: "public",
+                }
+              )
+              .map((f) => ({
+                url: path.posix.join(basePath, `/${f}`),
+                revision: getRevision(`public/${f}`),
+              }));
           }
 
           if (cacheStartUrl) {
@@ -246,7 +260,7 @@ const withPWAInit = (
                 if (
                   asset.name.startsWith("server/") ||
                   asset.name.match(
-                    /^(build-manifest\.json|react-loadable-manifest\.json)$/
+                    /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
                   )
                 ) {
                   return true;
@@ -302,7 +316,7 @@ const withPWAInit = (
           } else {
             if (dev) {
               console.log(
-                "> [PWA] Build in develop mode, cache and precache are mostly disabled. This means offline support is disabled, but you can continue developing other functions in service worker."
+                "> [PWA] Build in develop mode, cache and precache are mostly disabled. This means that offline support is disabled, but you can continue developing other functions in Service Worker."
               );
 
               ignoreURLParametersMatching.push(/ts/);

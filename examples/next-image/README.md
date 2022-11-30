@@ -4,7 +4,7 @@
 
 This example demonstrates best practices to serve your images through `next.js` built-in image serving feature.
 
-For best performance, put images in it's own folder other than `public`. This will prevent duplicate precaching entries in the `sw.js` service worker script. Then `import Image from 'next/image'` to use the `Image` component provided from `next.js` in your app.
+For best performance, put images in it's own folder other than `public`. This will prevent duplicate precaching entries in the `sw.js` Service Worker script. Then `import Image from 'next/image'` to use the `Image` component provided from `next.js` in your app.
 
 ## Usage
 

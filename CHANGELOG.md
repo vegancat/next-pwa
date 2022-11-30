@@ -103,14 +103,14 @@
 ### Fix
 
 1. (the real) Fix for not precache server js
-2. Fix service worker register url edge case
+2. Fix Service Worker register url edge case
 
 ## 5.4.7
 
 ### Fix
 
 1. (the real) Fix for not precache server js
-2. Fix service worker register url edge case
+2. Fix Service Worker register url edge case
 
 ## 5.4.6
 
@@ -368,7 +368,7 @@
 
 ### Fix
 
-- Remove POST api runtime cache from default cache configuration as it's not supported in service worker
+- Remove POST api runtime cache from default cache configuration as it's not supported in Service Worker
 
 ## 3.1.0
 

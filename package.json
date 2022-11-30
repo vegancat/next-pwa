@@ -14,11 +14,11 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/ducanh2912-next-pwa.js",
+      "require": "./dist/ducanh2912-next-pwa.cjs",
       "default": "./dist/ducanh2912-next-pwa.modern.mjs"
     }
   },
-  "main": "./dist/ducanh2912-next-pwa.js",
+  "main": "./dist/ducanh2912-next-pwa.cjs",
   "module": "./dist/ducanh2912-next-pwa.module.js",
   "types": "./dist/index.d.ts",
   "keywords": [
@@ -29,8 +29,8 @@
     "service-worker"
   ],
   "scripts": {
-    "dev": "microbundle watch",
-    "build": "rimraf dist && npm run lint && rollup -c --compact",
+    "dev": "rimraf dist && rollup -c -w",
+    "build": "rimraf dist && npm run lint && cross-env NODE_ENV=production rollup -c --compact",
     "lint": "eslint src --cache --cache-location ./node_modules/.cache/eslint --ext ts,tsx,js,jsx,cjs,mjs",
     "typecheck": "tsc",
     "format": "prettier --write .",
@@ -40,7 +40,6 @@
   "dependencies": {
     "babel-loader": "9.1.0",
     "clean-webpack-plugin": "4.0.0",
-    "globby": "13.1.2",
     "terser-webpack-plugin": "5.3.6",
     "workbox-build": "6.5.4",
     "workbox-webpack-plugin": "6.5.4",
@@ -48,6 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.20.5",
+    "@rollup/plugin-node-resolve": "15.0.1",
     "@rollup/plugin-terser": "0.1.0",
     "@rollup/plugin-typescript": "10.0.1",
     "@semantic-release/changelog": "6.0.2",
@@ -59,10 +59,12 @@
     "@types/node": "18.11.9",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",
+    "cross-env": "7.0.3",
     "eslint": "8.28.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-simple-import-sort": "8.0.0",
+    "fast-glob": "3.2.12",
     "husky": "8.0.2",
     "next": "13.0.5",
     "prettier": "2.8.0",

@@ -8,7 +8,7 @@ It uses `express` to build a custom server and use [`next-i18next`](https://gith
 
 > The express middleware `i18next-express-middleware` is not compatible with `fastify` right not unfortunately.
 
-Because service worker `sw.js` must be served directly without any redirection, make sure it's route is excluded from the i18n middleware is a bit tricky. Please see `index.js` for more details.
+Because Service Worker `sw.js` must be served directly without any redirection, make sure it's route is excluded from the i18n middleware is a bit tricky. Please see `index.js` for more details.
 
 ## Usage
 

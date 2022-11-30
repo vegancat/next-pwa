@@ -20,5 +20,5 @@
     "noEmit": true
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "examples"]
+  "exclude": ["node_modules", "dist", "examples"]
 }

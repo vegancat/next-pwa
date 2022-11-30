@@ -8,7 +8,7 @@ export default [
     input: "src/index.ts",
     output: [
       {
-        file: "dist/ducanh2912-next-pwa.js",
+        file: "dist/ducanh2912-next-pwa.cjs",
         format: "cjs",
         exports: "named",
       },
@@ -29,7 +29,7 @@ export default [
         declaration: true,
         noEmit: false,
       }),
-      terser(),
+      ...[process.env.NODE_ENV === "production" ? [terser()] : []],
     ],
     external: [
       "clean-webpack-plugin",
@@ -40,7 +40,7 @@ export default [
       "fs",
       "path",
       "url",
-      "globby",
+      "fast-glob",
       "workbox-window",
     ],
   }),
@@ -50,7 +50,7 @@ export default [
       file: "dist/register.js",
       format: "esm",
     },
-    plugins: [terser()],
+    plugins: [...[process.env.NODE_ENV === "production" ? [terser()] : []]],
     external: ["workbox-window"],
   }),
 ];

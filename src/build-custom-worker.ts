@@ -40,7 +40,7 @@ const buildCustomWorker = ({
     console.warn(
       `> [PWA] WARNING: More than one custom worker found (${customWorkerEntries.join(
         ","
-      )}), not building a custom worker`
+      )}), a custom worker will not be built.`
     );
     return;
   }
