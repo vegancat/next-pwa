@@ -1,5 +1,3 @@
-import "./fallback";
-
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import crypto from "crypto";
 import fs from "fs";
