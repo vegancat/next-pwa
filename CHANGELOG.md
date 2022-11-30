@@ -1,3 +1,10 @@
+## [6.0.10](https://github.com/DuCanhGH/next-pwa/compare/v6.0.9...v6.0.10) (2022-11-30)
+
+
+### Bug Fixes
+
+* fixed register.js not found ([40cfb17](https://github.com/DuCanhGH/next-pwa/commit/40cfb17596d486ff9ab503c0c711284ac5b83d24))
+
 ## [6.0.9](https://github.com/DuCanhGH/next-pwa/compare/v6.0.8...v6.0.9) (2022-11-30)
 
 
