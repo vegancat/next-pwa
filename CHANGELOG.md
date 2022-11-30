@@ -1,3 +1,10 @@
+## [6.0.7](https://github.com/DuCanhGH/next-pwa/compare/v6.0.6...v6.0.7) (2022-11-30)
+
+
+### Bug Fixes
+
+* fixed rollup's warning ([7a5fd7c](https://github.com/DuCanhGH/next-pwa/commit/7a5fd7cd9e79c0b057195b8554102b8e0156f9d2))
+
 ## [6.0.6](https://github.com/DuCanhGH/next-pwa/compare/v6.0.5...v6.0.6) (2022-11-30)
 
 
