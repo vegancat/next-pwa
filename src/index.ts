@@ -6,6 +6,7 @@ import fs from "fs";
 import { globbySync } from "globby";
 import type { NextConfig } from "next";
 import path from "path";
+import { fileURLToPath } from "url";
 import WorkboxPlugin, { GenerateSWConfig } from "workbox-webpack-plugin";
 
 import buildCustomWorker from "./build-custom-worker";
@@ -13,6 +14,8 @@ import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
 import { fallback } from "./fallback";
 import { Fallbacks, PluginOptions } from "./types";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const getRevision = (file: fs.PathOrFileDescriptor) =>
   crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");

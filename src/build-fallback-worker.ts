@@ -2,9 +2,12 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import fs from "fs";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
+import { fileURLToPath } from "url";
 import webpack from "webpack";
 
 import type { Fallbacks } from "./types";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const getFallbackEnvs = ({
   fallbacks,
