@@ -16,7 +16,9 @@ import { Fallbacks, PluginOptions } from "./types";
 const getRevision = (file: fs.PathOrFileDescriptor) =>
   crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");
 
-export default (pluginOptions: PluginOptions = {}): NextConfig => {
+const withPWAInit = (
+  pluginOptions: PluginOptions = {}
+): ((_: NextConfig) => NextConfig) => {
   return (nextConfig: NextConfig = {}) => ({
     ...nextConfig,
     ...({
@@ -377,4 +379,5 @@ export default (pluginOptions: PluginOptions = {}): NextConfig => {
   });
 };
 
+export default withPWAInit;
 export * from "./types";
