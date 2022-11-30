@@ -1,3 +1,10 @@
+## [6.0.11](https://github.com/DuCanhGH/next-pwa/compare/v6.0.10...v6.0.11) (2022-11-30)
+
+
+### Bug Fixes
+
+* turned off removeComments ([3aecbdc](https://github.com/DuCanhGH/next-pwa/commit/3aecbdcbd4f96e43714333c8721782952a88e7ad))
+
 ## [6.0.10](https://github.com/DuCanhGH/next-pwa/compare/v6.0.9...v6.0.10) (2022-11-30)
 
 
