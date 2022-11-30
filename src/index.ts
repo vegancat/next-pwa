@@ -372,7 +372,9 @@ const withPWAInit = (
             );
           }
         }
-
+        if (typeof nextConfig.webpack === "function") {
+          return nextConfig.webpack(config, options);
+        }
         return config;
       },
     } as NextConfig),
