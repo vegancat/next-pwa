@@ -27,7 +27,7 @@ This plugin is powered by [workbox](https://developer.chrome.com/docs/workbox/) 
 - ⚡ Support [blitz.js](https://blitzjs.com/) (simply add to `blitz.config.js`)
 - 🔩 (Experimental) precaching `.module.js` when `next.config.js` has `experimental.modern` set to `true`
 
-> **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `next.js` 9.1+, and static files should only be served through `public` directory. This will make things simpler.
+> **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `Next.js` 9.1+, and static files should only be served through `public` directory. This will make things simpler.
 >
 > **NOTE 2** - If you encounter error `TypeError: Cannot read property **'javascript' of undefined**` during build, [please consider upgrade to webpack5 in `next.config.js`](https://github.com/shadowwalker/next-pwa/issues/198#issuecomment-817205700).
 
@@ -37,7 +37,7 @@ This plugin is powered by [workbox](https://developer.chrome.com/docs/workbox/) 
 
 ## Install
 
-> If you are new to `next.js` or `react.js` at all, you may want to first checkout [learn next.js](https://nextjs.org/learn/basics/create-nextjs-app) or [next.js document](https://nextjs.org/docs/getting-started). Then start from [a simple example](https://github.com/shadowwalker/next-pwa/tree/master/examples/next-9) or [progressive-web-app example in next.js repository](https://github.com/vercel/next.js/tree/canary/examples/progressive-web-app).
+> If you are new to `Next.js` or `React.js`, you may want to checkout [learn Next.js](https://nextjs.org/learn/basics/create-nextjs-app) or [Next.js documentation](https://nextjs.org/docs/getting-started) first. Then start from [a simple example](https://github.com/shadowwalker/next-pwa/tree/master/examples/next-9) or [progressive-web-app example in Next.js's repository](https://github.com/vercel/next.js/tree/canary/examples/progressive-web-app).
 
 ```bash
 yarn add next-pwa
@@ -50,7 +50,7 @@ yarn add next-pwa
 Update or create `next.config.js` with
 
 ```javascript
-const withPWA = require("next-pwa")({
+const withPWA = require("@ducanh2912/next-pwa")({
   dest: "public",
 });
 

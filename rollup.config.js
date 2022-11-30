@@ -5,10 +5,20 @@ import { defineConfig } from "rollup";
 
 export default defineConfig({
   input: "src/index.ts",
-  output: {
-    file: "dist/index.js",
-    format: "cjs",
-  },
+  output: [
+    {
+      file: "dist/ducanh2912-next-pwa.js",
+      format: "cjs",
+    },
+    {
+      file: "dist/ducanh2912-next-pwa.modern.mjs",
+      format: "esm",
+    },
+    {
+      file: "dist/ducanh2912-next-pwa.module.js",
+      format: "esm",
+    },
+  ],
   plugins: [
     typescript({
       noForceEmit: true,
