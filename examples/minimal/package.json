@@ -10,16 +10,16 @@
     "start": "cross-env NODE_ENV=production node ./index.js"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "latest",
     "cross-env": "^7.0.3",
     "fastify": "^4.5.2",
     "fastify-compress": "^4.1.0",
-    "next": "^12.2.5",
-    "next-pwa": "latest",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "next": "13.0.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.22.0",
-    "eslint-config-next": "12.2.5"
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5"
   }
 }

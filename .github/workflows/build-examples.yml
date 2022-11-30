@@ -1,4 +1,4 @@
-name: Build Examples
+name: Build examples
 
 on:
   push:
@@ -10,6 +10,9 @@ jobs:
   build:
     strategy:
       matrix:
+        node-version: ["16.x"]
+        pnpm-version: ["7.x"]
+        os: [ubuntu-latest]
         example:
           [
             minimal,
@@ -24,17 +27,26 @@ jobs:
             offline-fallback-v2,
             web-push,
           ]
-    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, '[skip ci]') }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Use pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: 16
-      - run: npm ci
-      - run: npm link
-      - run: npm install
+          version: ${{ matrix.pnpm-version }}
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies in root
+        run: pnpm install
+      - name: Link package
+        run: pnpm link
+      - name: Install dependencies for app
+        run: pnpm install --frozen-lockfile=false
         working-directory: examples/${{ matrix.example }}
-      - run: npm link next-pwa
-        working-directory: examples/${{ matrix.example }}
-      - run: npm run build
+      - name: Build app
+        run: pnpm build
         working-directory: examples/${{ matrix.example }}

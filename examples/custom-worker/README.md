@@ -36,7 +36,7 @@ In this example, `next-pwa` would look for `serviceworker/index.js`.
 Basically you need to create a file such as `worker.js` in `public` folder, then add an option `importScripts` to `pwa` object in `next.config.js`:
 
 ```javascript
-const withPWA = require("next-pwa")({
+const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
   importScripts: ["/worker.js"],
 });

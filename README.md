@@ -40,7 +40,11 @@ This plugin is powered by [Workbox](https://developer.chrome.com/docs/workbox/) 
 > If you are new to `Next.js` or `React.js`, you may want to checkout [learn Next.js](https://nextjs.org/learn/basics/create-nextjs-app) or [Next.js documentation](https://nextjs.org/docs/getting-started) first. Then start from [a simple example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-9) or [progressive-web-app example in Next.js's repository](https://github.com/vercel/next.js/tree/canary/examples/progressive-web-app).
 
 ```bash
-yarn add next-pwa
+npm i @ducanh2912/next-pwa
+# or
+# yarn add @ducanh2912/next-pwa
+# or
+# pnpm add @ducanh2912/next-pwa
 ```
 
 ## Basic Usage
@@ -269,7 +273,7 @@ You can also setup `precacheFallback.fallbackURL` in your [runtimeCaching config
 There are options you can use to customize the behavior of this plugin:
 
 ```javascript
-const withPWA = require("next-pwa").default({
+const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
   // disable: process.env.NODE_ENV === 'development',
   // register: true,

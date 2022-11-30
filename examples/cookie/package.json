@@ -10,15 +10,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "latest",
     "js-cookie": "^3.0.1",
-    "next": "^12.2.5",
+    "next": "13.0.5",
     "next-cookies": "^2.0.3",
-    "next-pwa": "latest",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.22.0",
-    "eslint-config-next": "12.2.5"
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5"
   }
 }
