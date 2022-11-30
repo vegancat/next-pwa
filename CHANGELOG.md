@@ -1,3 +1,10 @@
+## [6.1.2](https://github.com/DuCanhGH/next-pwa/compare/v6.1.1...v6.1.2) (2022-11-30)
+
+
+### Bug Fixes
+
+* increased Next.js and Webpack ver in peerDeps ([c0f87e9](https://github.com/DuCanhGH/next-pwa/commit/c0f87e9b29f14519e1b9ff2d37ff96aded67521e))
+
 ## [6.1.1](https://github.com/DuCanhGH/next-pwa/compare/v6.1.0...v6.1.1) (2022-11-30)
 
 
