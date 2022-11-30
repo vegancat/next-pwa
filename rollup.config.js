@@ -9,6 +9,7 @@ export default defineConfig({
     {
       file: "dist/ducanh2912-next-pwa.js",
       format: "cjs",
+      exports: "named",
     },
     {
       file: "dist/ducanh2912-next-pwa.modern.mjs",

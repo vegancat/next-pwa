@@ -50,12 +50,26 @@ yarn add next-pwa
 Update or create `next.config.js` with
 
 ```javascript
-const withPWA = require("@ducanh2912/next-pwa")({
+const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
 });
 
 module.exports = withPWA({
-  // next.js config
+  // Next.js config
+});
+```
+
+or if you prefer ESM:
+
+```javascript
+import withPWAInit from "@ducanh2912/next-pwa";
+
+const withPWA = withPWAInit({
+  dest: "public",
+});
+
+export default withPWA({
+  // Next.js config
 });
 ```
 
@@ -231,7 +245,7 @@ Add the following into `_document.jsx` or `_app.tsx`, in `<Head>`:
 
 > Tip: Put the `viewport` head meta tag into `_app.js` rather than in `_document.js` if you need it.
 
-```typescript
+```html
 <meta
   name="viewport"
   content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
@@ -252,10 +266,10 @@ You can also setup `precacheFallback.fallbackURL` in your [runtimeCaching config
 
 ## Configuration
 
-There are options you can use to customize the behavior of this plugin by adding `pwa` object in the next config in `next.config.js`:
+There are options you can use to customize the behavior of this plugin:
 
 ```javascript
-const withPWA = require("next-pwa")({
+const withPWA = require("next-pwa").default({
   dest: "public",
   // disable: process.env.NODE_ENV === 'development',
   // register: true,
@@ -265,7 +279,26 @@ const withPWA = require("next-pwa")({
 });
 
 module.exports = withPWA({
-  // next.js config
+  // Next.js config
+});
+```
+
+or if you prefer ESM:
+
+```javascript
+import withPWAInit from "@ducanh2912/next-pwa";
+
+const withPWA = withPWAInit({
+  dest: "public",
+  // disable: process.env.NODE_ENV === 'development',
+  // register: true,
+  // scope: '/app',
+  // sw: 'service-worker.js',
+  //...
+});
+
+export default withPWA({
+  // Next.js config
 });
 ```
 
