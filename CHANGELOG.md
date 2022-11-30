@@ -1,3 +1,10 @@
+## [6.0.8](https://github.com/DuCanhGH/next-pwa/compare/v6.0.7...v6.0.8) (2022-11-30)
+
+
+### Bug Fixes
+
+* fixed __dirname not being defined ([ce47611](https://github.com/DuCanhGH/next-pwa/commit/ce476118f1910d1ae1e26aa860bb6b91eb78f905))
+
 ## [6.0.7](https://github.com/DuCanhGH/next-pwa/compare/v6.0.6...v6.0.7) (2022-11-30)
 
 
