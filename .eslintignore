@@ -43,4 +43,4 @@ tsconfig.tsbuildinfo
 .eslintrc.cjs
 
 # register.js
-src/register.js
+register.js

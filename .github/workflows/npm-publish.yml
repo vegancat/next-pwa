@@ -1,30 +1,61 @@
-name: Node.js Package
-
-on:
-  release:
-    types: [created]
-
+name: Release package
+on: [push]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Typecheck, lint, and build on Node ${{ matrix.node-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: ["16.x"]
+        pnpm-version: ["7.x"]
+        os: [ubuntu-latest]
+    if: ${{ github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, '[skip ci]') }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Use pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: 16
-      - run: npm ci
-      # - run: npm test
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
+          version: ${{ matrix.pnpm-version }}
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Lint
+        run: pnpm lint
+      - name: Build
+        run: pnpm build
+  publish:
+    name: Release
+    needs: [build]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: ["16.x"]
+        pnpm-version: ["7.x"]
+        os: [ubuntu-latest]
+    if: ${{ github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, '[skip ci]') }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Use pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+          version: ${{ matrix.pnpm-version }}
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Release
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTOMATION_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

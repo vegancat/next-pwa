@@ -376,3 +376,5 @@ export default (pluginOptions: PluginOptions = {}): NextConfig => {
     } as NextConfig),
   });
 };
+
+export * from "./types";
