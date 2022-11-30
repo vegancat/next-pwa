@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/DuCanhGH/next-pwa/compare/v6.0.1...v6.0.2) (2022-11-30)
+
+
+### Bug Fixes
+
+* fixed typing ([2c4cb17](https://github.com/DuCanhGH/next-pwa/commit/2c4cb17076236d08c6693af743ffc46bbb00ae20))
+
 ## [6.0.1](https://github.com/DuCanhGH/next-pwa/compare/v6.0.0...v6.0.1) (2022-11-30)
 
 
