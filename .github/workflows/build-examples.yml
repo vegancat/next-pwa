@@ -43,8 +43,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
           cache-dependency-path: |
-            **/pnpm-lock.yaml
-            ${{ github.workspace }}/examples/**/.next/cache
+            pnpm-lock.yaml
+            ${{ github.workspace }}/examples/${{ matrix.example }}/pnpm-lock.yaml
+            ${{ github.workspace }}/examples/${{ matrix.example }}/.next/cache
       - name: Install dependencies for package
         run: pnpm install
       - name: Build package
