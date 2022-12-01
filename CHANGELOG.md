@@ -1,3 +1,10 @@
+## [6.1.3](https://github.com/DuCanhGH/next-pwa/compare/v6.1.2...v6.1.3) (2022-12-01)
+
+
+### Bug Fixes
+
+* fixed fallback worker ([480a7bd](https://github.com/DuCanhGH/next-pwa/commit/480a7bdf1f584b162818304806bd209c52ef313b))
+
 ## [6.1.2](https://github.com/DuCanhGH/next-pwa/compare/v6.1.1...v6.1.2) (2022-11-30)
 
 
