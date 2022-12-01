@@ -48,6 +48,14 @@ export default [
     ],
   }),
   defineConfig({
+    input: "src/fallback.ts",
+    output: {
+      file: "dist/fallback.js",
+      format: "cjs",
+    },
+    plugins,
+  }),
+  defineConfig({
     input: "src/register.ts",
     output: {
       file: "dist/register.js",

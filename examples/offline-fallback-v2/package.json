@@ -10,8 +10,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "13.0.5",
     "@ducanh2912/next-pwa": "latest",
+    "next": "13.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sharp": "^0.30.7"

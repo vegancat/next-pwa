@@ -10,7 +10,6 @@ import WorkboxPlugin, { GenerateSWConfig } from "workbox-webpack-plugin";
 import buildCustomWorker from "./build-custom-worker";
 import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
-import { fallback } from "./fallback";
 import { Fallbacks, PluginOptions } from "./types";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -235,6 +234,7 @@ const withPWAInit = (
               res.precaches.forEach((route) => {
                 if (
                   route &&
+                  typeof route !== "boolean" &&
                   !manifestEntries.find(
                     (entry) =>
                       typeof entry !== "string" && entry.url.startsWith(route)
@@ -368,7 +368,12 @@ const withPWAInit = (
                   c.options.plugins = [];
                 }
                 c.options.plugins.push({
-                  handlerDidError: async ({ request }) => fallback(request),
+                  handlerDidError: async ({ request }) => {
+                    if (typeof self !== "undefined") {
+                      return self.fallback(request);
+                    }
+                    return Response.error();
+                  },
                 });
               });
             }

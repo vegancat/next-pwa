@@ -46,12 +46,12 @@ const getFallbackEnvs = ({
   }
 
   const envs = {
-    __PWA_FALLBACK_DOCUMENT__: document,
-    __PWA_FALLBACK_IMAGE__: fallbacks.image,
-    __PWA_FALLBACK_AUDIO__: fallbacks.audio,
-    __PWA_FALLBACK_VIDEO__: fallbacks.video,
-    __PWA_FALLBACK_FONT__: fallbacks.font,
-    __PWA_FALLBACK_DATA__: data,
+    __PWA_FALLBACK_DOCUMENT__: document || false,
+    __PWA_FALLBACK_IMAGE__: fallbacks.image || false,
+    __PWA_FALLBACK_AUDIO__: fallbacks.audio || false,
+    __PWA_FALLBACK_VIDEO__: fallbacks.video || false,
+    __PWA_FALLBACK_FONT__: fallbacks.font || false,
+    __PWA_FALLBACK_DATA__: data || false,
   };
 
   if (Object.values(envs).filter((v) => !!v).length === 0) return;
