@@ -1,3 +1,10 @@
+## [6.1.4](https://github.com/DuCanhGH/next-pwa/compare/v6.1.3...v6.1.4) (2022-12-01)
+
+
+### Bug Fixes
+
+* added consistent-type-imports & fixed ESLint issues ([92d465f](https://github.com/DuCanhGH/next-pwa/commit/92d465f94147a45af4c61b0490bdfdbd65223d28))
+
 ## [6.1.3](https://github.com/DuCanhGH/next-pwa/compare/v6.1.2...v6.1.3) (2022-12-01)
 
 
