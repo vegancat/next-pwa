@@ -1,4 +1,4 @@
-import { GenerateSWConfig } from "workbox-webpack-plugin";
+import type { GenerateSWConfig } from "workbox-webpack-plugin";
 
 export interface PluginOptions extends GenerateSWConfig {
   /**

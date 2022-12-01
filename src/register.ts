@@ -70,8 +70,9 @@ if (
   }
 
   if (__PWA_CACHE_ON_FRONT_END_NAV__ || __PWA_START_URL__) {
-    const cacheOnFrontEndNav = function (url: any) {
+    const cacheOnFrontEndNav = function (url?: URL | RequestInfo | null) {
       if (!window.navigator.onLine) return;
+      if (!url) return;
       if (__PWA_CACHE_ON_FRONT_END_NAV__ && url !== __PWA_START_URL__) {
         return caches.open("others").then((cache) =>
           cache.match(url, { ignoreSearch: true }).then((res) => {
@@ -93,15 +94,19 @@ if (
     };
 
     const pushState = history.pushState;
-    history.pushState = function () {
-      pushState.apply(history, arguments as any);
-      cacheOnFrontEndNav(arguments[2]);
+    history.pushState = function (
+      ...args: Parameters<typeof history.pushState>
+    ) {
+      pushState.apply(history, args);
+      cacheOnFrontEndNav(args[2]);
     };
 
     const replaceState = history.replaceState;
-    history.replaceState = function () {
-      replaceState.apply(history, arguments as any);
-      cacheOnFrontEndNav(arguments[2]);
+    history.replaceState = function (
+      ...args: Parameters<typeof history.pushState>
+    ) {
+      replaceState.apply(history, args);
+      cacheOnFrontEndNav(args[2]);
     };
 
     window.addEventListener("online", () => {

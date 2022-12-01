@@ -5,12 +5,13 @@ import fs from "fs";
 import type { NextConfig } from "next";
 import path from "path";
 import { fileURLToPath } from "url";
-import WorkboxPlugin, { GenerateSWConfig } from "workbox-webpack-plugin";
+import type { GenerateSWConfig } from "workbox-webpack-plugin";
+import WorkboxPlugin from "workbox-webpack-plugin";
 
 import buildCustomWorker from "./build-custom-worker";
 import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
-import { Fallbacks, PluginOptions } from "./types";
+import type { Fallbacks, PluginOptions } from "./types";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
