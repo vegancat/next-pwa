@@ -14,8 +14,4 @@ yarn-error.log
 **/public/worker-*.js.map
 **/public/fallback-*.js
 
-examples/**/yarn.lock
-examples/**/package-lock.json
-examples/**/pnpm-lock.yaml
-
 dist/
