@@ -1,3 +1,10 @@
+## [6.1.5](https://github.com/DuCanhGH/next-pwa/compare/v6.1.4...v6.1.5) (2022-12-03)
+
+
+### Bug Fixes
+
+* shut workbox-webpack-plugin up about multiple calls in dev ([b294e6a](https://github.com/DuCanhGH/next-pwa/commit/b294e6a93e4185196607e364069cc93fa8efb6cd))
+
 ## [6.1.4](https://github.com/DuCanhGH/next-pwa/compare/v6.1.3...v6.1.4) (2022-12-01)
 
 
