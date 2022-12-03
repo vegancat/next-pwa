@@ -5,6 +5,7 @@ import fs from "fs";
 import type { NextConfig } from "next";
 import path from "path";
 import { fileURLToPath } from "url";
+import type { Configuration, default as webpackType } from "webpack";
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 import WorkboxPlugin from "workbox-webpack-plugin";
 
@@ -12,6 +13,7 @@ import buildCustomWorker from "./build-custom-worker";
 import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
 import type { Fallbacks, PluginOptions } from "./types";
+import { overrideAfterCalledMethod } from "./utils";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
@@ -24,9 +26,9 @@ const withPWAInit = (
   return (nextConfig: NextConfig = {}) => ({
     ...nextConfig,
     ...({
-      webpack(config, options) {
+      webpack(config: Configuration, options) {
+        const webpack: typeof webpackType = options.webpack;
         const {
-          webpack,
           buildId,
           dev,
           config: {
@@ -66,8 +68,8 @@ const withPWAInit = (
           ...workbox
         } = pluginOptions;
 
-        if (typeof nextConfig.webpack === "function") {
-          config = nextConfig.webpack(config, options);
+        if (!config.plugins) {
+          config.plugins = [];
         }
 
         if (disable) {
@@ -109,12 +111,16 @@ const withPWAInit = (
           Record<string, string[] | string>
         >;
         config.entry = () =>
-          entry().then((entries: any) => {
+          entry().then((entries) => {
             if (
               entries["main.js"] &&
               !entries["main.js"].includes(registerJs)
             ) {
-              entries["main.js"].unshift(registerJs);
+              if (Array.isArray(entries["main.js"])) {
+                entries["main.js"].unshift(registerJs);
+              } else if (typeof entries["main.js"] === "string") {
+                entries["main.js"] = [registerJs, entries["main.js"]];
+              }
             }
             if (
               entries["main-app"] &&
@@ -290,7 +296,12 @@ const withPWAInit = (
                   );
                   if (m.revision === null) {
                     let key = m.url;
-                    if (key.startsWith(config.output.publicPath)) {
+                    if (
+                      config.output &&
+                      config.output.publicPath &&
+                      typeof config.output.publicPath === "string" &&
+                      key.startsWith(config.output.publicPath)
+                    ) {
                       key = m.url.substring(config.output.publicPath.length);
                     }
                     const asset = (compilation as any).assetsInfo.get(key);
@@ -303,23 +314,24 @@ const withPWAInit = (
               },
             ],
           };
-
           if (workbox.swSrc) {
             const swSrc = path.join(options.dir, workbox.swSrc);
             console.log(`> [PWA] Inject manifest in ${swSrc}`);
-            config.plugins.push(
-              new WorkboxPlugin.InjectManifest({
-                ...workboxCommon,
-                ...workbox,
-                swSrc,
-              })
-            );
+            const workboxPlugin = new WorkboxPlugin.InjectManifest({
+              ...workboxCommon,
+              ...workbox,
+              swSrc,
+            });
+            if (dev) {
+              overrideAfterCalledMethod(workboxPlugin);
+            }
+            config.plugins.push(workboxPlugin);
           } else {
+            let shutWorkboxAfterCalledMessageUp = false;
             if (dev) {
               console.log(
                 "> [PWA] Build in develop mode, cache and precache are mostly disabled. This means that offline support is disabled, but you can continue developing other functions in Service Worker."
               );
-
               ignoreURLParametersMatching.push(/ts/);
               runtimeCaching = [
                 {
@@ -330,6 +342,7 @@ const withPWAInit = (
                   },
                 },
               ];
+              shutWorkboxAfterCalledMessageUp = true;
             }
 
             if (dynamicStartUrl) {
@@ -379,18 +392,22 @@ const withPWAInit = (
               });
             }
 
-            config.plugins.push(
-              new WorkboxPlugin.GenerateSW({
-                ...workboxCommon,
-                skipWaiting,
-                clientsClaim,
-                cleanupOutdatedCaches,
-                ignoreURLParametersMatching,
-                importScripts,
-                ...workbox,
-                runtimeCaching,
-              })
-            );
+            const workboxPlugin = new WorkboxPlugin.GenerateSW({
+              ...workboxCommon,
+              skipWaiting,
+              clientsClaim,
+              cleanupOutdatedCaches,
+              ignoreURLParametersMatching,
+              importScripts,
+              ...workbox,
+              runtimeCaching,
+            });
+
+            if (shutWorkboxAfterCalledMessageUp) {
+              overrideAfterCalledMethod(workboxPlugin);
+            }
+
+            config.plugins.push(workboxPlugin);
           }
         }
         if (typeof nextConfig.webpack === "function") {

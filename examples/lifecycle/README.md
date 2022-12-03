@@ -2,7 +2,7 @@
 
 [TOC]
 
-This example demonstrates how to use the `next-pwa` plugin to turn a `next.js` based web application into a progressive web application (PWA) painlessly.
+This example demonstrates how to use the `next-pwa` plugin to turn a `Next.js` based web application into a progressive web application (PWA) painlessly.
 
 This example demonstrates how to control the Service Worker registration workflow (instead of automatically registering the Service Worker) and add an event listener to handle the lifecycle events. It gives you more control through the PWA lifecycle. The key here is to set the `register` option in `next.config.js` to `false` then call `window.workbox.register()` to register the Service Worker on your own.
 

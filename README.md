@@ -37,7 +37,7 @@ This plugin is powered by [Workbox](https://developer.chrome.com/docs/workbox/) 
 
 ## Install
 
-> If you are new to `Next.js` or `React.js`, you may want to checkout [learn Next.js](https://nextjs.org/learn/basics/create-nextjs-app) or [Next.js documentation](https://nextjs.org/docs/getting-started) first. Then start from [a simple example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-9) or [progressive-web-app example in Next.js's repository](https://github.com/vercel/next.js/tree/canary/examples/progressive-web-app).
+> If you are new to `Next.js` or `React.js`, you may want to checkout [learn Next.js](https://nextjs.org/learn/basics/create-nextjs-app) or [Next.js documentation](https://nextjs.org/docs/getting-started) first. Then start from [a simple example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-9) or [progressive-web-app example in Next.js's repository](https://github.com/vercel/Next.js/tree/canary/examples/progressive-web-app).
 
 ```bash
 npm i @ducanh2912/next-pwa
@@ -318,7 +318,7 @@ See [PluginOptions](https://github.com/DuCanhGH/next-pwa/blob/master/src/types.t
 
 `next-pwa` specifies a default runtime caching [cache.js](https://github.com/DuCanhGH/next-pwa/blob/master/src/cache.ts)
 
-There is a chance you may want to have your own runtime caching rules. Please feel free to copy the default `cache.ts` file and customize the rules as you like. Don't forget to inject the configurations into your `withPWAInit`'s config in `next.config.js`.
+There is a chance you may want to have your own runtime caching rules. Please feel free to copy the default `cache.ts` file and customize the rules as you like. Don't forget to inject the configurations into your `withPWAInit` config in `next.config.js`.
 
 Here is the [document on how to write a runtime caching configuration](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-RuntimeCaching), including background sync and broadcast update and more!
 
@@ -329,7 +329,7 @@ Here is the [document on how to write a runtime caching configuration](https://d
 3. When you are debugging Service Worker, constantly `clean application cache` to reduce some flaky errors.
 4. If you are redirecting the user to another route, please note [workbox by default only cache response with 200 HTTP status](https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response#what_are_the_defaults), if you really want to cache redirected page for the route, you can specify it in `runtimeCaching` such as `options.cacheableResponse.statuses=[200,302]`.
 5. When debugging issues, you may want to format your generated `sw.js` file to figure out what's really going on.
-6. Force `next-pwa` to generate worker box production build by specify the option `mode: 'production'` in your `withPWAInit`'s config in `next.config.js`. Though `next-pwa` automatically generate the worker box development build during development (by running `next`) and worker box production build during production (by running `next build` and `next start`). You may still want to force it to build for production even in development mode of your web app for following reason:
+6. Force `next-pwa` to generate worker box production build by specify the option `mode: 'production'` in your `withPWAInit` config in `next.config.js`. Though `next-pwa` automatically generate the worker box development build during development (by running `next`) and worker box production build during production (by running `next build` and `next start`). You may still want to force it to build for production even in development mode of your web app for following reason:
    1. Reduce logging noise as the production build doesn't include logging.
    2. Improve performance a bit as the production build is better optimized.
 7. If you just want to disable worker box logging while keeping development build during development, [simply put `self.__WB_DISABLE_DEV_LOGS = true` in your `worker/index.js` (create one if you don't have one)](https://github.com/DuCanhGH/next-pwa/blob/c48ef110360d0138ad2dacd82ab96964e3da2daf/examples/custom-worker/worker/index.js#L6).

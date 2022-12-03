@@ -2,7 +2,7 @@
 
 [TOC]
 
-This example demonstrates how to use `next-pwa` plugin to turn a `next.js` based web application into a progressive web application easily.
+This example demonstrates how to use `next-pwa` plugin to turn a `Next.js` based web application into a progressive web application easily.
 
 It uses `express` to build a custom server and use [`next-i18next`](https://github.com/isaachinman/next-i18next) as a i18n solution.
 

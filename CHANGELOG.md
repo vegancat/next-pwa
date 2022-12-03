@@ -129,7 +129,7 @@
 ## 5.6.0
 ### BREAKING CHANGE
 
-1. Start from version 5.6.0. This plugin function signature has been changed to follow the recommended pattern from next.js. Mainly extracting pwa config from mixing into rest of the next.js config. This is also less intrusive. See following commit for details.
+1. Start from version 5.6.0. This plugin function signature has been changed to follow the recommended pattern from Next.js. Mainly extracting pwa config from mixing into rest of the Next.js config. This is also less intrusive. See following commit for details.
 
 ## 5.5.0
 

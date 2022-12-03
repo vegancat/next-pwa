@@ -1,8 +1,8 @@
-# next-pwa - next.js 9+ example
+# next-pwa - Next.js 9+ example
 
 [TOC]
 
-This example demonstrates how to use `next-pwa` plugin to turn a `next.js` based web application into a progressive web application easily.
+This example demonstrates how to use `next-pwa` plugin to turn a `Next.js` based web application into a progressive web application easily.
 
 Thanks to **Next.js 9+**, we can use `public` folder to serve static files from root url path. It cuts the need to write custom server only to serve those files. Therefore the setup is more easy and concise. We can use `next.config.js` to config `next-pwa` to generates Service Worker and precache files into `public` folder.
 
