@@ -86,7 +86,7 @@ const withPWAInit = (
         console.log(
           `> [PWA] Compiling for ${
             options.isServer ? "server" : "client (static)"
-          }`
+          }...`
         );
 
         let { runtimeCaching = defaultCache } = pluginOptions;

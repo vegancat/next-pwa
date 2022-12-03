@@ -70,7 +70,7 @@ if (
   }
 
   if (__PWA_CACHE_ON_FRONT_END_NAV__ || __PWA_START_URL__) {
-    const cacheOnFrontEndNav = function (url?: URL | RequestInfo | null) {
+    const cacheOnFrontEndNav = (url?: URL | RequestInfo | null) => {
       if (!window.navigator.onLine) return;
       if (!url) return;
       if (__PWA_CACHE_ON_FRONT_END_NAV__ && url !== __PWA_START_URL__) {
@@ -81,7 +81,7 @@ if (
           })
         );
       } else if (__PWA_START_URL__ && url === __PWA_START_URL__) {
-        return fetch(__PWA_START_URL__).then(function (response) {
+        return fetch(__PWA_START_URL__).then(async (response) => {
           if (!response.redirected) {
             return caches
               .open("start-url")

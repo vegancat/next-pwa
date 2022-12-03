@@ -3,6 +3,14 @@ import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 
+const commonConfig = defineConfig({
+  watch: {
+    chokidar: {
+      usePolling: false,
+    },
+  },
+});
+
 /** @type {import("rollup").InputPluginOption} */
 const plugins = [
   typescript({
@@ -17,6 +25,7 @@ const plugins = [
 
 export default [
   defineConfig({
+    ...commonConfig,
     input: "src/index.ts",
     output: [
       {
@@ -48,6 +57,7 @@ export default [
     ],
   }),
   defineConfig({
+    ...commonConfig,
     input: "src/fallback.ts",
     output: {
       file: "dist/fallback.js",
@@ -56,6 +66,7 @@ export default [
     plugins,
   }),
   defineConfig({
+    ...commonConfig,
     input: "src/register.ts",
     output: {
       file: "dist/register.js",
