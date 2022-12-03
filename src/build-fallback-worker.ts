@@ -57,18 +57,20 @@ const getFallbackEnvs = ({
   if (Object.values(envs).filter((v) => !!v).length === 0) return;
 
   console.log(
-    "> [PWA] Fallback to precache routes when fetch failed from cache or network:"
+    "> [PWA] This app will fallback to these precache routes when fetching from cache or network fails:"
   );
   if (envs.__PWA_FALLBACK_DOCUMENT__)
-    console.log(`> [PWA]   document (page): ${envs.__PWA_FALLBACK_DOCUMENT__}`);
+    console.log(
+      `> [PWA]   documents (pages): ${envs.__PWA_FALLBACK_DOCUMENT__}`
+    );
   if (envs.__PWA_FALLBACK_IMAGE__)
-    console.log(`> [PWA]   image: ${envs.__PWA_FALLBACK_IMAGE__}`);
+    console.log(`> [PWA]   images: ${envs.__PWA_FALLBACK_IMAGE__}`);
   if (envs.__PWA_FALLBACK_AUDIO__)
     console.log(`> [PWA]   audio: ${envs.__PWA_FALLBACK_AUDIO__}`);
   if (envs.__PWA_FALLBACK_VIDEO__)
-    console.log(`> [PWA]   video: ${envs.__PWA_FALLBACK_VIDEO__}`);
+    console.log(`> [PWA]   videos: ${envs.__PWA_FALLBACK_VIDEO__}`);
   if (envs.__PWA_FALLBACK_FONT__)
-    console.log(`> [PWA]   font: ${envs.__PWA_FALLBACK_FONT__}`);
+    console.log(`> [PWA]   fonts: ${envs.__PWA_FALLBACK_FONT__}`);
   if (envs.__PWA_FALLBACK_DATA__)
     console.log(
       `> [PWA]   data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`
@@ -174,7 +176,7 @@ const buildFallbackWorker = ({
       : undefined,
   }).run((error, status) => {
     if (error || status?.hasErrors()) {
-      console.error(`> [PWA] Failed to build fallback worker`);
+      console.error(`> [PWA] Failed to build fallback worker.`);
       console.error(status?.toString({ colors: true }));
       process.exit(-1);
     }

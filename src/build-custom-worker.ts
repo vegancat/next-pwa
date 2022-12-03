@@ -48,7 +48,7 @@ const buildCustomWorker = ({
 
   const customWorkerEntry = customWorkerEntries[0];
   console.log(`> [PWA] Custom worker found: ${customWorkerEntry}`);
-  console.log(`> [PWA] Build custom worker: ${path.join(destdir, name)}`);
+  console.log(`> [PWA] Building custom worker: ${path.join(destdir, name)}...`);
   webpack({
     mode: "none",
     target: "webworker",
@@ -126,7 +126,7 @@ const buildCustomWorker = ({
       : undefined,
   }).run((error, status) => {
     if (error || status?.hasErrors()) {
-      console.error(`> [PWA] Failed to build custom worker`);
+      console.error(`> [PWA] Failed to build custom worker.`);
       console.error(status?.toString({ colors: true }));
       process.exit(-1);
     }

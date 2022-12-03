@@ -9,25 +9,25 @@ This plugin is powered by [Workbox](https://developer.chrome.com/docs/workbox/) 
 
 **Features**
 
-- 0️⃣ Zero config for registering and generating Service Worker
-- ✨ Optimized precache and runtime cache
-- 💯 Maximize Lighthouse score
-- 🎈 Easy to understand examples
-- 📴 Completely offline support with fallbacks [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/offline-fallback-v2) 🆕
-- 📦 Use [Workbox](https://developer.chrome.com/docs/workbox/) and [workbox-window](https://developer.chrome.com/docs/workbox/modules/workbox-window) v6
-- 🍪 Work with cookies out of the box
+- 0️⃣ Zero-config for registering and generating Service Worker out of the box
+- ✨ Optimized precaching and runtime caching
+- 💯 Maximal Lighthouse score
+- 🎈 Easy-to-understand examples
+- 📴 Offline support with fallbacks ([example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/offline-fallback-v2))
+- 📦 Uses [Workbox](https://developer.chrome.com/docs/workbox/) and [workbox-window](https://developer.chrome.com/docs/workbox/modules/workbox-window) v6
+- 🍪 Works with cookies out of the box
 - 🔉 Default range requests for audios and videos
-- ☕ No custom server needed for Next.js 9+ [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-9)
-- 🔧 Handle PWA lifecycle events opt-in [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/lifecycle)
-- 📐 Custom worker to run extra code with code splitting and **Typescript** support [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/custom-ts-worker)
-- 📜 [Public environment variables](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser) available in custom worker as usual
-- 🐞 Debug Service Worker with confidence in development mode without caching
-- 🌏 Internationalization (a.k.a I18N) with `next-i18next` [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-i18next)
-- 🛠 Configurable by the same [workbox configuration options](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin) for [GenerateSW](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#generatesw-plugin) and [InjectManifest](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#injectmanifest-plugin)
+- ☕ No custom server needed for Next.js 9+ ([example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-9))
+- 🔧 Handle PWA lifecycle events (opt-in - [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/lifecycle))
+- 📐 Custom worker to run extra code with code splitting and **Typescript** support ([example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/custom-ts-worker))
+- 📜 [Public environment variables](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser) available in custom workers
+- 🐞 Debug Service Worker in development mode without caching
+- 🌏 Internationalization support (a.k.a I18N) with `next-i18next` [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-i18next)
+- 🛠 Configurable by the same [Workbox configuration options](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin) for [GenerateSW](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#generatesw-plugin) and [InjectManifest](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#injectmanifest-plugin)
+- ⚡ Supports [blitz.js](https://blitzjs.com/) (simply add to `blitz.config.js`)
 - 🚀 Spin up a [GitPod](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/) and try out examples in rocket speed
-- ⚡ Support [blitz.js](https://blitzjs.com/) (simply add to `blitz.config.js`)
 
-> **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `Next.js` 9.1+, and static files should only be served through `public` directory. This will make things simpler.
+> **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `Next.js` 9.1+, and static files should only be served through the `public` directory. This makes things simpler.
 >
 > **NOTE 2** - If you encounter error `TypeError: Cannot read property **'javascript' of undefined**` during build, [please consider upgrading to Webpack 5 in `next.config.js`](https://github.com/shadowwalker/next-pwa/issues/198#issuecomment-817205700).
 
@@ -77,23 +77,23 @@ export default withPWA({
 });
 ```
 
-After running `next build`, this will generate two files in your `public`: `workbox-*.js` and `sw.js`, which will automatically be served statically.
+After running `next build`, this will generate two files in your `public` directory: `workbox-*.js` and `sw.js`, which will automatically be served statically.
 
-If you are using Next.js version 9 or newer, then skip the options below and move on to Step 2.
+If you are using Next.js version 9 or newer, then skip the options below and move onto Step 2.
 
-If you are using Next.js older than version 9, you'll need to pick an option below before continuing to Step 2.
+Otherwise, you'll need to pick one of the two options below before continuing to Step 2.
 
-### Option 1: Host Static Files
+### Option 1: Hosting static files
 
 Copy files to your static file hosting server, so that they are accessible from the following paths: `https://yourdomain.com/sw.js` and `https://yourdomain.com/workbox-*.js`.
 
-One example is using Firebase hosting service to host those files statically. You can automate the copy step using scripts in your deployment workflow.
+An example is using Firebase hosting service to host those files statically. You can automate the copying step with scripts in your deployment workflow.
 
 > For security reasons, you must host these files directly from your domain. If the content is delivered using a redirect, the browser will refuse to run the Service Worker.
 
-### Option 2: Use Custom Server
+### Option 2: Using a custom server
 
-When an HTTP request is received, test if those files are requested, then return those static files.
+When an HTTP request is received, check if those files are requested, then return them.
 
 Example `server.js`
 
@@ -126,9 +126,9 @@ app.prepare().then(() => {
 });
 ```
 
-> The following setup has nothing to do with `next-pwa` plugin, and you probably have already set them up. If not, go ahead and set them up.
+> The following setup has nothing to do with `next-pwa` plugin, and you have probably already set them up. If not, go ahead and do so.
 
-### Step 2: Add Manifest File (Example)
+### Step 2: Add a manifest.json file
 
 Create a `manifest.json` file in your `public` folder:
 
@@ -162,9 +162,9 @@ Create a `manifest.json` file in your `public` folder:
 }
 ```
 
-### Step 3: Add Head Meta (Example)
+### Step 3: Add `<meta />`s and `<link />`s to your `<head />` (Example)
 
-Add the following into `_document.jsx` or `_app.tsx`, in `<Head>`:
+Add the following code to your `_document.tsx` or `_app.tsx`, in `<Head>`:
 
 ```html
 <meta name="application-name" content="PWA App" />
@@ -247,7 +247,7 @@ Add the following into `_document.jsx` or `_app.tsx`, in `<Head>`:
 -->
 ```
 
-> Tip: Put the `viewport` head meta tag into `_app.js` rather than in `_document.js` if you need it.
+> Tip: Put the `viewport` meta tag in your `_app.tsx`, rather than `_document.tsx`, if you need it.
 
 ```html
 <meta
@@ -256,17 +256,17 @@ Add the following into `_document.jsx` or `_app.tsx`, in `<Head>`:
 />
 ```
 
-## Offline Fallbacks
+## Offline fallbacks
 
-Offline fallbacks are useful when the fetch failed from both cache and network, a precached resource is served instead of present an error from browser.
+Offline fallbacks are useful when fetching from both cache and network falls, as a precached resource is served rather than an error.
 
-To get started simply add a `/_offline` page such as `pages/_offline.js` or `pages/_offline.jsx` or `pages/_offline.ts` or `pages/_offline.tsx`. Then you are all set! When the user is offline, all pages which are not cached will fallback to '/\_offline'.
+To get started simply add a `/_offline.tsx` in your `page/`. You are all set! When the user is offline, all pages which are not cached will fallback to '/\_offline'.
 
 **[Use this example to see it in action](https://github.com/DuCanhGH/next-pwa/tree/master/examples/offline-fallback-v2)**
 
-`next-pwa` helps you precache those resources on the first load, then inject a fallback handler to `handlerDidError` plugin to all `runtimeCaching` configs, so that precached resources are served when fetch failed.
+`next-pwa` helps you precache those resources on first load, then inject a fallback handler to `handlerDidError` plugin to all `runtimeCaching` configs, so that precached resources are served when fetching fails.
 
-You can also setup `precacheFallback.fallbackURL` in your [runtimeCaching config entry](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-RuntimeCaching) to implement similar functionality. The difference is that above method is based on the resource type, this method is based matched url pattern. If this config is set in the runtimeCaching config entry, resource type based fallback will be disabled automatically for this particular url pattern to avoid conflict.
+You can also setup `precacheFallback.fallbackURL` in your [runtimeCaching config entry](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-RuntimeCaching) to implement a similar functionality. The difference is that the above method is based on the resource type, whereas this method is based on matched URL pattern. If this config is set in the `runtimeCaching` config entry, resource-type-based fallback will be disabled automatically for this particular URL pattern to avoid conflict.
 
 ## Configuration
 
@@ -306,34 +306,34 @@ export default withPWA({
 });
 ```
 
-### Available Options
+### Available options
 
 See [PluginOptions](https://github.com/DuCanhGH/next-pwa/blob/master/src/types.ts?plain=1#L3)
 
-### Other Options
+### Other options
 
 `next-pwa` uses `workbox-webpack-plugin`, other options can be found in [Google's documentation for workbox-webpack-plugin](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin) for [GenerateSW](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#generatesw-plugin) and [InjectManifest](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#injectmanifest-plugin).
 
-### Runtime Caching
+### Runtime caching
 
-`next-pwa` specifies a default runtime caching [cache.js](https://github.com/DuCanhGH/next-pwa/blob/master/src/cache.ts)
+`next-pwa` has a default runtime caching array, see: [cache.ts](https://github.com/DuCanhGH/next-pwa/blob/master/src/cache.ts)
 
-There is a chance you may want to have your own runtime caching rules. Please feel free to copy the default `cache.ts` file and customize the rules as you like. Don't forget to inject the configurations into your `withPWAInit` config in `next.config.js`.
+There is a chance you may want to have your own runtime caching rules. Please feel free to copy the default `cache.ts` file and customize the rules as you like. Don't forget to add the configuration to your `withPWAInit` config in `next.config.js`.
 
-Here is the [document on how to write a runtime caching configuration](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-RuntimeCaching), including background sync and broadcast update and more!
+Here is the [document on how to write a runtime caching array](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-RuntimeCaching), including background sync, broadcast update, and more!
 
 ## Tips
 
-1. [Common UX pattern to ask user to reload when new Service Worker is installed](https://github.com/DuCanhGH/next-pwa/blob/master/examples/lifecycle/pages/index.js#L26-L38)
-2. Use a convention like `{command: 'doSomething', message: ''}` object when `postMessage` to Service Worker. So that on the listener, it could do multiple different tasks using `if...else...`.
-3. When you are debugging Service Worker, constantly `clean application cache` to reduce some flaky errors.
-4. If you are redirecting the user to another route, please note [workbox by default only cache response with 200 HTTP status](https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response#what_are_the_defaults), if you really want to cache redirected page for the route, you can specify it in `runtimeCaching` such as `options.cacheableResponse.statuses=[200,302]`.
-5. When debugging issues, you may want to format your generated `sw.js` file to figure out what's really going on.
-6. Force `next-pwa` to generate worker box production build by specify the option `mode: 'production'` in your `withPWAInit` config in `next.config.js`. Though `next-pwa` automatically generate the worker box development build during development (by running `next`) and worker box production build during production (by running `next build` and `next start`). You may still want to force it to build for production even in development mode of your web app for following reason:
-   1. Reduce logging noise as the production build doesn't include logging.
-   2. Improve performance a bit as the production build is better optimized.
-7. If you just want to disable worker box logging while keeping development build during development, [simply put `self.__WB_DISABLE_DEV_LOGS = true` in your `worker/index.js` (create one if you don't have one)](https://github.com/DuCanhGH/next-pwa/blob/c48ef110360d0138ad2dacd82ab96964e3da2daf/examples/custom-worker/worker/index.js#L6).
-8. It is common for developers to have to use `userAgent` string to determine if users are using Safari/iOS/MacOS or some other platform, [ua-parser-js](https://www.npmjs.com/package/ua-parser-js) library is a good friend for that purpose.
+1. [Common UX pattern to ask user to reload when a new Service Worker is installed](https://github.com/DuCanhGH/next-pwa/blob/master/examples/lifecycle/pages/index.js#L26-L38)
+2. Use a convention like `{command: 'doSomething', message: ''}` object when `postMessage` to Service Worker. So that on the listener it can do multiple different tasks using `if...else...`.
+3. When you are debugging Service Worker, constantly clean the application cache to reduce some flaky errors.
+4. If you are redirecting the user to another route, please note that [Workbox by default only cache response with 200 HTTP status](https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response#what_are_the_defaults), if you really want to cache redirected page for the route, you can specify it in `runtimeCaching` (just like this: `options.cacheableResponse.statuses=[200,302]`).
+5. When debugging issues, sometimes you may want to format your generated `sw.js` file to figure out what's really going on. In development mode it is not minified though, so it is kinda readable.
+6. You can force `next-pwa` to generate worker box in production mode by adding `mode: 'production'` in your `withPWAInit` config in `next.config.js`. Though `next-pwa` by default generates the worker box in development mode during development (by running `next dev`) and worker box in production mode during production (by running `next build` and `next start`), you may still want to force it to build for production even in development mode of your web app because:
+   1. Reduced logging noise as the production build doesn't include logging.
+   2. Improved performance as the production build is better optimized.
+7. If you just want to disable worker box's logging while still using the development build during development, [simply put `self.__WB_DISABLE_DEV_LOGS = true` in your `worker/index.js` (create one if you don't have one)](https://github.com/DuCanhGH/next-pwa/blob/c48ef110360d0138ad2dacd82ab96964e3da2daf/examples/custom-worker/worker/index.js#L6).
+8. It is common for developers to have to use the `userAgent` string to determine users' platform, and [ua-parser-js](https://www.npmjs.com/package/ua-parser-js) library is a good friend for that.
 
 ## Reference
 
@@ -343,7 +343,7 @@ Here is the [document on how to write a runtime caching configuration](https://d
 4. [6 Tips to make your iOS PWA feel like a native app](https://www.netguru.com/codestories/pwa-ios)
 5. [Make Your PWA Available on Google Play Store](https://www.netguru.com/codestories/make-your-pwa-available-on-google-play-store)
 
-## Fun PWA Projects
+## Fun PWA projects
 
 1. [Experience SAMSUNG on an iPhone - must open on an iPhone to start](https://itest.nz/)
 2. [App Scope - like an app store for PWA](https://appsco.pe/)

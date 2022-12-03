@@ -73,18 +73,20 @@ const withPWAInit = (
         }
 
         if (disable) {
-          options.isServer && console.log("> [PWA] PWA support is disabled");
+          options.isServer && console.log("> [PWA] PWA support is disabled.");
           return config;
         }
 
         if (subdomainPrefix) {
           console.error(
-            "> [PWA] subdomainPrefix is deprecated, use basePath in next.config.js instead: https://nextjs.org/docs/api-reference/next.config.js/basepath"
+            "> [PWA] subdomainPrefix is deprecated, please use basePath in next.config.js instead: https://nextjs.org/docs/api-reference/next.config.js/basepath"
           );
         }
 
         console.log(
-          `> [PWA] Compile ${options.isServer ? "server" : "client (static)"}`
+          `> [PWA] Compiling for ${
+            options.isServer ? "server" : "client (static)"
+          }`
         );
 
         let { runtimeCaching = defaultCache } = pluginOptions;
@@ -154,13 +156,13 @@ const withPWAInit = (
 
           if (register) {
             console.log(
-              `> [PWA] Auto register Service Worker with: ${path.resolve(
+              `> [PWA] Service Worker will be automatically registered with: ${path.resolve(
                 registerJs
               )}`
             );
           } else {
             console.log(
-              `> [PWA] Auto register Service Worker is disabled, please call following code in componentDidMount callback or useEffect hook`
+              `> [PWA] Automatically registering for Service Worker is disabled, please call the following code in componentDidMount callback or useEffect hook:`
             );
             console.log(`> [PWA]   window.workbox.register()`);
           }
@@ -316,7 +318,7 @@ const withPWAInit = (
           };
           if (workbox.swSrc) {
             const swSrc = path.join(options.dir, workbox.swSrc);
-            console.log(`> [PWA] Inject manifest in ${swSrc}`);
+            console.log(`> [PWA] Using InjectManifest with ${swSrc}`);
             const workboxPlugin = new WorkboxPlugin.InjectManifest({
               ...workboxCommon,
               ...workbox,
@@ -330,7 +332,7 @@ const withPWAInit = (
             let shutWorkboxAfterCalledMessageUp = false;
             if (dev) {
               console.log(
-                "> [PWA] Build in develop mode, cache and precache are mostly disabled. This means that offline support is disabled, but you can continue developing other functions in Service Worker."
+                "> [PWA] Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in Service Worker."
               );
               ignoreURLParametersMatching.push(/ts/);
               runtimeCaching = [
