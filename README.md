@@ -260,7 +260,7 @@ Add the following code to your `_document.tsx` or `_app.tsx`, in `<Head>`:
 
 Offline fallbacks are useful when fetching from both cache and network falls, as a precached resource is served rather than an error.
 
-To get started simply add a `/_offline.tsx` in your `page/`. You are all set! When the user is offline, all pages which are not cached will fallback to '/\_offline'.
+To get started simply add a `/_offline.tsx` in your `pages/`. You are all set! When the user is offline, all pages which are not cached will fallback to '/\_offline'.
 
 **[Use this example to see it in action](https://github.com/DuCanhGH/next-pwa/tree/master/examples/offline-fallback-v2)**
 

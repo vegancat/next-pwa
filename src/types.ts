@@ -1,6 +1,6 @@
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 
-export interface PluginOptions extends GenerateSWConfig {
+export interface PluginOptions {
   /**
    * Disable PWA. Set to `true` to completely disable PWA, set to `false` to
    * generate Service Worker in both dev and prod.
@@ -21,26 +21,23 @@ export interface PluginOptions extends GenerateSWConfig {
   register?: boolean;
   /**
    * Set output directory for Service Worker. Relative to Next.js's root
-   * directory. Defaults to `.next`.
+   * directory.
+   *
+   * @default ".next"
    */
   dest?: string;
   /**
-   * Service Worker script's filename. Defaults to `/sw.js`. Set to a string if
-   * you want to customize the output filename.
+   * Service Worker script's filename. Set to a string if you want to customize
+   * the output filename.
+   *
+   * @default "/sw.js"
    */
   sw?: string;
   /**
-   * Service Worker's source file location. Relative to Next.js's root
-   * directory. Provide this to enable InjectManifest. See more at [Google's
-   * Workbox
-   * documentation](https://developer.chrome.com/docs/workbox/reference/workbox-webpack-plugin/#type-InjectManifest).
-   * If this is not specified then `GenerateSW` will be used to generate Service
-   * Worker.
-   */
-  swSrc?: string;
-  /**
    * Turn on caching for start URL. [Discussion of use cases for this
    * option](https://github.com/shadowwalker/next-pwa/pull/296#issuecomment-1094167025)
+   *
+   * @default true
    */
   cacheStartUrl?: boolean;
   /**
@@ -61,7 +58,23 @@ export interface PluginOptions extends GenerateSWConfig {
    * @default undefined
    */
   dynamicStartUrlRedirect?: string;
+  /**
+   * An array of glob pattern strings to exclude files in the public folder from
+   * being precached. By default, this plugin excludes public/noprecache.
+   * Remember to add ! before each glob pattern for it to work :)
+   *
+   * @example
+   *   publicExcludes: [
+   *     "!img/super-large-image.jpg",
+   *     "!fonts/not-used-fonts.otf",
+   *   ];
+   */
   publicExcludes?: string[];
+  /**
+   * One or more specifiers used to exclude assets from the precache manifest.
+   * This is interpreted following the same rules as Webpack's standard exclude
+   * option. Defaults to [].
+   */
   buildExcludes?: GenerateSWConfig["exclude"];
   /**
    * Config precached routes to fallback when both cache and network are not
@@ -99,7 +112,9 @@ export interface PluginOptions extends GenerateSWConfig {
    * information, check out the [custom worker
    * example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/custom-ts-worker).
    * The plugin will look into root and `src` directory for this directory.
-   * Relative to Next.js's root directory. Defaults to `worker`.
+   * Relative to Next.js's root directory.
+   *
+   * @default "worker"
    */
   customWorkerDir?: string;
   /**

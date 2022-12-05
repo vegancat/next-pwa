@@ -2,20 +2,20 @@
 
 [TOC]
 
-This example demonstrates how to use `next-pwa` plugin to implement web push with custom worker.
+This example demonstrates how to use `next-pwa` to implement web push with custom worker.
 
 **NOTE**
 
-In real world, you may want to send the subscription data to your server once user agree to subscribe web push. Store the data associate with the user. So that you can initiate a web push notification from your server to the specific users.
+In real world application, you may want to send the subscription data to your server once the user agrees to subscribe to web push. Store the data associated with the user, so that you can initiate a web push notification from your server to that very user.
 
 ## Usage
 
-[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
+[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/)
 
 ```bash
 cd examples/web-push
-yarn install
-yarn vapid
+pnpm install
+pnpm vapid
 ```
 
 Create a `.env` file, and put the public key generated from the previous steps
@@ -29,11 +29,11 @@ NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY=<vapid-public-key>
 Build and start
 
 ```bash
-yarn build
-yarn start
+pnpm build
+pnpm start
 ```
 
-## Recommend `.gitignore`
+## Recommended `.gitignore`
 
 ```
 **/public/workbox-*.js

@@ -2,30 +2,28 @@
 
 [TOC]
 
-> **Checkout this simple and easy way to implement offline fallbacks without inject manifest: **
+> **Check out a simpler and easier way to implement offline fallbacks without InjectManifest: **
 >
 > **[offline-fallback-v2](https://github.com/shadowwalker/next-pwa/tree/master/examples/offline-fallback-v2)**
 
-This example demonstrates how to use `next-pwa` to implement fallback route, image or font when fetch error. Fetch error usually happens when **offline**. (Note fetch is successful even when server returns error codes `404, 400, 500, ...`)
+This example demonstrates how to use `next-pwa` to implement fallback route, image or font when fetching fails. Fetching errors usually happen when the user is **offline**. (Note: fetching is regarded as successful even when the server returns error status codes like `404, 400, 500, ...`)
 
-This example uses **Inject Manifest** module from `workbox`. The advantage of using this module is you get more control over your Service Worker. The disadvantage is that it's more complicated and needs to write more code.
+This example uses `workbox`'s **InjectManifest**. The advantage of using this module is that you get more control over your Service Worker. The disadvantage is that it is more complicated and needs more code.
 
 The idea of implementing comprehensive fallbacks can be found [here](https://developers.google.com/web/tools/workbox/guides/advanced-recipes#comprehensive_fallbacks).
 
-> In the future, using inject manifest may not be needed. When [this proposal](https://github.com/GoogleChrome/workbox/issues/2569) is completed in workbox v6.
-
 ## Usage
 
-[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
+[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/)
 
 ```bash
 cd examples/offline-fallback
-yarn install
-yarn build
-yarn start
+pnpm install
+pnpm build
+pnpm start
 ```
 
-## Recommend `.gitignore`
+## Recommended `.gitignore`
 
 ```
 **/public/workbox-*.js

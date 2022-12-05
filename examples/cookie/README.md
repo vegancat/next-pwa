@@ -2,20 +2,20 @@
 
 [TOC]
 
-This example demonstrates how to use `next-pwa` with cookies. No special configuration needed with version 3+, enjoy🎉.
+This example demonstrates how to use `next-pwa` with cookies. No special configuration is needed with version 3+, enjoy🎉.
 
 ## Usage
 
-[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
+[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/)
 
 ```bash
 cd examples/cookie
-yarn install
-yarn build
-yarn start
+pnpm install
+pnpm build
+pnpm start
 ```
 
-## Recommend `.gitignore`
+## Recommended `.gitignore`
 
 ```
 **/public/workbox-*.js

@@ -2,9 +2,9 @@
 
 [TOC]
 
-This example demonstrates how to use the `next-pwa` plugin to turn a `Next.js` based web application into a progressive web application (PWA) painlessly.
+This example demonstrates how to use `next-pwa` to turn a `Next.js`-based web app into a PWA easily.
 
-This example demonstrates how to control the Service Worker registration workflow (instead of automatically registering the Service Worker) and add an event listener to handle the lifecycle events. It gives you more control through the PWA lifecycle. The key here is to set the `register` option in `next.config.js` to `false` then call `window.workbox.register()` to register the Service Worker on your own.
+It shows how to control the Service Worker registration workflow (instead of automatically registering the Service Worker) and add an event listener to handle the lifecycle events. It gives you more control over the PWA lifecycle. The key here is to set `register` in your `withPWAInit` config in `next.config.js` to `false` then call `window.workbox.register()` manually to register the generated Service Worker.
 
 **UPDATE**
 
@@ -12,13 +12,13 @@ This example also demonstrates how to [prompt the user to reload the page when a
 
 ## Usage
 
-[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/shadowwalker/next-pwa/)
+[![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/)
 
 ```bash
 cd examples/lifecycle
-yarn install
-yarn build
-yarn start
+pnpm install
+pnpm build
+pnpm start
 ```
 
 ## Recommended `.gitignore`

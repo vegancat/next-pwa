@@ -6,14 +6,20 @@ import type { NextConfig } from "next";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { Configuration, default as webpackType } from "webpack";
+import type { RuntimeCaching } from "workbox-build";
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 import WorkboxPlugin from "workbox-webpack-plugin";
 
 import buildCustomWorker from "./build-custom-worker";
 import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
-import type { Fallbacks, PluginOptions } from "./types";
-import { overrideAfterCalledMethod } from "./utils";
+import type { FullPluginOptions } from "./private_types";
+import type { Fallbacks } from "./types";
+import {
+  isGenerateSWConfig,
+  isInjectManifestConfig,
+  overrideAfterCalledMethod,
+} from "./utils";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
@@ -21,7 +27,7 @@ const getRevision = (file: fs.PathOrFileDescriptor) =>
   crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");
 
 const withPWAInit = (
-  pluginOptions: PluginOptions = {}
+  pluginOptions: FullPluginOptions = {}
 ): ((_?: NextConfig) => NextConfig) => {
   return (nextConfig: NextConfig = {}) => ({
     ...nextConfig,
@@ -46,15 +52,12 @@ const withPWAInit = (
           register = true,
           dest = distDir,
           sw = "sw.js",
+          // not actually used
+          swSrc,
           cacheStartUrl = true,
           dynamicStartUrl = true,
           dynamicStartUrlRedirect,
-          skipWaiting = true,
-          clientsClaim = true,
-          cleanupOutdatedCaches = true,
           additionalManifestEntries,
-          ignoreURLParametersMatching = [],
-          importScripts = [],
           publicExcludes = ["!noprecache/**/*"],
           buildExcludes = [],
           modifyURLPrefix = {},
@@ -67,6 +70,9 @@ const withPWAInit = (
           subdomainPrefix, // deprecated, use basePath in next.config.js instead
           ...workbox
         } = pluginOptions;
+
+        let importScripts: string[] = [];
+        let runtimeCaching: RuntimeCaching[] = defaultCache;
 
         if (!config.plugins) {
           config.plugins = [];
@@ -89,7 +95,15 @@ const withPWAInit = (
           }...`
         );
 
-        let { runtimeCaching = defaultCache } = pluginOptions;
+        if (isGenerateSWConfig(pluginOptions)) {
+          if (pluginOptions.runtimeCaching) {
+            runtimeCaching = pluginOptions.runtimeCaching;
+          }
+          if (pluginOptions.importScripts) {
+            importScripts = pluginOptions.importScripts;
+          }
+        }
+
         const _scope = path.posix.join(scope, "/");
 
         // inject register script to main.js
@@ -316,8 +330,8 @@ const withPWAInit = (
               },
             ],
           };
-          if (workbox.swSrc) {
-            const swSrc = path.join(options.dir, workbox.swSrc);
+          if (isInjectManifestConfig(pluginOptions)) {
+            const swSrc = path.join(options.dir, pluginOptions.swSrc);
             console.log(`> [PWA] Using InjectManifest with ${swSrc}`);
             const workboxPlugin = new WorkboxPlugin.InjectManifest({
               ...workboxCommon,
@@ -329,6 +343,12 @@ const withPWAInit = (
             }
             config.plugins.push(workboxPlugin);
           } else {
+            const {
+              skipWaiting = true,
+              clientsClaim = true,
+              cleanupOutdatedCaches = true,
+              ignoreURLParametersMatching = [],
+            } = pluginOptions;
             let shutWorkboxAfterCalledMessageUp = false;
             if (dev) {
               console.log(
