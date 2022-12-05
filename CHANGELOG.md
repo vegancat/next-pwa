@@ -1,3 +1,10 @@
+## [7.0.1](https://github.com/DuCanhGH/next-pwa/compare/v7.0.0...v7.0.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **types:** InjectManifest's options and GenerateSW's shouldn't be interchangeable anymore ([1dfb305](https://github.com/DuCanhGH/next-pwa/commit/1dfb30598e537f056b19f7b74aa837deb88f953c))
+
 # [7.0.0](https://github.com/DuCanhGH/next-pwa/compare/v6.1.6...v7.0.0) (2022-12-05)
 
 
