@@ -1,3 +1,17 @@
+# [7.0.0](https://github.com/DuCanhGH/next-pwa/compare/v6.1.6...v7.0.0) (2022-12-05)
+
+
+### Bug Fixes
+
+* **types:** fixed JSDoc not working properly ([259ac35](https://github.com/DuCanhGH/next-pwa/commit/259ac355a47051cf93d712a39b8dec2baaa2e6ef))
+
+
+### BREAKING CHANGES
+
+* **types:** you should now pass workbox-webpack-plugin's GenerateSW
+and InjectManifest options to workboxOptions instead of the general
+options (PluginOptions).
+
 ## [6.1.6](https://github.com/DuCanhGH/next-pwa/compare/v6.1.5...v6.1.6) (2022-12-05)
 
 
