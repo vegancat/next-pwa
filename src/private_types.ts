@@ -1,7 +1,4 @@
-import type {
-  WebpackGenerateSWOptions,
-  WebpackInjectManifestOptions,
-} from "workbox-build";
+import type { WebpackInjectManifestOptions } from "workbox-build";
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 
 type Impossible<K extends keyof any> = { [P in K]?: never };
@@ -33,21 +30,15 @@ export type WorkboxTypes = {
   GenerateSW: Impossible<
     Exclude<
       keyof WebpackInjectManifestOptions,
-      Extract<
-        keyof WebpackGenerateSWOptions,
-        keyof WebpackInjectManifestOptions
-      >
+      Extract<keyof GenerateSWConfig, keyof WebpackInjectManifestOptions>
     >
   > &
     GenerateSWConfig &
     GenerateSWOverrideJSDoc;
   InjectManifest: Impossible<
     Exclude<
-      keyof WebpackGenerateSWOptions,
-      Extract<
-        keyof WebpackInjectManifestOptions,
-        keyof WebpackGenerateSWOptions
-      >
+      keyof GenerateSWConfig,
+      Extract<keyof WebpackInjectManifestOptions, keyof GenerateSWConfig>
     >
   > &
     WebpackInjectManifestOptions;
