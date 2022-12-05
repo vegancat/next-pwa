@@ -13,8 +13,7 @@ import WorkboxPlugin from "workbox-webpack-plugin";
 import buildCustomWorker from "./build-custom-worker";
 import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
-import type { FullPluginOptions } from "./private_types";
-import type { Fallbacks } from "./types";
+import type { Fallbacks, PluginOptions } from "./types";
 import {
   isGenerateSWConfig,
   isInjectManifestConfig,
@@ -27,7 +26,7 @@ const getRevision = (file: fs.PathOrFileDescriptor) =>
   crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");
 
 const withPWAInit = (
-  pluginOptions: FullPluginOptions = {}
+  pluginOptions: PluginOptions = {}
 ): ((_?: NextConfig) => NextConfig) => {
   return (nextConfig: NextConfig = {}) => ({
     ...nextConfig,
@@ -53,23 +52,27 @@ const withPWAInit = (
           dest = distDir,
           sw = "sw.js",
           // not actually used
-          swSrc,
           cacheStartUrl = true,
           dynamicStartUrl = true,
           dynamicStartUrlRedirect,
-          additionalManifestEntries,
           publicExcludes = ["!noprecache/**/*"],
           buildExcludes = [],
-          modifyURLPrefix = {},
-          manifestTransforms = [],
           fallbacks = {},
           cacheOnFrontEndNav = false,
           reloadOnOnline = true,
           scope = basePath,
           customWorkerDir = "worker",
           subdomainPrefix, // deprecated, use basePath in next.config.js instead
-          ...workbox
+          workboxOptions = {},
         } = pluginOptions;
+
+        const {
+          swSrc,
+          additionalManifestEntries,
+          modifyURLPrefix = {},
+          manifestTransforms = [],
+          ...workbox
+        } = workboxOptions;
 
         let importScripts: string[] = [];
         let runtimeCaching: RuntimeCaching[] = defaultCache;
@@ -95,12 +98,12 @@ const withPWAInit = (
           }...`
         );
 
-        if (isGenerateSWConfig(pluginOptions)) {
-          if (pluginOptions.runtimeCaching) {
-            runtimeCaching = pluginOptions.runtimeCaching;
+        if (isGenerateSWConfig(workboxOptions)) {
+          if (workboxOptions.runtimeCaching) {
+            runtimeCaching = workboxOptions.runtimeCaching;
           }
-          if (pluginOptions.importScripts) {
-            importScripts = pluginOptions.importScripts;
+          if (workboxOptions.importScripts) {
+            importScripts = workboxOptions.importScripts;
           }
         }
 
@@ -330,8 +333,8 @@ const withPWAInit = (
               },
             ],
           };
-          if (isInjectManifestConfig(pluginOptions)) {
-            const swSrc = path.join(options.dir, pluginOptions.swSrc);
+          if (isInjectManifestConfig(workboxOptions)) {
+            const swSrc = path.join(options.dir, workboxOptions.swSrc);
             console.log(`> [PWA] Using InjectManifest with ${swSrc}`);
             const workboxPlugin = new WorkboxPlugin.InjectManifest({
               ...workboxCommon,
@@ -348,7 +351,7 @@ const withPWAInit = (
               clientsClaim = true,
               cleanupOutdatedCaches = true,
               ignoreURLParametersMatching = [],
-            } = pluginOptions;
+            } = workboxOptions;
             let shutWorkboxAfterCalledMessageUp = false;
             if (dev) {
               console.log(

@@ -1,5 +1,7 @@
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 
+import type { WorkboxTypes } from "./private_types";
+
 export interface PluginOptions {
   /**
    * Disable PWA. Set to `true` to completely disable PWA, set to `false` to
@@ -132,6 +134,8 @@ export interface PluginOptions {
    * @deprecated Use `basePath` in `next.config.js` instead.
    */
   subdomainPrefix?: string;
+  /** Pass options to workbox-webpack-plugin */
+  workboxOptions?: WorkboxTypes[keyof WorkboxTypes];
 }
 
 export interface Fallbacks {
