@@ -47,7 +47,7 @@ npm i @ducanh2912/next-pwa
 # pnpm add @ducanh2912/next-pwa
 ```
 
-## Basic Usage
+## Basic usage
 
 ### Step 1: withPWA
 
