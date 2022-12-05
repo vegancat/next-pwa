@@ -1,3 +1,10 @@
+## [6.1.6](https://github.com/DuCanhGH/next-pwa/compare/v6.1.5...v6.1.6) (2022-12-05)
+
+
+### Bug Fixes
+
+* **types:** mark swSrc as undefined when GenerateSW's options are specified ([5893fae](https://github.com/DuCanhGH/next-pwa/commit/5893fae5cd09fe7795fbafa92a4c900fb70b51b4))
+
 ## [6.1.5](https://github.com/DuCanhGH/next-pwa/compare/v6.1.4...v6.1.5) (2022-12-03)
 
 
