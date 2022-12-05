@@ -51,7 +51,6 @@ const withPWAInit = (
           register = true,
           dest = distDir,
           sw = "sw.js",
-          // not actually used
           cacheStartUrl = true,
           dynamicStartUrl = true,
           dynamicStartUrlRedirect,
