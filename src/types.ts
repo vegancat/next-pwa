@@ -134,7 +134,7 @@ export interface PluginOptions {
    * @deprecated Use `basePath` in `next.config.js` instead.
    */
   subdomainPrefix?: string;
-  /** Pass options to workbox-webpack-plugin */
+  /** Pass options to `workbox-webpack-plugin` */
   workboxOptions?: WorkboxTypes[keyof WorkboxTypes];
 }
 

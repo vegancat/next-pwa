@@ -308,7 +308,7 @@ export default withPWA({
 
 ### Available options
 
-See [PluginOptions](https://github.com/DuCanhGH/next-pwa/blob/master/src/types.ts?plain=1#L3)
+See [PluginOptions](https://github.com/DuCanhGH/next-pwa/blob/master/src/types.ts?plain=1#L5)
 
 ### Other options
 

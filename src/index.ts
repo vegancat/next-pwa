@@ -74,6 +74,12 @@ const withPWAInit = (
           ...workbox
         } = workboxOptions;
 
+        Object.keys(workbox).forEach(
+          (key) =>
+            workbox[key as keyof typeof workbox] === undefined &&
+            delete workbox[key as keyof typeof workbox]
+        );
+
         let importScripts: string[] = [];
         let runtimeCaching: RuntimeCaching[] = defaultCache;
 
