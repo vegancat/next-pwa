@@ -1,3 +1,10 @@
+## [7.0.2](https://github.com/DuCanhGH/next-pwa/compare/v7.0.1...v7.0.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* **issues:** fix issue template [skip ci] ([fb3bd76](https://github.com/DuCanhGH/next-pwa/commit/fb3bd76ddc90676862321349eba615fdf36fc815))
+
 ## [7.0.1](https://github.com/DuCanhGH/next-pwa/compare/v7.0.0...v7.0.1) (2022-12-05)
 
 
