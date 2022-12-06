@@ -1,8 +1,9 @@
----
-name: Bug Report
+name: Bug report
 description: Create a bug report for `@ducanh2912/next-pwa`
+title: "[Bug]: "
 labels: bug
-assignees: ""
+assignees:
+  - DuCanhGH
 body:
   - type: textarea
     attributes:
@@ -45,4 +46,3 @@ body:
     attributes:
       label: Additional information (if relevant)
       description: Please also provide some additional information about the issue if you can :) Thanks!
----
