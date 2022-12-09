@@ -2,7 +2,7 @@ name: Test & Publish package to npm
 on: [push]
 jobs:
   typecheck_lint_build:
-    name: Typecheck, lint, and build on Node ${{ matrix.node-version }} and ${{ matrix.os }}
+    name: ⬣, 🔎, 🔨 Typecheck, lint, and build on Node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -30,8 +30,8 @@ jobs:
       - name: Build
         run: pnpm turbo build
   publish:
-    name: Release packages
-    needs: [build]
+    name: 🚀 Release packages
+    needs: [typecheck_lint_build]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
