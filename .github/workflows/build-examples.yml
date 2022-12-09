@@ -15,21 +15,6 @@ jobs:
         node-version: ["16.x"]
         pnpm-version: ["7.x"]
         os: [ubuntu-latest]
-        example:
-          [
-            minimal,
-            next-9,
-            lifecycle,
-            cookie,
-            cache-on-front-end-nav,
-            custom-worker,
-            custom-ts-worker,
-            next-image,
-            offline-fallback,
-            offline-fallback-v2,
-            web-push,
-          ]
-    if: ${{ github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, '[skip ci]') }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -42,23 +27,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-          cache-dependency-path: |
-            pnpm-lock.yaml
-            ${{ github.workspace }}/examples/${{ matrix.example }}/pnpm-lock.yaml
-      - name: Cache .next
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ github.workspace }}/examples/${{ matrix.example }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles(format('examples/{0}/pnpm-lock.yaml', matrix.example)) }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles(format('examples/{0}/pnpm-lock.yaml', matrix.example)) }}-
       - name: Install dependencies for package
         run: pnpm install
-      - name: Build package
-        run: pnpm build
-      - name: Install dependencies for app
-        run: pnpm link --dir examples/${{ matrix.example }}
-      - name: Build app
-        run: pnpm build
-        working-directory: examples/${{ matrix.example }}
+      - name: Build apps
+        run: pnpm examples:build

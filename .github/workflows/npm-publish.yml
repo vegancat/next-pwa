@@ -1,7 +1,7 @@
-name: Publish package to npm
+name: Test & Publish package to npm
 on: [push]
 jobs:
-  build:
+  typecheck_lint_build:
     name: Typecheck, lint, and build on Node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -9,7 +9,6 @@ jobs:
         node-version: ["16.x"]
         pnpm-version: ["7.x"]
         os: [ubuntu-latest]
-    if: ${{ github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, '[skip ci]') }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -25,13 +24,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Typecheck
-        run: pnpm typecheck
+        run: pnpm turbo typecheck
       - name: Lint
-        run: pnpm lint
+        run: pnpm turbo lint
       - name: Build
-        run: pnpm build
+        run: pnpm turbo build
   publish:
-    name: Release
+    name: Release packages
     needs: [build]
     runs-on: ${{ matrix.os }}
     strategy:
@@ -39,7 +38,7 @@ jobs:
         node-version: ["16.x"]
         pnpm-version: ["7.x"]
         os: [ubuntu-latest]
-    if: ${{ github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, '[skip ci]') }}
+    if: ${{ github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[bump ver]') }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -54,8 +53,11 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-      - name: Release
+      - name: Create release PR
+        uses: changesets/action@v1
+        with:
+          commit: "Update packages"
+          title: "Update packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release

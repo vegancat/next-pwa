@@ -1,5 +1,5 @@
 {
-  "name": "next-pwa-example",
+  "name": "@next-pwa-example/web-push",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "vapid": "web-push generate-vapid-keys"
   },
   "dependencies": {
-    "@ducanh2912/next-pwa": "latest",
+    "@ducanh2912/next-pwa": "workspace:*",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",

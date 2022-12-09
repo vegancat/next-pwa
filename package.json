@@ -1,63 +1,26 @@
 {
-  "name": "@ducanh2912/next-pwa",
-  "version": "7.0.2",
+  "name": "@ducanh2912/next-pwa-project",
   "type": "module",
-  "description": "PWA for Next.js, powered by Workbox.",
-  "repository": "https://github.com/DuCanhGH/next-pwa",
-  "author": "ShadowWalker <w@weiw.io>, DuCanhGH",
   "license": "MIT",
-  "private": false,
-  "files": [
-    "dist"
-  ],
-  "source": "./src/index.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/ducanh2912-next-pwa.cjs",
-      "default": "./dist/ducanh2912-next-pwa.modern.mjs"
-    }
-  },
-  "main": "./dist/ducanh2912-next-pwa.cjs",
-  "module": "./dist/ducanh2912-next-pwa.module.js",
-  "types": "./dist/index.d.ts",
-  "keywords": [
-    "nextjs",
-    "pwa",
-    "workbox",
-    "web",
-    "service-worker"
-  ],
+  "private": true,
   "scripts": {
-    "dev": "rimraf dist && rollup -c -w",
-    "build": "rimraf dist && npm run lint && cross-env NODE_ENV=production rollup -c --compact",
-    "lint": "eslint src --cache --cache-location ./node_modules/.cache/eslint --ext ts,tsx,js,jsx,cjs,mjs",
-    "typecheck": "tsc",
+    "build": "turbo run build --parallel --filter=!@next-pwa-example/*",
+    "examples:build": "turbo run build --filter=@next-pwa-example/*",
+    "dev": "turbo run dev --parallel --filter=!@next-pwa-example/*",
+    "examples:dev": "turbo run dev --filter=@next-pwa-example/*",
     "format": "prettier --write .",
-    "prepublishOnly": "npm run build",
+    "lint": "turbo run lint --color",
+    "new-changeset": "changeset",
     "prepare": "husky install",
-    "examples": "node examples/__examples_utils/__run.js"
+    "publish-packages": "turbo run build lint typecheck --parallel && changeset version && changeset publish",
+    "typecheck": "turbo run typecheck"
   },
   "dependencies": {
-    "babel-loader": "9.1.0",
-    "clean-webpack-plugin": "4.0.0",
-    "fast-glob": "3.2.12",
-    "terser-webpack-plugin": "5.3.6",
-    "workbox-build": "6.5.4",
-    "workbox-webpack-plugin": "6.5.4",
-    "workbox-window": "6.5.4"
+    "babel-loader": "9.1.0"
   },
   "devDependencies": {
     "@babel/core": "7.20.5",
-    "@rollup/plugin-node-resolve": "15.0.1",
-    "@rollup/plugin-terser": "0.1.0",
-    "@rollup/plugin-typescript": "10.0.1",
-    "@semantic-release/changelog": "6.0.2",
-    "@semantic-release/commit-analyzer": "9.0.2",
-    "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "8.0.7",
-    "@semantic-release/npm": "9.0.1",
-    "@semantic-release/release-notes-generator": "10.0.3",
+    "@changesets/cli": "2.25.2",
     "@types/node": "18.11.11",
     "@typescript-eslint/eslint-plugin": "5.45.1",
     "@typescript-eslint/parser": "5.45.1",
@@ -73,14 +36,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rimraf": "3.0.2",
-    "rollup": "3.6.0",
-    "semantic-release": "19.0.5",
     "tslib": "2.4.1",
+    "turbo": "1.6.3",
     "typescript": "4.9.3",
     "webpack": "5.75.0"
-  },
-  "peerDependencies": {
-    "next": ">=9.1.0",
-    "webpack": ">=5.9.0"
   }
 }

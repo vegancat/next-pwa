@@ -11,7 +11,7 @@ yarn.lock
 /coverage
 
 # production
-/dist
+dist/
 
 # misc
 .DS_Store

@@ -1,0 +1,62 @@
+{
+  "name": "@ducanh2912/next-pwa",
+  "version": "7.0.2",
+  "type": "module",
+  "description": "PWA for Next.js, powered by Workbox.",
+  "repository": "https://github.com/DuCanhGH/next-pwa",
+  "author": "ShadowWalker <w@weiw.io>, DuCanhGH",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "dist"
+  ],
+  "source": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/ducanh2912-next-pwa.cjs",
+      "default": "./dist/ducanh2912-next-pwa.modern.mjs"
+    }
+  },
+  "main": "./dist/ducanh2912-next-pwa.cjs",
+  "module": "./dist/ducanh2912-next-pwa.module.js",
+  "types": "./dist/index.d.ts",
+  "keywords": [
+    "nextjs",
+    "pwa",
+    "workbox",
+    "web",
+    "service-worker"
+  ],
+  "scripts": {
+    "dev": "rimraf dist && rollup -c -w",
+    "build": "rimraf dist && npm run lint && cross-env NODE_ENV=production rollup -c --compact",
+    "lint": "eslint src --cache --cache-location ./node_modules/.cache/eslint --ext ts,tsx,js,jsx,cjs,mjs",
+    "typecheck": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "babel-loader": "9.1.0",
+    "clean-webpack-plugin": "4.0.0",
+    "fast-glob": "3.2.12",
+    "terser-webpack-plugin": "5.3.6",
+    "workbox-build": "6.5.4",
+    "workbox-webpack-plugin": "6.5.4",
+    "workbox-window": "6.5.4"
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.5",
+    "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-terser": "0.1.0",
+    "@rollup/plugin-typescript": "10.0.1",
+    "@types/node": "18.11.12",
+    "rollup": "3.6.0",
+    "tsconfig": "workspace:*",
+    "typescript": "4.9.3",
+    "webpack": "5.75.0"
+  },
+  "peerDependencies": {
+    "next": ">=9.1.0",
+    "webpack": ">=5.9.0"
+  }
+}
