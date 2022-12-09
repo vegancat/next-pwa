@@ -12,7 +12,7 @@
     "lint": "turbo run lint --color",
     "new-changeset": "changeset",
     "prepare": "husky install",
-    "publish-packages": "turbo run build lint typecheck --parallel && changeset version && changeset publish",
+    "publish-packages": "turbo lint typecheck --parallel && pnpm build && changeset publish",
     "typecheck": "turbo run typecheck"
   },
   "dependencies": {

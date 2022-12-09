@@ -32,8 +32,7 @@
     "dev": "rimraf dist && rollup -c -w",
     "build": "rimraf dist && npm run lint && cross-env NODE_ENV=production rollup -c --compact",
     "lint": "eslint src --cache --cache-location ./node_modules/.cache/eslint --ext ts,tsx,js,jsx,cjs,mjs",
-    "typecheck": "tsc",
-    "prepublishOnly": "npm run build"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "babel-loader": "9.1.0",

@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Typecheck
-        run: pnpm turbo typecheck
+        run: pnpm typecheck
       - name: Lint
-        run: pnpm turbo lint
+        run: pnpm lint
       - name: Build
-        run: pnpm turbo build
+        run: pnpm build
   publish:
     name: 🚀 Release packages
     needs: [typecheck_lint_build]
@@ -53,11 +53,12 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-      - name: Create release PR
+      - name: Publish to npm
         uses: changesets/action@v1
         with:
-          commit: "Update packages"
-          title: "Update packages"
+          commit: "Publish packages"
+          title: "Publish packages"
+          publish: pnpm publish-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
