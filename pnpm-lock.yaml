@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@babel/core': 7.20.5
       '@changesets/cli': 2.25.2
+      '@ducanh2912/next-pwa': workspace:*
       '@types/node': 18.11.11
       '@typescript-eslint/eslint-plugin': 5.45.1
       '@typescript-eslint/parser': 5.45.1
@@ -26,14 +27,14 @@ importers:
       turbo: 1.6.3
       typescript: 4.9.3
       webpack: 5.75.0
-    dependencies:
-      babel-loader: 9.1.0_ztqwsvkb6z73luspkai6ilstpu
     devDependencies:
       '@babel/core': 7.20.5
       '@changesets/cli': 2.25.2
+      '@ducanh2912/next-pwa': link:packages/next-pwa
       '@types/node': 18.11.11
       '@typescript-eslint/eslint-plugin': 5.45.1_tdm6ms4ntwhlpozn7kjqrhum74
       '@typescript-eslint/parser': 5.45.1_s5ps7njkmjlaqajutnox5ntcla
+      babel-loader: 9.1.0_ztqwsvkb6z73luspkai6ilstpu
       cross-env: 7.0.3
       eslint: 8.29.0
       eslint-config-prettier: 8.5.0_eslint@8.29.0
@@ -54,7 +55,7 @@ importers:
   examples/cache-on-front-end-nav:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       next: 13.0.6
@@ -77,7 +78,7 @@ importers:
   examples/cookie:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       js-cookie: ^3.0.1
@@ -104,7 +105,7 @@ importers:
   examples/custom-ts-worker:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       '@types/react': ^18.0.17
       babel-loader: ^8.2.5
       eslint: 8.28.0
@@ -131,7 +132,7 @@ importers:
   examples/custom-worker:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       babel-loader: ^8.2.5
       eslint: 8.28.0
       eslint-config-next: 13.0.6
@@ -156,7 +157,7 @@ importers:
   examples/lifecycle:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       next: 13.0.6
@@ -179,7 +180,7 @@ importers:
   examples/minimal:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       cross-env: ^7.0.3
       eslint: 8.28.0
       eslint-config-next: 13.0.6
@@ -208,7 +209,7 @@ importers:
   examples/next-9:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       next: 13.0.6
@@ -231,7 +232,7 @@ importers:
   examples/next-i18next:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       cross-env: ^7.0.3
       eslint: 8.28.0
       eslint-config-next: 13.0.6
@@ -266,7 +267,7 @@ importers:
   examples/next-image:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       next: 13.0.6
@@ -289,7 +290,7 @@ importers:
   examples/offline-fallback:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       next: 13.0.6
@@ -314,7 +315,7 @@ importers:
   examples/offline-fallback-v2:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       next: 13.0.6
@@ -339,7 +340,7 @@ importers:
   examples/web-push:
     specifiers:
       '@babel/core': 7.20.5
-      '@ducanh2912/next-pwa': workspace:*
+      '@ducanh2912/next-pwa': latest
       eslint: 8.28.0
       eslint-config-next: 13.0.6
       next: 13.0.6
@@ -2557,7 +2558,6 @@ packages:
         optional: true
     dependencies:
       ajv: 8.11.2
-    dev: false
 
   /ajv-keywords/3.5.2_ajv@6.12.6:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
@@ -2573,7 +2573,6 @@ packages:
     dependencies:
       ajv: 8.11.2
       fast-deep-equal: 3.1.3
-    dev: false
 
   /ajv/6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -2590,7 +2589,6 @@ packages:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
-    dev: false
 
   /ansi-colors/4.1.3:
     resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
@@ -2775,7 +2773,6 @@ packages:
       find-cache-dir: 3.3.2
       schema-utils: 4.0.0
       webpack: 5.75.0
-    dev: false
 
   /babel-plugin-polyfill-corejs2/0.3.3_@babel+core@7.20.5:
     resolution: {integrity: sha512-8hOdmFYFSZhqg2C/JgLUQ+t52o5nirNwaWM2B9LWteozwIvM14VSwdsCAUET10qT+kmySAlseadmfeeSWFCy+Q==}
@@ -3077,7 +3074,6 @@ packages:
 
   /commondir/1.0.1:
     resolution: {integrity: sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==}
-    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
@@ -4108,7 +4104,6 @@ packages:
       commondir: 1.0.1
       make-dir: 3.1.0
       pkg-dir: 4.2.0
-    dev: false
 
   /find-my-way/7.3.1:
     resolution: {integrity: sha512-kGvM08SOkqvheLcuQ8GW9t/H901Qb9rZEbcNWbXopzy4jDRoaJpJoObPSKf4MnQLZ20ZTp7rL5MpF6rf+pqmyg==}
@@ -4810,7 +4805,6 @@ packages:
 
   /json-schema-traverse/1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
-    dev: false
 
   /json-schema/0.4.0:
     resolution: {integrity: sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==}
@@ -5005,7 +4999,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       semver: 6.3.0
-    dev: false
 
   /map-obj/1.0.1:
     resolution: {integrity: sha512-7N/q3lyZ+LVCp7PzuxrJr4KMbBE2hW7BT7YNia330OFxIf4d3r5zVpicP2650l7CPN6RM9zOJRl3NGpqSiw3Eg==}
@@ -6103,7 +6096,6 @@ packages:
   /require-from-string/2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
@@ -6262,7 +6254,6 @@ packages:
       ajv: 8.11.2
       ajv-formats: 2.1.1
       ajv-keywords: 5.1.0_ajv@8.11.2
-    dev: false
 
   /secure-json-parse/2.6.0:
     resolution: {integrity: sha512-B9osKohb6L+EZ6Kve3wHKfsAClzOC/iISA2vSuCe5Jx5NAKiwitfxx8ZKYapHXr0sYRj7UZInT7pLb3rp2Yx6A==}

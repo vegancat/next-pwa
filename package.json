@@ -15,15 +15,14 @@
     "publish-packages": "turbo lint typecheck --parallel && pnpm build && changeset publish",
     "typecheck": "turbo run typecheck"
   },
-  "dependencies": {
-    "babel-loader": "9.1.0"
-  },
   "devDependencies": {
     "@babel/core": "7.20.5",
     "@changesets/cli": "2.25.2",
+    "@ducanh2912/next-pwa": "workspace:*",
     "@types/node": "18.11.11",
     "@typescript-eslint/eslint-plugin": "5.45.1",
     "@typescript-eslint/parser": "5.45.1",
+    "babel-loader": "9.1.0",
     "cross-env": "7.0.3",
     "eslint": "8.29.0",
     "eslint-config-prettier": "8.5.0",
