@@ -1,5 +1,3 @@
-// @ts-check
-
 const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
   register: false,
@@ -8,4 +6,10 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   },
 });
 
-module.exports = withPWA();
+/** @type {import("next").NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+};
+
+module.exports = withPWA(nextConfig);

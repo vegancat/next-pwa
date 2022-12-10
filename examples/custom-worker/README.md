@@ -6,30 +6,30 @@ This example demonstrates how to use `next-pwa` to turn a `Next.js`-based web ap
 
 ## New method
 
-Simply create a new file called `worker/index.js` and start adding your code. `next-pwa` will detect this file automatically, and bundle the file into `dest` as `worker-*.js` using `webpack`. It's also automatically injected into the generated `sw.js`.
+Simply create a new file called `worker/index.ts` and start adding your code. `next-pwa` will detect this file automatically, and bundle the file into `dest` as `worker-*.js` using `webpack`. It's also automatically injected into the generated `sw.js`.
 
 In this way, you get the benefit of code splitting and size minimization automatically. Yes, `require` modules works! Yes, you can share code between your web app and the Service Worker!
 
-> - In dev mode, `worker/index.js` is not watched, so it will not hot reload.
+> - In dev mode, `worker/index.ts` is not watched, so it will not hot reload.
 
 ### Custom worker directory
 
 You can customize the directory of your custom worker file by adding `customWorkerDir` (relative to `basedir`) to your `withPWAInit` config in `next.config.js`:
 
 ```javascript
-const withPWA = require("@ducanh2912/next-pwa")({
+const withPWA = require("@ducanh2912/next-pwa").default({
   customWorkerDir: "serviceworker",
-  ...
-})
+  // ...
+});
 
 module.exports = withPWA({
   // Next.js config
 });
 ```
 
-In this example, `next-pwa` will look for `serviceworker/index.js`.
+In this example, `next-pwa` will look for `serviceworker/index.ts`.
 
-## Old Method (Still Works)
+## Old method (still works)
 
 Basically you need to create a file (for example, `worker.js`) in your `public` directory, then add `importScripts` to your `withPWAInit` config in `next.config.js`:
 
@@ -51,8 +51,7 @@ Then the generated Service Worker will automatically import your code and run it
 [![Open in Gitpod](https://img.shields.io/badge/Open%20In-Gitpod.io-%231966D2?style=for-the-badge&logo=gitpod)](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/)
 
 ```bash
-cd examples/custom-server
-pnpm install
+cd examples/custom-ts-server
 pnpm build
 pnpm start
 ```

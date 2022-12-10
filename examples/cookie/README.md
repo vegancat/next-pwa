@@ -10,7 +10,6 @@ This example demonstrates how to use `next-pwa` with cookies. No special configu
 
 ```bash
 cd examples/cookie
-pnpm install
 pnpm build
 pnpm start
 ```

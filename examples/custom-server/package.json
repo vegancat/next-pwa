@@ -1,0 +1,32 @@
+{
+  "name": "@next-pwa-example/custom-server",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "lint": "next lint",
+    "dev": "node ./index.js",
+    "start": "cross-env NODE_ENV=production node ./index.js"
+  },
+  "dependencies": {
+    "@ducanh2912/next-pwa": "latest",
+    "@fastify/compress": "6.2.0",
+    "cross-env": "7.0.3",
+    "fastify": "4.10.2",
+    "next": "13.0.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.5",
+    "@types/node": "18.11.13",
+    "@types/react": "18.0.26",
+    "@types/react-dom": "18.0.9",
+    "eslint": "8.29.0",
+    "eslint-config-next": "13.0.6",
+    "typescript": "4.9.4",
+    "webpack": "5.75.0"
+  }
+}

@@ -12,7 +12,6 @@ For best performance, put images in its own folder rather than `public`. This wi
 
 ```bash
 cd examples/next-image
-pnpm install
 pnpm build
 pnpm start
 ```

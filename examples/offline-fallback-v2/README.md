@@ -28,7 +28,6 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 
 ```bash
 cd examples/offline-fallback-v2
-pnpm install
 pnpm build
 pnpm start
 ```

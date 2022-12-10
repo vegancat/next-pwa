@@ -14,7 +14,6 @@ In real world application, you may want to send the subscription data to your se
 
 ```bash
 cd examples/web-push
-pnpm install
 pnpm vapid
 ```
 

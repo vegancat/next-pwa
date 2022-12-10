@@ -6,8 +6,6 @@ This example demonstrates how to use `next-pwa` to turn a `Next.js`-based web ap
 
 It shows how to control the Service Worker registration workflow (instead of automatically registering the Service Worker) and add an event listener to handle the lifecycle events. It gives you more control over the PWA lifecycle. The key here is to set `register` in your `withPWAInit` config in `next.config.js` to `false` then call `window.workbox.register()` manually to register the generated Service Worker.
 
-**UPDATE**
-
 This example also demonstrates how to [prompt the user to reload the page when a new version is available](https://developers.google.com/web/tools/workbox/guides/advanced-recipes#offer_a_page_reload_for_users).
 
 ## Usage
@@ -16,7 +14,6 @@ This example also demonstrates how to [prompt the user to reload the page when a
 
 ```bash
 cd examples/lifecycle
-pnpm install
 pnpm build
 pnpm start
 ```

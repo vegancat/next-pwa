@@ -6,9 +6,9 @@ This example demonstrates how to use `next-pwa` to turn a `Next.js`-based web ap
 
 It uses `express` to build a custom server and [`next-i18next`](https://github.com/isaachinman/next-i18next) as a i18n solution.
 
-> `i18next-express-middleware` is not compatible with `fastify` right not unfortunately.
+> `i18next-express-middleware` is not compatible with `fastify` right now unfortunately.
 
-Because Service Worker must be served directly without any redirection, make sure its route is excluded from the i18n middleware. See `index.js` for an example.
+Because Service Worker must be served without any redirection, make sure its route is excluded from the i18n middleware. See `index.js` for an example.
 
 ## Usage
 
@@ -16,7 +16,6 @@ Because Service Worker must be served directly without any redirection, make sur
 
 ```bash
 cd examples/next-i18next
-pnpm install
 pnpm build
 pnpm start
 ```

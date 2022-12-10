@@ -184,7 +184,7 @@ const withPWAInit = (
             );
           } else {
             console.log(
-              `> [PWA] Automatically registering for Service Worker is disabled, please call the following code in componentDidMount callback or useEffect hook:`
+              `> [PWA] Service Worker won't be automatically registered as per the config, please call the following code in a componentDidMount callback or useEffect hook:`
             );
             console.log(`> [PWA]   window.workbox.register()`);
           }

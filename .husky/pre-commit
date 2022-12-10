@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm turbo lint -- --fix && pnpm format && git add .
+pnpm lint -- --fix && pnpm format && git add .

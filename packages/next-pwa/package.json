@@ -16,11 +16,21 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/ducanh2912-next-pwa.cjs",
       "default": "./dist/ducanh2912-next-pwa.modern.mjs"
+    },
+    "./register": {
+      "types": "./dist/register.d.ts"
     }
   },
   "main": "./dist/ducanh2912-next-pwa.cjs",
   "module": "./dist/ducanh2912-next-pwa.module.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+        "register": [
+            "./dist/register.d.ts"
+        ]
+    }
+  },
   "keywords": [
     "nextjs",
     "pwa",
