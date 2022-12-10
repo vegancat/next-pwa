@@ -1,5 +1,5 @@
 // @ts-check
-// we will want to avoid having to manually compile it, but still leverages TS.
+// we will want to avoid having to manually compile it, but still leverage TS.
 import fastifyCompress from "@fastify/compress";
 import Fastify from "fastify";
 import fs from "fs";
