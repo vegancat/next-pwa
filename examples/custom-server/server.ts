@@ -1,8 +1,6 @@
 import fastifyCompress from "@fastify/compress";
-import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
 import Next from "next";
-import { join } from "path";
 
 import nextConfig from "./next.config.js";
 
@@ -23,11 +21,13 @@ fastify.register((fastify, _options, next) => {
   app
     .prepare()
     .then(() => {
-      fastify.register(fastifyStatic, {
-        root: join(__dirname, "public"),
-        wildcard: false,
-      });
-
+      if (dev) {
+        fastify.get("/_next/*", async (request, reply) => {
+          return handle(request.raw, reply.raw).then(() => {
+            reply.hijack();
+          });
+        });
+      }
       fastify.all("/*", async (request, reply) => {
         return handle(request.raw, reply.raw).then(() => {
           reply.hijack();
