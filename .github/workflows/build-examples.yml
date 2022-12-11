@@ -27,11 +27,22 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-      - name: Cache .next
+      - name: Cache .turbo
+        id: turbo-cache-examples
         uses: actions/cache@v3
         with:
           path: |
-            ${{ github.workspace }}/examples/*/.next/cache
+            .turbo
+            packages/**/.turbo
+            examples/**/.turbo
+            node_modules/.cache/turbo
+          key: ${{ runner.os }}-turbo-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.job }}-${{ github.ref_name }}-
+      - name: Cache .next
+        uses: actions/cache@v3
+        with:
+          path: examples/*/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('examples/**.[jt]s', 'examples/**.[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-

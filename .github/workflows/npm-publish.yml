@@ -21,6 +21,18 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Cache .turbo
+        id: turbo-cache-lint-typecheck-build
+        uses: actions/cache@v3
+        with:
+          path: |
+            .turbo
+            packages/**/.turbo
+            examples/**/.turbo
+            node_modules/.cache/turbo
+          key: ${{ runner.os }}-turbo-ltb-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-ltb-${{ github.job }}-${{ github.ref_name }}-
       - name: Install dependencies
         run: pnpm install
       - name: Typecheck
@@ -51,6 +63,18 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Cache .turbo
+        id: turbo-cache-npm-publish
+        uses: actions/cache@v3
+        with:
+          path: |
+            .turbo
+            packages/**/.turbo
+            examples/**/.turbo
+            node_modules/.cache/turbo
+          key: ${{ runner.os }}-turbo-np-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-np-${{ github.job }}-${{ github.ref_name }}-
       - name: Install dependencies
         run: pnpm install
       - name: Publish to npm
