@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "tsconfig/base",
   "include": ["globals.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
