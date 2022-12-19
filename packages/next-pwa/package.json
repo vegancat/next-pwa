@@ -56,10 +56,10 @@
   "devDependencies": {
     "@babel/core": "7.20.5",
     "@rollup/plugin-node-resolve": "15.0.1",
-    "@rollup/plugin-terser": "0.1.0",
+    "@rollup/plugin-terser": "0.2.0",
     "@rollup/plugin-typescript": "10.0.1",
-    "@types/node": "18.11.13",
-    "rollup": "3.6.0",
+    "@types/node": "18.11.17",
+    "rollup": "3.7.5",
     "tsconfig": "workspace:*",
     "typescript": "4.9.4",
     "webpack": "5.75.0"
