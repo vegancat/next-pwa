@@ -167,7 +167,7 @@ const withPWAInit = (
             customWorkerDir,
             destdir: _dest,
             plugins: config.plugins.filter(
-              (plugin: any) => plugin instanceof webpack.DefinePlugin
+              (plugin) => plugin instanceof webpack.DefinePlugin
             ),
             minify: !dev,
           });

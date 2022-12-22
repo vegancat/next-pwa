@@ -5,6 +5,7 @@ import TerserPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
 import webpack from "webpack";
 
+import swcRc from "./.swcrc.json";
 import type { Fallbacks } from "./types";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -127,29 +128,11 @@ const buildFallbackWorker = ({
     module: {
       rules: [
         {
-          test: /\.js$/i,
+          test: /\.(t|j)s$/i,
           use: [
             {
-              loader: "babel-loader",
-              options: {
-                presets: [
-                  [
-                    "next/babel",
-                    {
-                      "transform-runtime": {
-                        corejs: false,
-                        helpers: true,
-                        regenerator: false,
-                        useESModules: true,
-                      },
-                      "preset-env": {
-                        modules: false,
-                        targets: "chrome >= 56",
-                      },
-                    },
-                  ],
-                ],
-              },
+              loader: "swc-loader",
+              options: swcRc,
             },
           ],
         },

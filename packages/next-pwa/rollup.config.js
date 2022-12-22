@@ -1,11 +1,8 @@
 // @ts-check
+import json from "@rollup/plugin-json";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-global.__filename = __filename;
 
 const commonConfig = defineConfig({
   watch: {
@@ -24,6 +21,7 @@ const plugins = [
     declaration: true,
     noEmit: false,
   }),
+  json(),
   ...[process.env.NODE_ENV === "production" ? [terser()] : []],
 ];
 

@@ -5,6 +5,8 @@ import TerserPlugin from "terser-webpack-plugin";
 import type { Configuration } from "webpack";
 import webpack from "webpack";
 
+import swcRc from "./.swcrc.json";
+
 const buildCustomWorker = ({
   id,
   basedir,
@@ -79,26 +81,8 @@ const buildCustomWorker = ({
           test: /\.(t|j)s$/i,
           use: [
             {
-              loader: "babel-loader",
-              options: {
-                presets: [
-                  [
-                    "next/babel",
-                    {
-                      "transform-runtime": {
-                        corejs: false,
-                        helpers: true,
-                        regenerator: false,
-                        useESModules: true,
-                      },
-                      "preset-env": {
-                        modules: false,
-                        targets: "chrome >= 56",
-                      },
-                    },
-                  ],
-                ],
-              },
+              loader: "swc-loader",
+              options: swcRc,
             },
           ],
         },
