@@ -20,7 +20,7 @@
     "lint-staged": "lint-staged",
     "new-changeset": "changeset",
     "prepare": "husky install",
-    "publish-packages": "turbo lint typecheck --parallel && pnpm build && changeset publish",
+    "publish-packages": "pnpm typecheck && pnpm lint && pnpm build && changeset publish",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
