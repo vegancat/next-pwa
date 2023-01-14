@@ -9,25 +9,28 @@ import swcRc from "./.swcrc.json";
 
 const buildCustomWorker = ({
   id,
-  basedir,
+  baseDir,
   customWorkerDir,
-  destdir,
+  destDir,
   plugins,
   minify,
 }: {
   id: string;
-  basedir: string;
+  baseDir: string;
   customWorkerDir: string;
-  destdir: string;
+  destDir: string;
   plugins: Configuration["plugins"];
   minify: boolean;
 }) => {
   let workerDir = "";
 
-  if (fs.existsSync(path.join(basedir, customWorkerDir))) {
-    workerDir = path.join(basedir, customWorkerDir);
-  } else if (fs.existsSync(path.join(basedir, "src", customWorkerDir))) {
-    workerDir = path.join(basedir, "src", customWorkerDir);
+  const rootWorkerDir = path.join(baseDir, customWorkerDir);
+  const srcWorkerDir = path.join(baseDir, "src", customWorkerDir);
+
+  if (fs.existsSync(rootWorkerDir)) {
+    workerDir = rootWorkerDir;
+  } else if (fs.existsSync(srcWorkerDir)) {
+    workerDir = srcWorkerDir;
   }
 
   if (!workerDir) return;
@@ -50,9 +53,10 @@ const buildCustomWorker = ({
 
   const customWorkerEntry = customWorkerEntries[0];
   console.log(`> [PWA] Custom worker found: ${customWorkerEntry}`);
-  console.log(`> [PWA] Building custom worker: ${path.join(destdir, name)}...`);
+  console.log(`> [PWA] Building custom worker: ${path.join(destDir, name)}...`);
+
   webpack({
-    mode: "none",
+    mode: minify ? "production" : "development",
     target: "webworker",
     entry: {
       main: customWorkerEntry,
@@ -89,15 +93,15 @@ const buildCustomWorker = ({
       ],
     },
     output: {
-      path: destdir,
+      path: destDir,
       filename: name,
     },
     plugins: (
       [
         new CleanWebpackPlugin({
           cleanOnceBeforeBuildPatterns: [
-            path.join(destdir, "worker-*.js"),
-            path.join(destdir, "worker-*.js.map"),
+            path.join(destDir, "worker-*.js"),
+            path.join(destDir, "worker-*.js.map"),
           ],
         }),
       ] as NonNullable<Configuration["plugins"]>

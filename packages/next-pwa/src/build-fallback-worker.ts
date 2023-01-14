@@ -12,35 +12,60 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const getFallbackEnvs = ({
   fallbacks,
-  basedir,
+  baseDir,
   id,
   pageExtensions,
+  isAppDirEnabled,
 }: {
   fallbacks: Fallbacks;
-  basedir: string;
+  baseDir: string;
   id: string;
-  pageExtensions: string[];
+  pageExtensions: readonly string[];
+  isAppDirEnabled: boolean;
 }) => {
-  let { document, data } = fallbacks;
+  let { data, document } = fallbacks;
 
-  if (!document) {
-    let pagesDir = "";
+  (() => {
+    if (!document) {
+      let pagesDir = "";
+      let appDir = "";
 
-    if (fs.existsSync(path.join(basedir, "pages"))) {
-      pagesDir = path.join(basedir, "pages");
-    } else if (fs.existsSync(path.join(basedir, "src", "pages"))) {
-      pagesDir = path.join(basedir, "src", "pages");
+      if (isAppDirEnabled) {
+        const rootAppDir = path.join(baseDir, "app");
+        const srcAppDir = path.join(baseDir, "src/app");
+        if (fs.existsSync(rootAppDir)) {
+          appDir = rootAppDir;
+        } else if (fs.existsSync(srcAppDir)) {
+          appDir = srcAppDir;
+        }
+      }
+
+      const rootPagesDir = path.join(baseDir, "pages");
+      const srcPagesDir = path.join(baseDir, "src/pages");
+
+      if (fs.existsSync(rootPagesDir)) {
+        pagesDir = rootPagesDir;
+      } else if (fs.existsSync(srcPagesDir)) {
+        pagesDir = srcPagesDir;
+      }
+
+      if (!pagesDir && !appDir) {
+        return;
+      }
+
+      for (const ext of pageExtensions) {
+        const appDirOfflineFile = path.join(appDir, `_offline/page.${ext}`);
+        const pagesDirOfflineFile = path.join(pagesDir, `_offline.${ext}`);
+        if (
+          (isAppDirEnabled && !!appDir && fs.existsSync(appDirOfflineFile)) ||
+          (!!pagesDir && fs.existsSync(pagesDirOfflineFile))
+        ) {
+          document = "/_offline";
+          return;
+        }
+      }
     }
-
-    if (!pagesDir) return;
-
-    const offlines = pageExtensions
-      .map((ext) => path.join(pagesDir, `_offline.${ext}`))
-      .filter((entry) => fs.existsSync(entry));
-    if (offlines.length === 1) {
-      document = "/_offline";
-    }
-  }
+  })();
 
   if (data && data.endsWith(".json")) {
     data = path.posix.join("/_next/data", id, data);
@@ -60,22 +85,29 @@ const getFallbackEnvs = ({
   console.log(
     "> [PWA] This app will fallback to these precached routes when fetching from cache or network fails:"
   );
-  if (envs.__PWA_FALLBACK_DOCUMENT__)
+
+  if (envs.__PWA_FALLBACK_DOCUMENT__) {
     console.log(
-      `> [PWA]   documents (pages): ${envs.__PWA_FALLBACK_DOCUMENT__}`
+      `> [PWA]   Documents (pages): ${envs.__PWA_FALLBACK_DOCUMENT__}`
     );
-  if (envs.__PWA_FALLBACK_IMAGE__)
-    console.log(`> [PWA]   images: ${envs.__PWA_FALLBACK_IMAGE__}`);
-  if (envs.__PWA_FALLBACK_AUDIO__)
-    console.log(`> [PWA]   audio: ${envs.__PWA_FALLBACK_AUDIO__}`);
-  if (envs.__PWA_FALLBACK_VIDEO__)
-    console.log(`> [PWA]   videos: ${envs.__PWA_FALLBACK_VIDEO__}`);
-  if (envs.__PWA_FALLBACK_FONT__)
-    console.log(`> [PWA]   fonts: ${envs.__PWA_FALLBACK_FONT__}`);
-  if (envs.__PWA_FALLBACK_DATA__)
+  }
+  if (envs.__PWA_FALLBACK_IMAGE__) {
+    console.log(`> [PWA]   Images: ${envs.__PWA_FALLBACK_IMAGE__}`);
+  }
+  if (envs.__PWA_FALLBACK_AUDIO__) {
+    console.log(`> [PWA]   Audio: ${envs.__PWA_FALLBACK_AUDIO__}`);
+  }
+  if (envs.__PWA_FALLBACK_VIDEO__) {
+    console.log(`> [PWA]   Videos: ${envs.__PWA_FALLBACK_VIDEO__}`);
+  }
+  if (envs.__PWA_FALLBACK_FONT__) {
+    console.log(`> [PWA]   Fonts: ${envs.__PWA_FALLBACK_FONT__}`);
+  }
+  if (envs.__PWA_FALLBACK_DATA__) {
     console.log(
-      `> [PWA]   data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`
+      `> [PWA]   Data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`
     );
+  }
 
   return envs;
 };
@@ -83,26 +115,34 @@ const getFallbackEnvs = ({
 const buildFallbackWorker = ({
   id,
   fallbacks,
-  basedir,
-  destdir,
+  baseDir,
+  destDir,
   minify,
   pageExtensions,
+  isAppDirEnabled,
 }: {
   id: string;
   fallbacks: Fallbacks;
-  basedir: string;
-  destdir: string;
+  baseDir: string;
+  destDir: string;
   minify: boolean;
   pageExtensions: string[];
+  isAppDirEnabled: boolean;
 }) => {
-  const envs = getFallbackEnvs({ fallbacks, basedir, id, pageExtensions });
+  const envs = getFallbackEnvs({
+    fallbacks,
+    baseDir,
+    id,
+    pageExtensions,
+    isAppDirEnabled,
+  });
   if (!envs) return;
 
   const name = `fallback-${id}.js`;
   const fallbackJs = path.join(__dirname, `fallback.js`);
 
   webpack({
-    mode: "none",
+    mode: minify ? "production" : "development",
     target: "webworker",
     entry: {
       main: fallbackJs,
@@ -139,14 +179,14 @@ const buildFallbackWorker = ({
       ],
     },
     output: {
-      path: destdir,
+      path: destDir,
       filename: name,
     },
     plugins: [
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: [
-          path.join(destdir, "fallback-*.js"),
-          path.join(destdir, "fallback-*.js.map"),
+          path.join(destDir, "fallback-*.js"),
+          path.join(destDir, "fallback-*.js.map"),
         ],
       }),
       new webpack.EnvironmentPlugin(envs),

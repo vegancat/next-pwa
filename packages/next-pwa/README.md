@@ -30,6 +30,8 @@ This plugin is powered by [Workbox](https://developer.chrome.com/docs/workbox/) 
 > **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `Next.js` 9.1+, and static files should only be served through the `public` directory. This makes things simpler.
 >
 > **NOTE 2** - If you encounter the error `TypeError: Cannot read property **'javascript' of undefined**` during build, [please consider upgrading to Webpack 5 in `next.config.js`](https://github.com/shadowwalker/next-pwa/issues/198#issuecomment-817205700).
+>
+> **NOTE 3** - `@ducanh2912/next-pwa` currently doesn't support Turbopack, but I will start working on it as soon as we get our hands on Turbopack.
 
 ---
 
@@ -37,7 +39,7 @@ This plugin is powered by [Workbox](https://developer.chrome.com/docs/workbox/) 
 
 ## Install
 
-> If you are new to `Next.js` or `React.js`, you may want to checkout [learn Next.js](https://nextjs.org/learn/basics/create-nextjs-app) or [Next.js documentation](https://nextjs.org/docs/getting-started) first. Then start from [a simple example (you can use `create-next-app` on these examples, fyi)](https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic) or [the progressive-web-app example in Next.js's repository](https://github.com/vercel/next.js/tree/canary/examples/progressive-web-app).
+> If you are new to `React` or `Next.js`, you may want to checkout [learn React](https://beta.reactjs.org/learn), [learn Next.js](https://nextjs.org/learn/basics/create-nextjs-app) and [Next.js documentation](https://nextjs.org/docs/getting-started) first. Then start from [a simple example (you can use `create-next-app` on these examples, fyi)](https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic) or [the progressive-web-app example in Next.js's repository](https://github.com/vercel/next.js/tree/canary/examples/progressive-web-app).
 
 ```bash
 npm i @ducanh2912/next-pwa

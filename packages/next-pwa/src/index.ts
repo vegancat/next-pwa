@@ -32,6 +32,8 @@ const withPWAInit = (
     ...nextConfig,
     ...({
       webpack(config: Configuration, options) {
+        const isAppDirEnabled = !!nextConfig.experimental?.appDir;
+
         const webpack: typeof webpackType = options.webpack;
         const {
           buildId,
@@ -163,9 +165,9 @@ const withPWAInit = (
           const _dest = path.join(options.dir, dest);
           const customWorkerScriptName = buildCustomWorker({
             id: buildId,
-            basedir: options.dir,
+            baseDir: options.dir,
             customWorkerDir,
-            destdir: _dest,
+            destDir: _dest,
             plugins: config.plugins.filter(
               (plugin) => plugin instanceof webpack.DefinePlugin
             ),
@@ -253,10 +255,11 @@ const withPWAInit = (
             const res = buildFallbackWorker({
               id: buildId,
               fallbacks,
-              basedir: options.dir,
-              destdir: _dest,
+              baseDir: options.dir,
+              destDir: _dest,
               minify: !dev,
               pageExtensions,
+              isAppDirEnabled,
             });
 
             if (res) {

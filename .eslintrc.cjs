@@ -8,7 +8,6 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
     "prettier",
   ],
   parserOptions: {
@@ -26,12 +25,6 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
     "no-unused-vars": "off",
     "no-extra-boolean-cast": "off",
-    "prettier/prettier": [
-      "error",
-      {
-        endOfLine: "auto",
-      },
-    ],
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
   },

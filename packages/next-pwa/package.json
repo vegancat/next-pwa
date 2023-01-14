@@ -58,9 +58,9 @@
     "@rollup/plugin-node-resolve": "15.0.1",
     "@rollup/plugin-terser": "0.3.0",
     "@rollup/plugin-typescript": "11.0.0",
-    "@swc/core": "1.3.25",
+    "@swc/core": "1.3.26",
     "@types/node": "18.11.18",
-    "rollup": "3.9.1",
+    "rollup": "3.10.0",
     "tsconfig": "workspace:*",
     "typescript": "4.9.4",
     "webpack": "5.75.0"

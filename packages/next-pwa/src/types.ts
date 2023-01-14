@@ -23,7 +23,8 @@ export interface PluginOptions {
   register?: boolean;
   /**
    * Set output directory for Service Worker. Relative to Next.js's root
-   * directory.
+   * directory. By default, this plugin uses `.next`, but it is recommended to
+   * change it to `public` instead.
    *
    * @default ".next"
    */
