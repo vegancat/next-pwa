@@ -192,8 +192,8 @@ const withPWAInit = (
           }
 
           console.log(`> [PWA] Service Worker: ${path.join(_dest, sw)}`);
-          console.log(`> [PWA]   url: ${_sw}`);
-          console.log(`> [PWA]   scope: ${_scope}`);
+          console.log(`> [PWA]   URL: ${_sw}`);
+          console.log(`> [PWA]   Scope: ${_scope}`);
 
           config.plugins.push(
             new CleanWebpackPlugin({
