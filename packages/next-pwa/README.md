@@ -25,7 +25,7 @@ This plugin is powered by [Workbox](https://developer.chrome.com/docs/workbox/) 
 - 🌏 Internationalization support (a.k.a I18N) with `next-i18next` [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-i18next)
 - 🛠 Configurable by the same [Workbox configuration options](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin) for [GenerateSW](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#generatesw-plugin) and [InjectManifest](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#injectmanifest-plugin)
 - ⚡ Supports [blitz.js](https://blitzjs.com/) (simply add `blitz.config.js`)
-- 🚀 Spin up a [GitPod](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/) and try out examples in rocket speed (or use `create-next-app` to create a brand new Next.js app with those (for example, run `pnpm create next-app https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic` to create a new Next.js app using the `basic` example))
+- 🚀 Spin up a [GitPod](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/) and try out examples in rocket speed (or use `create-next-app` to create a brand new Next.js app with those (for example, run `pnpm create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic` to create a new Next.js app using the `basic` example))
 
 > **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `Next.js` 9.1+, and static files should only be served through the `public` directory. This makes things simpler.
 >
@@ -262,7 +262,7 @@ Add the following code to your `_document.tsx` or `_app.tsx`, in `<Head>`:
 
 Offline fallbacks are useful when fetching from both cache and network falls, as a precached resource is served rather than an error.
 
-To get started simply add a `/_offline.tsx` in your `pages/`. You are all set! When the user is offline, all pages which are not cached will fallback to '/\_offline'.
+To get started, simply add a `/_offline.tsx` file in your `pages/` directory or a `/_offline/page.tsx` file to your `app/` directory. You are all set! When the user is offline, all pages which are not cached will fallback to '/\_offline'.
 
 **[Use this example to see it in action](https://github.com/DuCanhGH/next-pwa/tree/master/examples/offline-fallback-v2)**
 
