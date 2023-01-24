@@ -16,7 +16,7 @@ pnpm start
 
 ## Recommended `.gitignore`
 
-```
+```gitignore
 **/public/workbox-*.js
 **/public/sw.js
 ```

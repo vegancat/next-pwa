@@ -11,12 +11,52 @@ export interface PluginOptions {
    */
   disable?: boolean;
   /**
-   * Allow this plugin to automatically register Service Worker for you. Set
-   * this to `false` when you want to handle register Service Worker yourself
-   * (this can be done in `componentDidMount` of your root app). You can
-   * consider
-   * [register.js](https://github.com/DuCanhGH/next-pwa/blob/master/src/register.js)
-   * an example.
+   * Allow this plugin to automatically register the Service Worker for you. Set
+   * this to `false` when you want to register the Service Worker yourself (this
+   * can be done by running `window.workbox.register()` in
+   * `componentDidMount`/`useEffect` in your app).
+   *
+   * @example
+   *   ```tsx
+   *   // app/register-pwa.tsx
+   *   "use client";
+   *   import type { Workbox } from "workbox-window";
+   *
+   *   declare global {
+   *     interface Window {
+   *       workbox: Workbox;
+   *     }
+   *   }
+   *
+   *   export default function RegisterPWA() {
+   *     useEffect(() => {
+   *       if ("serviceWorker" in navigator && window.workbox !== undefined) {
+   *         const wb = window.workbox;
+   *         wb.register();
+   *       }
+   *     }, []);
+   *     return <></>;
+   *   }
+   *
+   *   // app/layout.tsx
+   *   import RegisterPWA from "./register-pwa";
+   *
+   *   export default function RootLayout({
+   *     children,
+   *   }: {
+   *     children: React.ReactNode;
+   *   }) {
+   *     return (
+   *       <html lang="en">
+   *         <head />
+   *         <body>
+   *           <RegisterPWA />
+   *           {children}
+   *         </body>
+   *       </html>
+   *     );
+   *   }
+   *   ```
    *
    * @default true
    */
@@ -67,16 +107,26 @@ export interface PluginOptions {
    * Remember to add ! before each glob pattern for it to work :)
    *
    * @example
-   *   publicExcludes: [
-   *     "!img/super-large-image.jpg",
-   *     "!fonts/not-used-fonts.otf",
-   *   ];
+   *   ```ts
+   *   ["!img/super-large-image.jpg", "!fonts/not-used-fonts.otf"];
+   *   ```
    */
   publicExcludes?: string[];
   /**
    * One or more specifiers used to exclude assets from the precache manifest.
    * This is interpreted following the same rules as Webpack's standard exclude
-   * option. Defaults to [].
+   * option. Relative to `.next/static` or your custom build folder. Defaults to
+   * [].
+   *
+   * @example
+   *   ```ts
+   *   [/chunks\/images\/.*$/];
+   *   ```
+   *
+   * @default
+   *   ```ts
+   *   [];
+   *   ```
    */
   buildExcludes?: GenerateSWConfig["exclude"];
   /**
@@ -99,11 +149,9 @@ export interface PluginOptions {
   fallbacks?: Fallbacks;
   /**
    * Enable additional route caching when navigating through pages with
-   * `next/link` in frontend. Check this
-   * [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/cache-on-front-end-nav)
-   * for some context on why this is implemented. This improves user experience
-   * in some special cases but it also adds some overhead because of additional
-   * network calls, and this can be considered a tradeoff.
+   * `next/link` in frontend. This improves user experience in some cases but it
+   * also adds some overhead because of additional network calls, so this can be
+   * considered a tradeoff.
    *
    * @default false
    */

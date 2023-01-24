@@ -8,11 +8,11 @@ Simply add a `pages/_offline.tsx` file. You are all set! No more configuration n
 
 You can configure fallback routes for other type of resources
 
-```
+```js
 const withPWA = require("@ducanh2912/next-pwa").default({
   // ...
   fallbacks: {
-    image: '/static/images/fallback.png',
+    image: "/static/images/fallback.png",
     // document: '/other-offline',  // if you want to fallback to another page rather than /_offline
     // font: '/static/font/fallback.woff2',
     // audio: ...,
@@ -34,7 +34,7 @@ pnpm start
 
 ## Recommended `.gitignore`
 
-```
+```gitignore
 **/public/workbox-*.js
 **/public/sw.js
 **/public/fallback-*.js

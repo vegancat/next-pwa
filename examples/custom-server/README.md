@@ -20,7 +20,7 @@ pnpm start
 
 ## Recommended `.gitignore`
 
-```
+```gitignore
 **/public/precache.*.js
 **/public/sw.js
 ```

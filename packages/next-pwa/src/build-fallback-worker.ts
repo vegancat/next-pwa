@@ -205,7 +205,7 @@ const buildFallbackWorker = ({
     }
   });
 
-  return { fallbacks, name, precaches: Object.values(envs).filter((v) => !!v) };
+  return { name, precaches: Object.values(envs).filter((v) => !!v) };
 };
 
 export default buildFallbackWorker;

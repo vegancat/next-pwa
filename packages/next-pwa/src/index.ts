@@ -13,7 +13,7 @@ import WorkboxPlugin from "workbox-webpack-plugin";
 import buildCustomWorker from "./build-custom-worker";
 import buildFallbackWorker from "./build-fallback-worker";
 import defaultCache from "./cache";
-import type { Fallbacks, PluginOptions } from "./types";
+import type { PluginOptions } from "./types";
 import {
   isGenerateSWConfig,
   isInjectManifestConfig,
@@ -189,6 +189,9 @@ const withPWAInit = (
               `> [PWA] Service Worker won't be automatically registered as per the config, please call the following code in a componentDidMount callback or useEffect hook:`
             );
             console.log(`> [PWA]   window.workbox.register()`);
+            console.log(
+              `> [PWA] If you are using Typescript, you may also want to add @ducanh2912/next-pwa/register to compilerOptions.types in your tsconfig.json.`
+            );
           }
 
           console.log(`> [PWA] Service Worker: ${path.join(_dest, sw)}`);
@@ -250,8 +253,9 @@ const withPWAInit = (
             }
           }
 
-          let _fallbacks: Fallbacks | undefined = fallbacks;
-          if (_fallbacks) {
+          let hasFallbacks = false;
+
+          if (fallbacks) {
             const res = buildFallbackWorker({
               id: buildId,
               fallbacks,
@@ -263,7 +267,7 @@ const withPWAInit = (
             });
 
             if (res) {
-              _fallbacks = res.fallbacks;
+              hasFallbacks = true;
               importScripts.unshift(res.name);
               res.precaches.forEach((route) => {
                 if (
@@ -280,8 +284,6 @@ const withPWAInit = (
                   });
                 }
               });
-            } else {
-              _fallbacks = undefined;
             }
           }
 
@@ -290,7 +292,13 @@ const withPWAInit = (
             additionalManifestEntries: dev ? [] : manifestEntries,
             exclude: [
               ...buildExcludes,
-              ({ asset }) => {
+              ({
+                asset,
+              }: {
+                asset: {
+                  name: string;
+                };
+              }) => {
                 if (
                   asset.name.startsWith("server/") ||
                   asset.name.match(
@@ -402,7 +410,7 @@ const withPWAInit = (
               });
             }
 
-            if (_fallbacks) {
+            if (hasFallbacks) {
               runtimeCaching.forEach((c) => {
                 if (!c.options) return;
                 if (c.options.precacheFallback) return;

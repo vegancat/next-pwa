@@ -19,7 +19,7 @@ pnpm vapid
 
 Create a `.env` file, and put the public key generated from the previous steps
 
-```
+```shell
 WEB_PUSH_EMAIL=user@example.com
 WEB_PUSH_PRIVATE_KEY=<vapid-private-key>
 NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY=<vapid-public-key>
@@ -34,7 +34,7 @@ pnpm start
 
 ## Recommended `.gitignore`
 
-```
+```gitignore
 **/public/workbox-*.js
 **/public/sw.js
 **/public/worker-*.js

@@ -35,3 +35,6 @@ examples/*/.next
 # next-pwa
 **/public/workbox**
 **/public/sw**
+
+# ignore types.ts for next-pwa (JSDoc issue)
+packages/next-pwa/src/types.ts
