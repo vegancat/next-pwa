@@ -81,9 +81,9 @@ export default withPWA({
 
 After running `next build`, this will generate two files in your `public` directory: `workbox-*.js` and `sw.js`, which will automatically be served statically.
 
-If you are using Next.js version 9 or newer, then skip the section below and move onto Step 2.
+If you are using Next.js v9+, then skip the section below and move onto step 2.
 
-Otherwise, you'll need to pick one of the two options below before continuing to Step 2.
+Otherwise, you'll need to pick one of the two options below before continuing to step 2.
 
 ### Option 1: Hosting static files
 
@@ -165,7 +165,7 @@ Create a `manifest.json` file in your `public` folder:
 }
 ```
 
-### Step 3: Add `<meta />` and `<link />` tags to your `<head />` (Example)
+### Step 3: Add `<meta />` and `<link />` tags to your `<head />`
 
 Add the following code to your `_app.tsx`'s `<Head />`, or your root `layout.tsx`'s `<head />` if you are using appDir:
 
@@ -220,9 +220,9 @@ Add the following code to your `_app.tsx`'s `<Head />`, or your root `layout.tsx
 
 ## Offline fallbacks
 
-Offline fallbacks are useful when fetching from both cache and network falls, as a precached resource is served rather than an error.
+When fetching from both cache and network fails and offline fallbacks are enabled, a precached resource is served rather than an error.
 
-To get started, simply add a `/_offline.tsx` file in your `pages/` directory or a `/_offline/page.tsx` file to your `app/` directory. You are all set! When the user is offline, all pages which are not cached will fallback to '/\_offline'.
+To get started, simply add a `/_offline.tsx` file to your `pages/` directory or a `/_offline/page.tsx` file to your `app/` directory. You are all set! When the user is offline, all pages which are not cached will fallback to `/_offline`.
 
 **[Use this example to see it in action](/examples/offline-fallback-v2)**
 
