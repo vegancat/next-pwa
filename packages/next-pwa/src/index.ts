@@ -180,13 +180,13 @@ const withPWAInit = (
 
           if (register) {
             console.log(
-              `> [PWA] Service Worker will be automatically registered with: ${path.resolve(
+              `> [PWA] Service worker will be automatically registered with: ${path.resolve(
                 registerJs
               )}`
             );
           } else {
             console.log(
-              `> [PWA] Service Worker won't be automatically registered as per the config, please call the following code in a componentDidMount callback or useEffect hook:`
+              `> [PWA] Service worker won't be automatically registered as per the config, please call the following code in a componentDidMount callback or useEffect hook:`
             );
             console.log(`> [PWA]   window.workbox.register()`);
             console.log(
@@ -194,7 +194,7 @@ const withPWAInit = (
             );
           }
 
-          console.log(`> [PWA] Service Worker: ${path.join(_dest, sw)}`);
+          console.log(`> [PWA] Service worker: ${path.join(_dest, sw)}`);
           console.log(`> [PWA]   URL: ${_sw}`);
           console.log(`> [PWA]   Scope: ${_scope}`);
 
@@ -371,7 +371,7 @@ const withPWAInit = (
             let shutWorkboxAfterCalledMessageUp = false;
             if (dev) {
               console.log(
-                "> [PWA] Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in Service Worker."
+                "> [PWA] Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
               );
               ignoreURLParametersMatching.push(/ts/);
               runtimeCaching = [
