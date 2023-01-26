@@ -13,21 +13,21 @@ This plugin is powered by [Workbox](https://developer.chrome.com/docs/workbox/) 
 - ✨ Optimized precaching and runtime caching
 - 💯 Maximal Lighthouse score
 - 🎈 Easy-to-understand examples
-- 📴 Offline support with fallbacks ([example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/offline-fallback-v2))
+- 📴 Offline support with fallbacks ([example](/examples/offline-fallback-v2))
 - 📦 Uses [Workbox](https://developer.chrome.com/docs/workbox/) and [workbox-window](https://developer.chrome.com/docs/workbox/modules/workbox-window) v6
 - 🍪 Works with cookies out of the box
 - 🔉 Default range requests for audios and videos
-- ☕ No custom server needed for Next.js 9+ ([example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-9))
-- 🔧 Handle PWA lifecycle events (opt-in - [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/lifecycle))
-- 📐 Custom worker to run extra code with code splitting and **Typescript** support ([example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/custom-ts-worker))
-- 📜 [Public environment variables](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser) available in custom workers
+- ☕ No custom server needed for Next.js 9+ ([example](/examples/basic))
+- 🔧 Handle PWA lifecycle events (opt-in - [example](/examples/lifecycle))
+- 📐 Custom worker to run extra code with code splitting and **Typescript** support ([example](/examples/custom-worker))
+- 📜 [Public environment variables](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser) are available in custom workers
 - 🐞 Debug service worker in development mode without caching
-- 🌏 Internationalization support (a.k.a I18N) with `next-i18next` [example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/next-i18next)
-- 🛠 Configurable by the same [Workbox configuration options](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin) for [GenerateSW](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#generatesw-plugin) and [InjectManifest](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#injectmanifest-plugin)
+- 🌏 Internationalization support (a.k.a i18n) with `next-i18next` ([example](/examples/next-i18next))
+- 🛠 Configurable by [Workbox's options](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin) for [GenerateSW](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#generatesw-plugin) and [InjectManifest](https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/#injectmanifest-plugin)
 - ⚡ Supports [blitz.js](https://blitzjs.com/) (simply add `blitz.config.js`)
-- 🚀 Spin up a [GitPod](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/) and try out examples in rocket speed (or use `create-next-app` to create a brand new Next.js app with those (for example, run `pnpm create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic` to create a new Next.js app using the `basic` example))
+- 🚀 Spin up a [GitPod](https://gitpod.io/#https://github.com/DuCanhGH/next-pwa/) and try out examples in rocket speed (or use `create-next-app` to create a brand new Next.js app with them (for example, run `pnpm create next-app --example https://github.com/DuCanhGH/next-pwa/tree/master/examples/basic` to create a new Next.js app using the `basic` example))
 
-> **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `Next.js` 9.1+, and static files should only be served through the `public` directory. This makes things simpler.
+> **NOTE 1** - `next-pwa` version 2.0.0+ should only work with `Next.js` 9.1+, and static files should only be served through the `public` directory.
 >
 > **NOTE 2** - If you encounter the error `TypeError: Cannot read property **'javascript' of undefined**` during build, [please consider upgrading to Webpack 5 in `next.config.js`](https://github.com/shadowwalker/next-pwa/issues/198#issuecomment-817205700).
 >
@@ -51,11 +51,11 @@ npm i @ducanh2912/next-pwa
 
 ## Basic usage
 
-### Step 1: withPWA
+### Step 1: Wrap your Next config with `withPWA`
 
-Update or create `next.config.js` with
+Update or create your `next.config.js` with
 
-```javascript
+```js
 const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
 });
@@ -67,7 +67,7 @@ module.exports = withPWA({
 
 or if you prefer ESM:
 
-```javascript
+```js
 import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
@@ -272,7 +272,7 @@ export default withPWA({
 
 ### Available options
 
-See [PluginOptions](./src/types.ts?plain=1#L5)
+See [PluginOptions](/packages/next-pwa/src/types.ts?plain=1#L5)
 
 ### Other options
 
@@ -280,7 +280,7 @@ See [PluginOptions](./src/types.ts?plain=1#L5)
 
 ### Runtime caching
 
-`next-pwa` has a default runtime caching array, see: [cache.ts](./src/cache.ts)
+`next-pwa` has a default runtime caching array, see: [cache.ts](/packages/next-pwa/src/cache.ts)
 
 There is a chance you may want to have your own runtime caching rules. Please feel free to copy the default `cache.ts` file and customize the rules as you like. Don't forget to change your `withPWAInit` config in `next.config.js` like so:
 
@@ -305,7 +305,7 @@ Here is [the documentation on how to write a runtime caching array](https://deve
 
 ## Tips
 
-See [our tips on using `next-pwa`](./TIPS.md)
+See [our tips on using `next-pwa`](/packages/next-pwa/TIPS.md)
 
 ## Reference
 
