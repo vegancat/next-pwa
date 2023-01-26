@@ -18,8 +18,8 @@ export default function Index() {
       });
 
       wb.addEventListener("waiting", () => {
-        // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated Service Worker is waiting.
-        // When `event.wasWaitingBeforeRegister` is true, a previously updated Service Worker is still waiting.
+        // `event.wasWaitingBeforeRegister` will be false if this is the first time the updated service worker is waiting.
+        // When `event.wasWaitingBeforeRegister` is true, a previously updated service worker is still waiting.
         // You may want to customize the UI prompt accordingly.
         // https://developer.chrome.com/docs/workbox/handling-service-worker-updates/#the-code-to-put-in-your-page
         if (
@@ -31,7 +31,7 @@ export default function Index() {
             window.location.reload();
           });
 
-          // Send a message to the waiting Service Worker, instructing it to activate.
+          // Send a message to the waiting service worker, instructing it to activate.
           wb.messageSkipWaiting();
         } else {
           console.log(

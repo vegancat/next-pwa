@@ -2,13 +2,13 @@
 
 [TOC]
 
-This example demonstrates how to use `next-pwa` to turn a `Next.js`-based web app into a PWA easily. It shows how to add custom worker code to the generated Service Worker.
+This example demonstrates how to use `next-pwa` to turn a `Next.js`-based web app into a PWA easily. It shows how to add custom worker code to the generated service worker.
 
 ## New method
 
 Simply create a new file called `worker/index.ts` and start adding your code. `next-pwa` will detect this file automatically, and bundle the file into `dest` as `worker-*.js` using `webpack`. It's also automatically injected into the generated `sw.js`.
 
-In this way, you get the benefit of code splitting and size minimization automatically. Yes, `require` modules works! Yes, you can share code between your web app and the Service Worker!
+In this way, you get the benefit of code splitting and size minimization automatically. Yes, `require` modules works! Yes, you can share code between your web app and the service worker!
 
 > - In dev mode, `worker/index.ts` is not watched, so it will not hot reload.
 
@@ -44,7 +44,7 @@ module.exports = withPWA({
 });
 ```
 
-Then the generated Service Worker will automatically import your code and run it before other workbox code.
+Then the generated service worker will automatically import your code and run it before other workbox code.
 
 ## Usage
 

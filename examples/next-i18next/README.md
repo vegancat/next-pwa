@@ -8,7 +8,7 @@ It uses `express` to build a custom server and [`next-i18next`](https://github.c
 
 > `i18next-express-middleware` is not compatible with `fastify` right now unfortunately.
 
-Because Service Worker must be served without any redirection, make sure its route is excluded from the i18n middleware. See `index.js` for an example.
+Because service worker must be served without any redirection, make sure its route is excluded from the i18n middleware. See `index.js` for an example.
 
 ## Usage
 
