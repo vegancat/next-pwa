@@ -1,5 +1,8 @@
 {
   "extends": "tsconfig/base",
+  "compilerOptions": {
+    "module": "NodeNext"
+  },
   "include": ["globals.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,33 +1,23 @@
 // @ts-check
+/**
+ * @typedef {{
+ *   input: import("rollup").InputOption;
+ *   output:
+ *     | import("rollup").OutputOptions
+ *     | import("rollup").OutputOptions[]
+ *     | undefined;
+ *   externalPackages?: import("rollup").ExternalOption;
+ *   additionalPlugins?: import("rollup").InputPluginOption;
+ * }} FileEntry
+ */
 import json from "@rollup/plugin-json";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 
-const commonConfig = defineConfig({
-  watch: {
-    chokidar: {
-      usePolling: false,
-    },
-  },
-});
-
-/** @type {import("rollup").InputPluginOption} */
-const plugins = [
-  typescript({
-    noForceEmit: true,
-    noEmitOnError: true,
-    outDir: "dist",
-    declaration: true,
-    noEmit: false,
-  }),
-  json(),
-  ...[process.env.NODE_ENV === "production" ? [terser()] : []],
-];
-
-export default [
-  defineConfig({
-    ...commonConfig,
+/** @type {readonly FileEntry[]} */
+const files = [
+  {
     input: "src/index.ts",
     output: [
       {
@@ -44,8 +34,7 @@ export default [
         format: "esm",
       },
     ],
-    plugins,
-    external: [
+    externalPackages: [
       "clean-webpack-plugin",
       "terser-webpack-plugin",
       "workbox-webpack-plugin",
@@ -57,24 +46,46 @@ export default [
       "fast-glob",
       "workbox-window",
     ],
-  }),
-  defineConfig({
-    ...commonConfig,
+  },
+  {
     input: "src/fallback.ts",
     output: {
       file: "dist/fallback.js",
       format: "cjs",
     },
-    plugins,
-  }),
-  defineConfig({
-    ...commonConfig,
+  },
+  {
     input: "src/register.ts",
     output: {
       file: "dist/register.js",
       format: "esm",
     },
-    plugins,
-    external: ["workbox-window"],
-  }),
+    externalPackages: ["workbox-window"],
+  },
 ];
+
+export default files.map(
+  ({ input, output, externalPackages, additionalPlugins }) =>
+    defineConfig({
+      input,
+      output,
+      external: externalPackages,
+      watch: {
+        chokidar: {
+          usePolling: false,
+        },
+      },
+      plugins: [
+        typescript({
+          noForceEmit: true,
+          noEmitOnError: true,
+          outDir: "dist",
+          declaration: true,
+          noEmit: false,
+        }),
+        json(),
+        ...[process.env.NODE_ENV === "production" ? [terser()] : []],
+        ...[additionalPlugins ?? []],
+      ],
+    })
+);
