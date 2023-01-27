@@ -53,4 +53,5 @@ const fallback = async (request: Request) => {
 
 self.fallback = fallback;
 
+// Since `compilerOptions.isolatedModules` is set to `true`.
 export {};

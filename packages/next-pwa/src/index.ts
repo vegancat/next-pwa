@@ -10,15 +10,15 @@ import type { RuntimeCaching } from "workbox-build";
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 import WorkboxPlugin from "workbox-webpack-plugin";
 
-import buildCustomWorker from "./build-custom-worker";
-import buildFallbackWorker from "./build-fallback-worker";
-import defaultCache from "./cache";
-import type { PluginOptions } from "./types";
+import buildCustomWorker from "./build-custom-worker.js";
+import buildFallbackWorker from "./build-fallback-worker.js";
+import defaultCache from "./cache.js";
+import type { PluginOptions } from "./types.js";
 import {
   isGenerateSWConfig,
   isInjectManifestConfig,
   overrideAfterCalledMethod,
-} from "./utils";
+} from "./utils.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
@@ -462,4 +462,4 @@ const withPWAInit = (
 
 export default withPWAInit;
 export { defaultCache as runtimeCaching };
-export * from "./types";
+export * from "./types.js";

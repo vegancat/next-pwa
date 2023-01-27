@@ -1,6 +1,6 @@
 import type { GenerateSW, InjectManifest } from "workbox-webpack-plugin";
 
-import type { WorkboxTypes } from "./private_types";
+import type { WorkboxTypes } from "./private_types.js";
 
 export const overrideAfterCalledMethod = (
   workboxPlugin: InjectManifest | GenerateSW
