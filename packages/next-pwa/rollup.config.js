@@ -1,14 +1,9 @@
 // @ts-check
 /**
- * @typedef {{
- *   input: import("rollup").InputOption;
- *   output:
- *     | import("rollup").OutputOptions
- *     | import("rollup").OutputOptions[]
- *     | undefined;
- *   externalPackages?: import("rollup").ExternalOption;
- *   additionalPlugins?: import("rollup").InputPluginOption;
- * }} FileEntry
+ * @typedef {Pick<
+ *   import("rollup").RollupOptions,
+ *   "input" | "output" | "external" | "plugins"
+ * >} FileEntry
  */
 import json from "@rollup/plugin-json";
 import terser from "@rollup/plugin-terser";
@@ -34,7 +29,7 @@ const files = [
         format: "esm",
       },
     ],
-    externalPackages: [
+    external: [
       "clean-webpack-plugin",
       "terser-webpack-plugin",
       "workbox-webpack-plugin",
@@ -60,32 +55,31 @@ const files = [
       file: "dist/register.js",
       format: "esm",
     },
-    externalPackages: ["workbox-window"],
+    external: ["workbox-window"],
   },
 ];
 
-export default files.map(
-  ({ input, output, externalPackages, additionalPlugins }) =>
-    defineConfig({
-      input,
-      output,
-      external: externalPackages,
-      watch: {
-        chokidar: {
-          usePolling: false,
-        },
+export default files.map(({ input, output, external, plugins }) =>
+  defineConfig({
+    input,
+    output,
+    external,
+    watch: {
+      chokidar: {
+        usePolling: false,
       },
-      plugins: [
-        typescript({
-          noForceEmit: true,
-          noEmitOnError: true,
-          outDir: "dist",
-          declaration: true,
-          noEmit: false,
-        }),
-        json(),
-        ...[process.env.NODE_ENV === "production" ? [terser()] : []],
-        ...[additionalPlugins ?? []],
-      ],
-    })
+    },
+    plugins: [
+      typescript({
+        noForceEmit: true,
+        noEmitOnError: true,
+        outDir: "dist",
+        declaration: true,
+        noEmit: false,
+      }),
+      json(),
+      ...[process.env.NODE_ENV === "production" ? [terser()] : []],
+      ...[plugins ?? []],
+    ],
+  })
 );
