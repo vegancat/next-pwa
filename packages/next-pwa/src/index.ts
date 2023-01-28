@@ -75,6 +75,10 @@ const withPWAInit = (
           ...workbox
         } = workboxOptions;
 
+        if (typeof nextConfig.webpack === "function") {
+          config = nextConfig.webpack(config, options);
+        }
+
         Object.keys(workbox).forEach(
           (key) =>
             workbox[key as keyof typeof workbox] === undefined &&
@@ -450,9 +454,6 @@ const withPWAInit = (
 
             config.plugins.push(workboxPlugin);
           }
-        }
-        if (typeof nextConfig.webpack === "function") {
-          return nextConfig.webpack(config, options);
         }
         return config;
       },
