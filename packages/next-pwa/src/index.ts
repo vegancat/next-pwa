@@ -175,6 +175,7 @@ const withPWAInit = (
             plugins: config.plugins.filter(
               (plugin) => plugin instanceof webpack.DefinePlugin
             ),
+            webpackResolve: config.resolve,
             minify: !dev,
           });
 

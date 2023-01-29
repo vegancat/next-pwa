@@ -13,6 +13,6 @@
   - Reduced logging noise as the production build doesn't include logging.
   - Improved performance as the production build is better optimized.
 
-  However, if you just want to disable worker box's logging while still using the development build during development, [simply put `self.__WB_DISABLE_DEV_LOGS = true` in your `worker/index.ts` (create one if you don't have it)](/examples/custom-worker/worker/index.ts#L5-L8).
+  However, if you just want to disable worker box's logging while still using the development build during development, [simply put `self.__WB_DISABLE_DEV_LOGS = true` in your `worker/index.ts` (create one if you don't have it)](/examples/custom-worker/worker/index.ts#L7-L10).
 
 - Sometimes you have to use the `userAgent` string to determine your user's platform, and [ua-parser-js](https://www.npmjs.com/package/ua-parser-js) is a good library for that.

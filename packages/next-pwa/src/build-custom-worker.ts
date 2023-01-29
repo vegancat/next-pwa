@@ -13,6 +13,7 @@ const buildCustomWorker = ({
   customWorkerDir,
   destDir,
   plugins,
+  webpackResolve,
   minify,
 }: {
   id: string;
@@ -20,6 +21,7 @@ const buildCustomWorker = ({
   customWorkerDir: string;
   destDir: string;
   plugins: Configuration["plugins"];
+  webpackResolve: Configuration["resolve"];
   minify: boolean;
 }) => {
   let workerDir = "";
@@ -62,6 +64,7 @@ const buildCustomWorker = ({
       main: customWorkerEntry,
     },
     resolve: {
+      ...(webpackResolve ?? {}),
       extensions: [".ts", ".js"],
       fallback: {
         module: false,
