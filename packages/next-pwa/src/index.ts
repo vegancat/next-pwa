@@ -45,7 +45,12 @@ const withPWAInit = (
         } = options;
 
         let basePath = options.config.basePath;
-        if (!basePath) basePath = "/";
+
+        // basePath can be an empty string.
+        if (!basePath) {
+          basePath = "/";
+        }
+
         // For workbox configurations:
         // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-webpack-plugin.GenerateSW
         const {
@@ -63,7 +68,6 @@ const withPWAInit = (
           reloadOnOnline = true,
           scope = basePath,
           customWorkerDir = "worker",
-          subdomainPrefix, // deprecated, use basePath in next.config.js instead
           workboxOptions = {},
         } = pluginOptions;
 
@@ -97,12 +101,6 @@ const withPWAInit = (
           return config;
         }
 
-        if (subdomainPrefix) {
-          console.error(
-            "> [PWA] subdomainPrefix is deprecated, please use basePath in next.config.js instead: https://nextjs.org/docs/api-reference/next.config.js/basepath"
-          );
-        }
-
         console.log(
           `> [PWA] Compiling for ${
             options.isServer ? "server" : "client (static)"
@@ -111,6 +109,9 @@ const withPWAInit = (
 
         if (isGenerateSWConfig(workboxOptions)) {
           if (workboxOptions.runtimeCaching) {
+            console.log(
+              "> [PWA] Custom runtimeCaching array found, using it instead of the default one."
+            );
             runtimeCaching = workboxOptions.runtimeCaching;
           }
           if (workboxOptions.importScripts) {

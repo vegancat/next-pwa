@@ -46,23 +46,22 @@ if (
             headers: response.headers,
           });
         }
-
         await cache.put(__PWA_START_URL__, _response);
       }
     });
   }
 
   window.workbox.addEventListener("installed", async () => {
-    const data = window.performance
-      .getEntriesByType("resource")
-      .map((e) => e.name)
-      .filter(
-        (n) =>
-          n.startsWith(`${window.location.origin}/_next/data/`) &&
-          n.endsWith(".json")
-      );
-    const cache = await caches.open("next-data");
-    data.forEach((d) => cache.add(d));
+    const nextDataCache = await caches.open("next-data");
+    window.performance.getEntriesByType("resource").forEach((entry) => {
+      const entryName = entry.name;
+      if (
+        entryName.startsWith(`${window.location.origin}/_next/data/`) &&
+        entryName.endsWith(".json")
+      ) {
+        nextDataCache.add(entryName);
+      }
+    });
   });
 
   if (__PWA_ENABLE_REGISTER__) {
@@ -71,12 +70,15 @@ if (
 
   if (__PWA_CACHE_ON_FRONT_END_NAV__ || __PWA_START_URL__) {
     const cacheOnFrontEndNav = (url?: URL | RequestInfo | null) => {
-      if (!window.navigator.onLine) return;
-      if (!url) return;
+      if (!window.navigator.onLine || !url) {
+        return;
+      }
       if (__PWA_CACHE_ON_FRONT_END_NAV__ && url !== __PWA_START_URL__) {
         return caches.open("others").then((cache) =>
           cache.match(url, { ignoreSearch: true }).then((res) => {
-            if (!res) return cache.add(url);
+            if (!res) {
+              return cache.add(url);
+            }
             return Promise.resolve();
           })
         );

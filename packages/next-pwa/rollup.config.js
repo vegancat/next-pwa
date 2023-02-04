@@ -10,6 +10,8 @@ import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 /** @type {readonly FileEntry[]} */
 const files = [
   {
@@ -72,7 +74,7 @@ export default files.map(({ input, output, external, plugins }) =>
     plugins: [
       typescript({
         noForceEmit: true,
-        noEmitOnError: true,
+        noEmitOnError: !isDev,
         outDir: "dist",
         declaration: true,
         noEmit: false,

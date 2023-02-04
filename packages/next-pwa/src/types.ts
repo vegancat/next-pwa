@@ -182,14 +182,6 @@ export interface PluginOptions {
    * @default true
    */
   reloadOnOnline?: boolean;
-  /**
-   * URL prefix to allow hosting static files on a subdomain. Defaults to root
-   * URL. For example, use `/subdomain` if the app is hosted on
-   * `https://www.example.com/subdomain`.
-   *
-   * @deprecated Use `basePath` in `next.config.js` instead.
-   */
-  subdomainPrefix?: string;
   /** Pass options to `workbox-webpack-plugin` */
   workboxOptions?: WorkboxTypes[keyof WorkboxTypes];
 }
