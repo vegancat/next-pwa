@@ -38,6 +38,3 @@ examples/*/.next
 **/public/worker**
 **/public/fallback**
 **/public/precache**
-
-# ignore types.ts for next-pwa (JSDoc issue)
-packages/next-pwa/src/types.ts

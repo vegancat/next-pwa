@@ -85,6 +85,8 @@ If you are using Next.js v9+, then skip the section below and move onto step 2.
 
 Otherwise, you'll need to pick one of the two options below before continuing to step 2.
 
+> **NOTE**: This plugin is written in Typescript. JSDoc is supported, and it is recommended to add `// @ts-check` to the top of your `next.config.js` file to leverage type checking as well. This is especially useful when you use `PluginOptions.workboxOptions`, as you may unknowningly mix InjectManifest-specific and GenerateSW-specific options up.
+
 ### Option 1: Hosting static files
 
 Copy files to your static file hosting server, so that they are accessible from the following paths: `https://yourdomain.com/sw.js` and `https://yourdomain.com/workbox-*.js`.

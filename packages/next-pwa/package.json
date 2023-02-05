@@ -17,8 +17,8 @@
       "require": "./dist/ducanh2912-next-pwa.cjs",
       "default": "./dist/ducanh2912-next-pwa.modern.mjs"
     },
-    "./register": {
-      "types": "./dist/register.d.ts"
+    "./workbox": {
+      "types": "./dist/sw-entry.d.ts"
     }
   },
   "main": "./dist/ducanh2912-next-pwa.cjs",
@@ -26,8 +26,8 @@
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "register": [
-        "./dist/register.d.ts"
+      "workbox": [
+        "./dist/sw-entry.d.ts"
       ]
     }
   },
@@ -49,6 +49,7 @@
     "fast-glob": "3.2.12",
     "terser-webpack-plugin": "5.3.6",
     "workbox-build": "6.5.4",
+    "workbox-core": "6.5.4",
     "workbox-webpack-plugin": "6.5.4",
     "workbox-window": "6.5.4"
   },
@@ -58,11 +59,11 @@
     "@rollup/plugin-terser": "0.4.0",
     "@rollup/plugin-typescript": "11.0.0",
     "@swc/core": "1.3.32",
-    "@types/node": "18.11.18",
+    "@types/node": "18.11.19",
     "rollup": "3.13.0",
     "swc-loader": "0.2.3",
     "tsconfig": "workspace:*",
-    "typescript": "5.0.0-beta",
+    "typescript": "5.0.0-dev.20230204",
     "webpack": "5.75.0"
   },
   "peerDependencies": {

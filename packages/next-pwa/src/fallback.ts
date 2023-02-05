@@ -1,4 +1,4 @@
-const fallback = async (request: Request) => {
+self.fallback = async (request) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/RequestDestination
   switch (request.destination) {
     case "document":
@@ -51,7 +51,5 @@ const fallback = async (request: Request) => {
   }
 };
 
-self.fallback = fallback;
-
-// Since `compilerOptions.isolatedModules` is set to `true`.
+// Mark file as module.
 export {};

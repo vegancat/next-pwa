@@ -6,13 +6,14 @@
  * >} FileEntry
  */
 import json from "@rollup/plugin-json";
+import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 
 const isDev = process.env.NODE_ENV !== "production";
 
-/** @type {readonly FileEntry[]} */
+/** @type {FileEntry[]} */
 const files = [
   {
     input: "src/index.ts",
@@ -52,9 +53,9 @@ const files = [
     },
   },
   {
-    input: "src/register.ts",
+    input: "src/sw-entry.ts",
     output: {
-      file: "dist/register.js",
+      file: "dist/sw-entry.js",
       format: "esm",
     },
     external: ["workbox-window"],
@@ -72,6 +73,7 @@ export default files.map(({ input, output, external, plugins }) =>
       },
     },
     plugins: [
+      nodeResolve(),
       typescript({
         noForceEmit: true,
         noEmitOnError: !isDev,

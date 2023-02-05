@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 import webpack from "webpack";
 
 import swcRc from "./.swcrc.json";
-import type { Fallbacks } from "./types.js";
+import type { FallbackRoutes } from "./types.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
@@ -17,7 +17,7 @@ const getFallbackEnvs = ({
   pageExtensions,
   isAppDirEnabled,
 }: {
-  fallbacks: Fallbacks;
+  fallbacks: FallbackRoutes;
   baseDir: string;
   id: string;
   pageExtensions: readonly string[];
@@ -122,7 +122,7 @@ const buildFallbackWorker = ({
   isAppDirEnabled,
 }: {
   id: string;
-  fallbacks: Fallbacks;
+  fallbacks: FallbackRoutes;
   baseDir: string;
   destDir: string;
   minify: boolean;

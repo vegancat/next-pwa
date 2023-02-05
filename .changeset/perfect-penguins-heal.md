@@ -2,7 +2,7 @@
 "@ducanh2912/next-pwa": patch
 ---
 
-chore(deps), removed subdomainPrefix & cleaned up some code
+chore(deps, code): updated all deps, cleaned up some code, removed subdomainPrefix.
 
 - This will remove subdomainPrefix from types.ts, but it will only trigger TS if you still have that option, because it stopped doing anything ages ago.
 

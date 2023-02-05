@@ -18,7 +18,7 @@ if (
   typeof caches !== "undefined"
 ) {
   if (__PWA_START_URL__) {
-    caches.has("start-url").then(function (has) {
+    caches.has("start-url").then((has) => {
       if (!has) {
         caches
           .open("start-url")
@@ -69,7 +69,7 @@ if (
   }
 
   if (__PWA_CACHE_ON_FRONT_END_NAV__ || __PWA_START_URL__) {
-    const cacheOnFrontEndNav = (url?: URL | RequestInfo | null) => {
+    const cacheOnFrontEndNav = (url?: string | URL | null | undefined) => {
       if (!window.navigator.onLine || !url) {
         return;
       }
@@ -96,17 +96,13 @@ if (
     };
 
     const pushState = history.pushState;
-    history.pushState = function (
-      ...args: Parameters<typeof history.pushState>
-    ) {
+    history.pushState = (...args: Parameters<typeof history.pushState>) => {
       pushState.apply(history, args);
       cacheOnFrontEndNav(args[2]);
     };
 
     const replaceState = history.replaceState;
-    history.replaceState = function (
-      ...args: Parameters<typeof history.pushState>
-    ) {
+    history.replaceState = (...args: Parameters<typeof history.pushState>) => {
       replaceState.apply(history, args);
       cacheOnFrontEndNav(args[2]);
     };

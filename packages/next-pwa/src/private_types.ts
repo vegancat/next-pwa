@@ -26,20 +26,31 @@ type GenerateSWOverrideJSDoc = {
   ignoreURLParametersMatching?: GenerateSWConfig["ignoreURLParametersMatching"];
 };
 
+export type SharedWorkboxOptionsKeys = keyof GenerateSWConfig &
+  keyof WebpackInjectManifestOptions;
+
+export type BlockedSharedWorkboxOptionsKeys = Extract<
+  SharedWorkboxOptionsKeys,
+  "exclude"
+>;
+
 export type WorkboxTypes = {
-  GenerateSW: Impossible<
-    Exclude<
-      keyof WebpackInjectManifestOptions,
-      Extract<keyof GenerateSWConfig, keyof WebpackInjectManifestOptions>
-    >
-  > &
-    GenerateSWConfig &
-    GenerateSWOverrideJSDoc;
-  InjectManifest: Impossible<
-    Exclude<
-      keyof GenerateSWConfig,
-      Extract<keyof WebpackInjectManifestOptions, keyof GenerateSWConfig>
-    >
-  > &
-    WebpackInjectManifestOptions;
+  GenerateSW: Omit<
+    Impossible<
+      Exclude<keyof WebpackInjectManifestOptions, SharedWorkboxOptionsKeys>
+    > &
+      GenerateSWConfig &
+      GenerateSWOverrideJSDoc,
+    BlockedSharedWorkboxOptionsKeys
+  >;
+  InjectManifest: Omit<
+    Impossible<Exclude<keyof GenerateSWConfig, SharedWorkboxOptionsKeys>> &
+      WebpackInjectManifestOptions,
+    BlockedSharedWorkboxOptionsKeys
+  >;
 };
+
+export type StringKeyOf<BaseType> = `${Extract<
+  keyof BaseType,
+  string | number
+>}`;

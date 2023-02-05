@@ -13,6 +13,7 @@ import WorkboxPlugin from "workbox-webpack-plugin";
 import buildCustomWorker from "./build-custom-worker.js";
 import buildFallbackWorker from "./build-fallback-worker.js";
 import defaultCache from "./cache.js";
+import type { SharedWorkboxOptionsKeys } from "./private_types.js";
 import type { PluginOptions } from "./types.js";
 import {
   isGenerateSWConfig,
@@ -76,6 +77,8 @@ const withPWAInit = (
           additionalManifestEntries,
           modifyURLPrefix = {},
           manifestTransforms = [],
+          // @ts-expect-error removed from types
+          exclude,
           ...workbox
         } = workboxOptions;
 
@@ -84,9 +87,7 @@ const withPWAInit = (
         }
 
         Object.keys(workbox).forEach(
-          (key) =>
-            workbox[key as keyof typeof workbox] === undefined &&
-            delete workbox[key as keyof typeof workbox]
+          (key) => workbox[key] === undefined && delete workbox[key]
         );
 
         let importScripts: string[] = [];
@@ -137,30 +138,27 @@ const withPWAInit = (
           })
         );
 
-        const registerJs = path.join(__dirname, "register.js");
+        const swEntryJs = path.join(__dirname, "sw-entry.js");
         const entry = config.entry as () => Promise<
           Record<string, string[] | string>
         >;
         config.entry = () =>
           entry().then((entries) => {
-            if (
-              entries["main.js"] &&
-              !entries["main.js"].includes(registerJs)
-            ) {
+            if (entries["main.js"] && !entries["main.js"].includes(swEntryJs)) {
               if (Array.isArray(entries["main.js"])) {
-                entries["main.js"].unshift(registerJs);
+                entries["main.js"].unshift(swEntryJs);
               } else if (typeof entries["main.js"] === "string") {
-                entries["main.js"] = [registerJs, entries["main.js"]];
+                entries["main.js"] = [swEntryJs, entries["main.js"]];
               }
             }
             if (
               entries["main-app"] &&
-              !entries["main-app"].includes(registerJs)
+              !entries["main-app"].includes(swEntryJs)
             ) {
               if (Array.isArray(entries["main-app"])) {
-                entries["main-app"].unshift(registerJs);
+                entries["main-app"].unshift(swEntryJs);
               } else if (typeof entries["main-app"] === "string") {
-                entries["main-app"] = [registerJs, entries["main-app"]];
+                entries["main-app"] = [swEntryJs, entries["main-app"]];
               }
             }
             return entries;
@@ -187,7 +185,7 @@ const withPWAInit = (
           if (register) {
             console.log(
               `> [PWA] Service worker will be automatically registered with: ${path.resolve(
-                registerJs
+                swEntryJs
               )}`
             );
           } else {
@@ -196,7 +194,7 @@ const withPWAInit = (
             );
             console.log(`> [PWA]   window.workbox.register()`);
             console.log(
-              `> [PWA] If you are using Typescript, you may also want to add @ducanh2912/next-pwa/register to compilerOptions.types in your tsconfig.json.`
+              `> [PWA] You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json.`
             );
           }
 
@@ -293,7 +291,10 @@ const withPWAInit = (
             }
           }
 
-          const workboxCommon: GenerateSWConfig = {
+          const workboxCommon: Pick<
+            GenerateSWConfig,
+            SharedWorkboxOptionsKeys
+          > = {
             swDest: path.join(_dest, sw),
             additionalManifestEntries: dev ? [] : manifestEntries,
             exclude: [
@@ -355,6 +356,7 @@ const withPWAInit = (
               },
             ],
           };
+
           if (isInjectManifestConfig(workboxOptions)) {
             const swSrc = path.join(options.dir, workboxOptions.swSrc);
             console.log(`> [PWA] Using InjectManifest with ${swSrc}`);
@@ -375,6 +377,7 @@ const withPWAInit = (
               ignoreURLParametersMatching = [],
             } = workboxOptions;
             let shutWorkboxAfterCalledMessageUp = false;
+
             if (dev) {
               console.log(
                 "> [PWA] Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
@@ -417,18 +420,20 @@ const withPWAInit = (
             }
 
             if (hasFallbacks) {
-              runtimeCaching.forEach((c) => {
-                if (!c.options) return;
-                if (c.options.precacheFallback) return;
+              runtimeCaching.forEach((cacheEntry) => {
+                if (!cacheEntry.options) return;
+                if (cacheEntry.options.precacheFallback) return;
                 if (
-                  Array.isArray(c.options.plugins) &&
-                  c.options.plugins.find((p) => "handlerDidError" in p)
+                  Array.isArray(cacheEntry.options.plugins) &&
+                  cacheEntry.options.plugins.find(
+                    (plugin) => "handlerDidError" in plugin
+                  )
                 )
                   return;
-                if (!c.options.plugins) {
-                  c.options.plugins = [];
+                if (!cacheEntry.options.plugins) {
+                  cacheEntry.options.plugins = [];
                 }
-                c.options.plugins.push({
+                cacheEntry.options.plugins.push({
                   handlerDidError: async ({ request }) => {
                     if (typeof self !== "undefined") {
                       return self.fallback(request);

@@ -57,7 +57,6 @@ export interface PluginOptions {
    *     );
    *   }
    *   ```
-   *
    * @default true
    */
   register?: boolean;
@@ -70,7 +69,7 @@ export interface PluginOptions {
    */
   dest?: string;
   /**
-   * service worker script's filename. Set to a string if you want to customize
+   * Service worker script's filename. Set to a string if you want to customize
    * the output filename.
    *
    * @default "/sw.js"
@@ -122,7 +121,6 @@ export interface PluginOptions {
    *   ```ts
    *   [/chunks\/images\/.*$/];
    *   ```
-   *
    * @default
    *   ```ts
    *   [];
@@ -138,15 +136,8 @@ export interface PluginOptions {
    * simply create a `/_offline.tsx` file in your `pages/` dir or a
    * `/_offline/page.tsx` file in your `app/` dir and you are all set, no
    * configuration necessary.
-   *
-   * - `fallbacks.document` - fallback route for document (pages), defaults to
-   *   `/_offline` if that page exists.
-   * - `fallbacks.image` - fallback route for images, defaults to none.
-   * - `fallbacks.audio` - fallback route for audios, defaults to none.
-   * - `fallbacks.video` - fallback route for videos, defaults to none.
-   * - `fallbacks.font` - fallback route for fonts, defaults to none.
    */
-  fallbacks?: Fallbacks;
+  fallbacks?: FallbackRoutes;
   /**
    * Enable additional route caching when navigating through pages with
    * `next/link` in frontend. This improves user experience in some cases but it
@@ -182,15 +173,52 @@ export interface PluginOptions {
    * @default true
    */
   reloadOnOnline?: boolean;
-  /** Pass options to `workbox-webpack-plugin` */
+  /**
+   * Pass options to `workbox-webpack-plugin`. This one relies on
+   * `workbox-webpack-plugin`'s own JSDoc, so some information may not be
+   * exactly correct.
+   */
   workboxOptions?: WorkboxTypes[keyof WorkboxTypes];
 }
 
-export interface Fallbacks {
+export interface FallbackRoutes {
+  /**
+   * Fallback route for document (pages).
+   *
+   * @default
+   *   ```js
+   *   "/_offline" // or none if it doesn't exist.
+   *   ```
+   */
   document?: string;
+  /**
+   * Fallback route for data, defaults to none.
+   *
+   * @default undefined
+   */
   data?: string;
+  /**
+   * Fallback route for images, defaults to none.
+   *
+   * @default undefined
+   */
   image?: string;
+  /**
+   * Fallback route for audios, defaults to none.
+   *
+   * @default undefined
+   */
   audio?: string;
+  /**
+   * Fallback route for videos, defaults to none.
+   *
+   * @default undefined
+   */
   video?: string;
+  /**
+   * Fallback route for fonts, defaults to none.
+   *
+   * @default undefined
+   */
   font?: string;
 }
