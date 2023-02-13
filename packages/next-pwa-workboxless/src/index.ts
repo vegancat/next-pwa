@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 import type { Configuration, default as Webpack } from "webpack";
 
+import { info } from "./logger.js";
 import type { PluginOptions } from "./types.js";
 
-export const withPWAInit = (
-  pluginOptions: PluginOptions
+const withPWAInit = (
+  pluginOptions: PluginOptions = {}
 ): ((_?: NextConfig) => NextConfig) => {
   return (nextConfig: NextConfig = {}) => ({
     ...nextConfig,
@@ -13,6 +14,8 @@ export const withPWAInit = (
         //const isAppDirEnabled = !!nextConfig.experimental?.appDir;
 
         const { disable = false, register = true } = pluginOptions;
+
+        const { dev } = options;
 
         const webpack: typeof Webpack = options.webpack;
 
@@ -28,15 +31,19 @@ export const withPWAInit = (
         }
 
         if (disable) {
-          options.isServer && console.log("> [PWA] PWA support is disabled.");
+          options.isServer && info("PWA support is disabled.");
           return config;
         }
 
-        console.log(
-          `> [PWA] Compiling for ${
-            options.isServer ? "server" : "client (static)"
-          }...`
+        info(
+          `Compiling for ${options.isServer ? "server" : "client (static)"}...`
         );
+
+        if (dev) {
+          info(
+            "Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
+          );
+        }
 
         if (!config.plugins) {
           config.plugins = [];
@@ -53,3 +60,5 @@ export const withPWAInit = (
     },
   });
 };
+
+export default withPWAInit;

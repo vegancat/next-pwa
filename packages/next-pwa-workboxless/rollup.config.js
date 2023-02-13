@@ -32,18 +32,8 @@ const files = [
         format: "esm",
       },
     ],
-    external: [
-      "clean-webpack-plugin",
-      "terser-webpack-plugin",
-      "workbox-webpack-plugin",
-      "webpack",
-      "crypto",
-      "fs",
-      "path",
-      "url",
-      "fast-glob",
-      "workbox-window",
-    ],
+    // chalk should be bundled with the package to work with CJS.
+    external: ["webpack"],
   },
   {
     input: "src/sw.ts",
@@ -73,7 +63,9 @@ export default files.map(({ input, output, external, plugins }) =>
       },
     },
     plugins: [
-      nodeResolve(),
+      nodeResolve({
+        exportConditions: ["node"],
+      }),
       typescript({
         noForceEmit: true,
         noEmitOnError: !isDev,
