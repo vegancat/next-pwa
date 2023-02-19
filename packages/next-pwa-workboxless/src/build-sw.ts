@@ -1,3 +1,4 @@
+import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
@@ -6,6 +7,7 @@ import webpack from "webpack";
 import swcRc from "./.swcrc.json";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
+const require = createRequire(import.meta.url);
 
 export const buildSW = ({
   id,
@@ -42,6 +44,11 @@ export const buildSW = ({
         tls: false,
         zlib: false,
         child_process: false,
+      },
+    },
+    resolveLoader: {
+      alias: {
+        "swc-loader": require.resolve("swc-loader"),
       },
     },
     module: {

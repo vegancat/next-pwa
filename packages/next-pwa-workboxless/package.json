@@ -53,7 +53,6 @@
     "chalk": "5.2.0",
     "clean-webpack-plugin": "4.0.0",
     "rollup": "3.13.0",
-    "swc-loader": "0.2.3",
     "terser-webpack-plugin": "5.3.6",
     "tsconfig": "workspace:*",
     "typescript": "5.0.0-dev.20230204",
@@ -61,12 +60,6 @@
   },
   "peerDependencies": {
     "next": ">=9.1.0",
-    "swc-loader": "0.x",
     "webpack": ">=5.9.0"
-  },
-  "peerDependenciesMeta": {
-    "swc-loader": {
-      "optional": true
-    }
   }
 }

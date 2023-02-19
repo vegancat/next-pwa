@@ -14,9 +14,6 @@ export interface PluginOptions {
    */
   register?: boolean;
   /**
-   * **Note**: Please add `swc-loader` to your package.json's `devDependencies`
-   * if you use this feature.
-   *
    * Config precached routes to fallback when both cache and network are not
    * available to serve resources. If you just need a offline fallback page,
    * simply create a `/_offline.tsx` file in your `pages/` dir or a

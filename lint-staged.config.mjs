@@ -14,7 +14,7 @@ const isWin = process.platform === "win32";
 export default {
   "**/*.{js,jsx,cjs,mjs,ts,tsx}": (filenames) => {
     const escapedFileNames = filenames
-      .map((filename) => `"${isWin ? filename : escapeStr([filename])}"`)
+      .map((filename) => (isWin ? filename : escapeStr([filename])))
       .join(" ");
     return [
       `eslint --fix ${filenames
@@ -27,7 +27,7 @@ export default {
   },
   "**/*.{json,md,mdx,css,html,yml,yaml,scss}": (filenames) => {
     const escapedFileNames = filenames
-      .map((filename) => `"${isWin ? filename : escapeStr([filename])}"`)
+      .map((filename) => (isWin ? filename : escapeStr([filename])))
       .join(" ");
     return [`pnpm format ${escapedFileNames}`, `git add ${escapedFileNames}`];
   },

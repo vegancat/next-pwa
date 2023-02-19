@@ -1,11 +1,14 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import fs from "fs";
+import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import type { Configuration } from "webpack";
 import webpack from "webpack";
 
 import swcRc from "./.swcrc.json";
+
+const require = createRequire(import.meta.url);
 
 const buildCustomWorker = ({
   id,
@@ -80,6 +83,11 @@ const buildCustomWorker = ({
         tls: false,
         zlib: false,
         child_process: false,
+      },
+    },
+    resolveLoader: {
+      alias: {
+        "swc-loader": require.resolve("swc-loader"),
       },
     },
     module: {
