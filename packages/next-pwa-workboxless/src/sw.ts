@@ -32,3 +32,8 @@ function fallback(request: Request) {
   return Response.error();
 }
 */
+declare const __PWA_IMPORT_SCRIPTS__: string[] | undefined;
+
+if (__PWA_IMPORT_SCRIPTS__) {
+  importScripts(...__PWA_IMPORT_SCRIPTS__);
+}

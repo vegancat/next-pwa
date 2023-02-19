@@ -2,28 +2,40 @@ import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
+import type { Configuration } from "webpack";
 import webpack from "webpack";
 
-import swcRc from "./.swcrc.json";
+import swcRc from "../../.swcrc.json";
+import { error } from "../../logger.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const require = createRequire(import.meta.url);
 
-export const buildSW = ({
-  id,
-  destDir,
-  minify,
-}: {
+export interface GenerateSWConfig {
   id: string;
-  baseDir: string;
   destDir: string;
-  minify: boolean;
-}) => {
-  const name = `fallback-${id}.js`;
-  const swJs = path.join(__dirname, `sw.js`);
+  mode?: NonNullable<Configuration["mode"]>;
+  minify?: boolean;
+  /**
+   * A list of JavaScript files that should be passed to `importScripts()` inside
+   * the generated service worker file. This is useful when you want to let
+   * `next-pwa` create your top-level service worker file, but want to include some
+   * additional code, such as a push event listener.
+   */
+  importScripts?: string[];
+}
+
+export const generateSW = ({
+  destDir,
+  mode,
+  minify,
+  importScripts,
+}: GenerateSWConfig) => {
+  const name = "sw.js";
+  const swJs = path.join(__dirname, "sw.js");
 
   webpack({
-    mode: minify ? "production" : "development",
+    mode,
     target: "webworker",
     entry: {
       main: swJs,
@@ -68,16 +80,21 @@ export const buildSW = ({
       path: destDir,
       filename: name,
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        __PWA_IMPORT_SCRIPTS__: JSON.stringify(importScripts),
+      }),
+    ],
     optimization: minify
       ? {
           minimize: true,
           minimizer: [new TerserPlugin()],
         }
       : undefined,
-  }).run((error, status) => {
-    if (error || status?.hasErrors()) {
-      console.error(`> [PWA] Failed to build fallback worker.`);
-      console.error(status?.toString({ colors: true }));
+  }).run((err, status) => {
+    if (err || status?.hasErrors()) {
+      error("Failed to build service worker.");
+      error(status?.toString({ colors: true }));
       process.exit(-1);
     }
   });

@@ -33,7 +33,7 @@ const files = [
       },
     ],
     // chalk should be bundled with the package to work with CJS.
-    external: ["webpack"],
+    external: ["terser-webpack-plugin", "webpack"],
   },
   {
     input: "src/sw.ts",

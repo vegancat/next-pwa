@@ -7,6 +7,13 @@ export interface PluginOptions {
    */
   disable?: boolean;
   /**
+   * Set output directory for service worker. Relative to Next.js's root
+   * directory.
+   *
+   * @default "public"
+   */
+  dest?: string;
+  /**
    * Allow this plugin to automatically register the service worker for you. Set
    * this to `false` when you want to register the service worker yourself.
    *
