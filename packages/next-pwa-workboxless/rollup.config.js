@@ -33,13 +33,20 @@ const files = [
       },
     ],
     // chalk should be bundled with the package to work with CJS.
-    external: ["terser-webpack-plugin", "webpack"],
+    external: ["clean-webpack-plugin", "terser-webpack-plugin", "webpack"],
   },
   {
-    input: "src/sw.ts",
+    input: "src/build/generate-sw/base-sw.ts",
     output: {
-      file: "dist/sw.js",
+      file: "dist/base-sw.js",
       format: "esm",
+    },
+  },
+  {
+    input: "src/build/fallback-routes/fallback.ts",
+    output: {
+      file: "dist/fallback.js",
+      format: "cjs",
     },
   },
   {

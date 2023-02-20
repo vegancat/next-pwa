@@ -16,84 +16,90 @@ const withPWAInit = (
   return (nextConfig = {}) => ({
     ...nextConfig,
     ...{
-      webpack(config: Configuration, options) {
+      webpack(config: Configuration, context) {
         const isAppDirEnabled = !!nextConfig.experimental?.appDir;
-
-        const {
-          disable = false,
-          dest = "public",
-          fallbackRoutes = {},
-          register = true,
-        } = pluginOptions;
-
         const {
           buildId,
           dev,
           config: { pageExtensions = ["tsx", "ts", "jsx", "js", "mdx"] },
-        } = options;
+        } = context;
 
-        const webpack: typeof Webpack = options.webpack;
+        const webpack: typeof Webpack = context.webpack;
 
-        let basePath = options.config.basePath;
+        let basePath = context.config.basePath;
 
         // basePath can be an empty string.
         if (!basePath) {
           basePath = "/";
         }
 
+        const {
+          disable = false,
+          dest = "public",
+          fallbackRoutes = {},
+          logging = dev,
+          register = true,
+          skipWaiting = true,
+        } = pluginOptions;
+
         if (typeof nextConfig.webpack === "function") {
-          config = nextConfig.webpack(config, options);
+          config = nextConfig.webpack(config, context);
         }
 
         if (disable) {
-          options.isServer && info("PWA support is disabled.");
+          context.isServer && info("PWA support is disabled.");
           return config;
         }
 
         info(
-          `Compiling for ${options.isServer ? "server" : "client (static)"}...`
+          `Compiling for ${context.isServer ? "server" : "client (static)"}...`
         );
-
-        if (dev && !warnedAboutDev) {
-          info(
-            "Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
-          );
-          warnedAboutDev = true;
-        }
 
         if (!config.plugins) {
           config.plugins = [];
         }
 
-        const resolvedDest = path.join(options.dir, dest);
-
-        const importScripts: GenerateSWConfig["importScripts"] = [];
-
-        if (fallbackRoutes) {
-          const res = buildFallbackWorker({
-            id: buildId,
-            fallbackRoutes,
-            baseDir: options.dir,
-            destDir: resolvedDest,
-            minify: !dev,
-            pageExtensions,
-            isAppDirEnabled,
-          });
-          if (res) {
-            importScripts.unshift(res.name);
-          }
-        }
-
         config.plugins.push(
           new webpack.DefinePlugin({
             __PWA_ENABLE_REGISTER__: register.toString(),
-          }),
-          new GenerateSW({
-            id: buildId,
-            destDir: resolvedDest,
-            importScripts,
+            __PWA_ENABLE_LOGGING__: logging.toString(),
           })
         );
+
+        if (!context.isServer) {
+          if (dev && !warnedAboutDev) {
+            info(
+              "Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
+            );
+            warnedAboutDev = true;
+          }
+          const resolvedDest = path.join(context.dir, dest);
+          const importScripts: GenerateSWConfig["importScripts"] = [];
+
+          if (fallbackRoutes) {
+            const res = buildFallbackWorker({
+              id: buildId,
+              fallbackRoutes,
+              baseDir: context.dir,
+              destDir: resolvedDest,
+              minify: !dev,
+              pageExtensions,
+              isAppDirEnabled,
+            });
+            if (res) {
+              importScripts.unshift(res.name);
+            }
+          }
+
+          config.plugins.push(
+            new GenerateSW({
+              id: buildId,
+              destDir: resolvedDest,
+              importScripts,
+              skipWaiting,
+            })
+          );
+        }
 
         return config;
       },

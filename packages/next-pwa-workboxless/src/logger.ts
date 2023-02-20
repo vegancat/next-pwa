@@ -18,6 +18,7 @@ export const error = (...message: any[]) => {
 export const warn = (...message: any[]) => {
   console.warn(prefixes.warn, ...message);
 };
+
 export const info = (...message: any[]) => {
   console.log(prefixes.info, ...message);
 };

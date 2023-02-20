@@ -23,6 +23,7 @@ export interface GenerateSWConfig {
    * additional code, such as a push event listener.
    */
   importScripts?: string[];
+  skipWaiting: boolean;
 }
 
 export const generateSW = ({
@@ -30,9 +31,10 @@ export const generateSW = ({
   mode,
   minify,
   importScripts,
+  skipWaiting,
 }: GenerateSWConfig) => {
   const name = "sw.js";
-  const swJs = path.join(__dirname, "sw.js");
+  const swJs = path.join(__dirname, "base-sw.js");
 
   webpack({
     mode,
@@ -83,6 +85,7 @@ export const generateSW = ({
     plugins: [
       new webpack.DefinePlugin({
         __PWA_IMPORT_SCRIPTS__: JSON.stringify(importScripts),
+        __PWA_SKIP_WAITING__: skipWaiting.toString(),
       }),
     ],
     optimization: minify

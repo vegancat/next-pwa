@@ -7,6 +7,12 @@ export interface PluginOptions {
    */
   disable?: boolean;
   /**
+   * Toggle logging in service worker. By default it is only enabled in dev.
+   *
+   * @default context.dev
+   */
+  logging?: boolean;
+  /**
    * Set output directory for service worker. Relative to Next.js's root
    * directory.
    *
@@ -28,6 +34,14 @@ export interface PluginOptions {
    * configuration necessary.
    */
   fallbackRoutes?: FallbackRoutes;
+  /**
+   * TODO: add JSDoc.
+   */
+  swSrc?: string;
+  /**
+   * TODO: add JSDoc.
+   */
+  skipWaiting?: boolean;
 }
 
 export interface FallbackRoutes {

@@ -1,10 +1,5 @@
-/*declare const self: ServiceWorkerGlobalScope;
-
-self.addEventListener("fetch", (event) => {
-  // empty
-});
-
-function fallback(request: Request) {
+self.fallback = async (request) => {
+  // https://developer.mozilla.org/en-US/docs/Web/API/RequestDestination
   const { destination, url } = request;
   const fallbackUrl: Partial<Record<RequestDestination, string | undefined>> = {
     document: process.env.__PWA_FALLBACK_DOCUMENT__,
@@ -30,10 +25,7 @@ function fallback(request: Request) {
     });
   }
   return Response.error();
-}
-*/
-declare const __PWA_IMPORT_SCRIPTS__: string[] | undefined;
+};
 
-if (__PWA_IMPORT_SCRIPTS__) {
-  importScripts(...__PWA_IMPORT_SCRIPTS__);
-}
+// Mark file as module.
+export {};

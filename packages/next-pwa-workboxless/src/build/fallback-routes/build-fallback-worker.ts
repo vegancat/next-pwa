@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import webpack from "webpack";
 
 import swcRc from "../../.swcrc.json";
+import { error, info } from "../../logger.js";
 import type { FallbackRoutes } from "../../types.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -84,31 +85,27 @@ const getFallbackEnvs = ({
 
   if (Object.values(envs).filter((v) => !!v).length === 0) return;
 
-  console.log(
-    "> [PWA] This app will fallback to these precached routes when fetching from cache or network fails:"
+  info(
+    "This app will fallback to these precached routes when fetching from cache or network fails:"
   );
 
   if (envs.__PWA_FALLBACK_DOCUMENT__) {
-    console.log(
-      `> [PWA]   Documents (pages): ${envs.__PWA_FALLBACK_DOCUMENT__}`
-    );
+    info(`  Documents (pages): ${envs.__PWA_FALLBACK_DOCUMENT__}`);
   }
   if (envs.__PWA_FALLBACK_IMAGE__) {
-    console.log(`> [PWA]   Images: ${envs.__PWA_FALLBACK_IMAGE__}`);
+    info(`  Images: ${envs.__PWA_FALLBACK_IMAGE__}`);
   }
   if (envs.__PWA_FALLBACK_AUDIO__) {
-    console.log(`> [PWA]   Audio: ${envs.__PWA_FALLBACK_AUDIO__}`);
+    info(`  Audio: ${envs.__PWA_FALLBACK_AUDIO__}`);
   }
   if (envs.__PWA_FALLBACK_VIDEO__) {
-    console.log(`> [PWA]   Videos: ${envs.__PWA_FALLBACK_VIDEO__}`);
+    info(`  Videos: ${envs.__PWA_FALLBACK_VIDEO__}`);
   }
   if (envs.__PWA_FALLBACK_FONT__) {
-    console.log(`> [PWA]   Fonts: ${envs.__PWA_FALLBACK_FONT__}`);
+    info(`  Fonts: ${envs.__PWA_FALLBACK_FONT__}`);
   }
   if (envs.__PWA_FALLBACK_DATA__) {
-    console.log(
-      `> [PWA]   Data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`
-    );
+    info(`  Data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`);
   }
 
   return envs;
@@ -204,10 +201,10 @@ export const buildFallbackWorker = ({
           minimizer: [new TerserPlugin()],
         }
       : undefined,
-  }).run((error, status) => {
-    if (error || status?.hasErrors()) {
-      console.error(`> [PWA] Failed to build fallback worker.`);
-      console.error(status?.toString({ colors: true }));
+  }).run((err, status) => {
+    if (err || status?.hasErrors()) {
+      error(`Failed to build fallback worker.`);
+      error(status?.toString({ colors: true }));
       process.exit(-1);
     }
   });
