@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export default function HomePage() {
+export const metadata: Metadata = {
+  title: "Home (appDir)",
+};
+
+export default function Page() {
   return (
     <>
       <h1>Next.js + PWA = AWESOME!</h1>

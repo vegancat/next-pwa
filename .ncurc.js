@@ -5,7 +5,10 @@ module.exports = {
     if (dependencyName === "typescript") {
       return "@next";
     }
-    if (dependencyName.match(/(@|^)next.*/)) {
+    if (/^react(-dom)?$/.test(dependencyName)) {
+      return "@latest";
+    }
+    if (/next$|(^@next\/.*$)/.test(dependencyName)) {
       return "@canary";
     }
     return "latest";

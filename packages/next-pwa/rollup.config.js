@@ -24,10 +24,6 @@ const files = [
         exports: "named",
       },
       {
-        file: "dist/ducanh2912-next-pwa.modern.mjs",
-        format: "esm",
-      },
-      {
         file: "dist/ducanh2912-next-pwa.module.js",
         format: "esm",
       },
