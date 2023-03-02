@@ -1,0 +1,23 @@
+{
+  "name": "@next-pwa-example/workboxless",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ducanh2912/next-pwa-workboxless": "workspace:*",
+    "next": "13.2.4-canary.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.14.4",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "typescript": "5.1.0-dev.20230302"
+  }
+}

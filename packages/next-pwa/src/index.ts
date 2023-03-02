@@ -29,7 +29,7 @@ const getRevision = (file: fs.PathOrFileDescriptor) =>
 const withPWAInit = (
   pluginOptions: PluginOptions = {}
 ): ((_?: NextConfig) => NextConfig) => {
-  return (nextConfig: NextConfig = {}) => ({
+  return (nextConfig = {}) => ({
     ...nextConfig,
     ...({
       webpack(config: Configuration, options) {
