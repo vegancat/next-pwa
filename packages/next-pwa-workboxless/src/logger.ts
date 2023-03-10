@@ -1,10 +1,10 @@
 import chalk from "chalk";
 
 export const prefixes = {
-  wait: chalk.cyan("wait") + "  - [PWA]",
-  error: chalk.red("error") + " - [PWA]",
-  warn: chalk.yellow("warn") + "  - [PWA]",
-  info: chalk.cyan("info") + "  - [PWA]",
+  wait: chalk.cyan("wait") + "  - PWA:",
+  error: chalk.red("error") + " - PWA:",
+  warn: chalk.yellow("warn") + "  - PWA:",
+  info: chalk.cyan("info") + "  - PWA:",
 } as const;
 
 export const wait = (...message: any[]) => {

@@ -15,7 +15,7 @@
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/next-pwa-workboxless.cjs",
-      "default": "./dist/next-pwa-workboxless.modern.mjs"
+      "default": "./dist/next-pwa-workboxless.module.js"
     },
     "./workbox": {
       "types": "./dist/sw-entry.d.ts"
@@ -45,7 +45,9 @@
   },
   "dependencies": {
     "@swc/core": "1.3.39",
-    "swc-loader": "0.2.3"
+    "clean-webpack-plugin": "4.0.0",
+    "swc-loader": "0.2.3",
+    "terser-webpack-plugin": "5.3.7"
   },
   "devDependencies": {
     "@rollup/plugin-json": "6.0.0",
@@ -54,9 +56,7 @@
     "@rollup/plugin-typescript": "11.0.0",
     "@types/node": "18.15.0",
     "chalk": "5.2.0",
-    "clean-webpack-plugin": "4.0.0",
     "rollup": "3.19.0",
-    "terser-webpack-plugin": "5.3.7",
     "tsconfig": "workspace:*",
     "typescript": "5.1.0-dev.20230310",
     "webpack": "5.76.0"

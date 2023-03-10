@@ -1,8 +1,7 @@
 import type { Compiler, WebpackError } from "webpack";
-import webpack from "webpack";
 
-import type { GenerateSWConfig } from "./generate-sw.js";
-import { generateSW } from "./generate-sw.js";
+import type { GenerateSWConfig } from "./core.js";
+import { generateSW } from "./core.js";
 
 const generatedAssetNames = new Set<string>();
 
@@ -54,7 +53,8 @@ export class GenerateSW {
   apply(compiler: Compiler): void {
     this.propagateConfigWithCompiler(compiler);
 
-    const { PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER } = webpack.Compilation;
+    const { PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER } =
+      compiler.webpack.Compilation;
     // Specifically hook into thisCompilation, as per
     // https://github.com/webpack/webpack/issues/11425#issuecomment-690547848
     compiler.hooks.thisCompilation.tap(this.constructor.name, (compilation) => {
