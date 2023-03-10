@@ -3,10 +3,12 @@ import fs from "fs";
 import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
+import type { TsConfigJson as TSConfigJSON } from "type-fest";
 import type { Configuration } from "webpack";
 import webpack from "webpack";
 
 import swcRc from "./.swcrc.json";
+import { addPathAliasesToSWC } from "./utils.js";
 
 const require = createRequire(import.meta.url);
 
@@ -16,7 +18,7 @@ const buildCustomWorker = ({
   customWorkerDir,
   destDir,
   plugins,
-  webpackResolve,
+  tsconfig,
   minify,
 }: {
   id: string;
@@ -24,7 +26,7 @@ const buildCustomWorker = ({
   customWorkerDir: string;
   destDir: string;
   plugins: Configuration["plugins"];
-  webpackResolve: Configuration["resolve"];
+  tsconfig: TSConfigJSON | undefined;
   minify: boolean;
 }) => {
   let workerDir = "";
@@ -60,6 +62,14 @@ const buildCustomWorker = ({
   console.log(`> [PWA] Custom worker found: ${customWorkerEntry}`);
   console.log(`> [PWA] Building custom worker: ${path.join(destDir, name)}...`);
 
+  if (tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths) {
+    addPathAliasesToSWC(
+      swcRc,
+      path.join(baseDir, tsconfig.compilerOptions.baseUrl ?? "."),
+      tsconfig.compilerOptions.paths
+    );
+  }
+
   webpack({
     mode: minify ? "production" : "development",
     target: "webworker",
@@ -67,7 +77,6 @@ const buildCustomWorker = ({
       main: customWorkerEntry,
     },
     resolve: {
-      ...(webpackResolve ?? {}),
       extensions: [".ts", ".js"],
       fallback: {
         module: false,

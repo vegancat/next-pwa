@@ -24,10 +24,6 @@ const files = [
         exports: "named",
       },
       {
-        file: "dist/next-pwa-workboxless.modern.mjs",
-        format: "esm",
-      },
-      {
         file: "dist/next-pwa-workboxless.module.js",
         format: "esm",
       },

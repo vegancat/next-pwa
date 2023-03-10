@@ -78,6 +78,7 @@ const withPWAInit = (
 
           if (fallbackRoutes) {
             const res = buildFallbackWorker({
+              webpackInstance: webpack,
               id: buildId,
               fallbackRoutes,
               baseDir: context.dir,
@@ -95,6 +96,7 @@ const withPWAInit = (
             new GenerateSW({
               id: buildId,
               destDir: resolvedDest,
+              minify: !dev,
               importScripts,
               skipWaiting,
             })

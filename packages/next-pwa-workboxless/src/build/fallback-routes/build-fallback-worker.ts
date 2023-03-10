@@ -4,7 +4,7 @@ import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
-import webpack from "webpack";
+import type Webpack from "webpack";
 
 import swcRc from "../../.swcrc.json";
 import { error, info } from "../../logger.js";
@@ -112,6 +112,7 @@ const getFallbackEnvs = ({
 };
 
 export const buildFallbackWorker = ({
+  webpackInstance: webpack,
   id,
   fallbackRoutes,
   baseDir,
@@ -120,6 +121,7 @@ export const buildFallbackWorker = ({
   pageExtensions,
   isAppDirEnabled,
 }: {
+  webpackInstance: typeof Webpack;
   id: string;
   fallbackRoutes: FallbackRoutes;
   baseDir: string;

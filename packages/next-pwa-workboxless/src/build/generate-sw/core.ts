@@ -14,7 +14,7 @@ const require = createRequire(import.meta.url);
 export interface GenerateSWConfig {
   id: string;
   destDir: string;
-  mode?: NonNullable<Configuration["mode"]>;
+  mode?: Configuration["mode"];
   minify?: boolean;
   /**
    * A list of JavaScript files that should be passed to `importScripts()` inside

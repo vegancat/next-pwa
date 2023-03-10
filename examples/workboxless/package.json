@@ -9,15 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ducanh2912/next-pwa-workboxless": "workspace:*",
-    "next": "13.2.4-canary.0",
+    "@ducanh2912/next-pwa-workboxless": "latest",
+    "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/node": "18.14.4",
+    "@types/node": "18.15.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
-    "typescript": "5.1.0-dev.20230302"
+    "typescript": "4.9.5"
   }
 }
