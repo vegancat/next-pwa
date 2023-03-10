@@ -1,3 +1,5 @@
+# Note: please see packages/*/CHANGELOG.md for > 7.0.2 changelogs.
+
 ## [7.0.2](https://github.com/DuCanhGH/next-pwa/compare/v7.0.1...v7.0.2) (2022-12-06)
 
 

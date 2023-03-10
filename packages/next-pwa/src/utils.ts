@@ -26,3 +26,12 @@ export const isGenerateSWConfig = (
 ): config is WorkboxTypes["GenerateSW"] => {
   return !isInjectManifestConfig(config);
 };
+
+export const addPathAliasesToSWC = (
+  config: any,
+  baseDir: string,
+  paths: Record<string, string[]>
+) => {
+  config.jsc.baseUrl = baseDir;
+  config.jsc.paths = paths;
+};

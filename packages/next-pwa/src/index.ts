@@ -4,6 +4,7 @@ import fg from "fast-glob";
 import fs from "fs";
 import type { NextConfig } from "next";
 import path from "path";
+import type { TsConfigJson as TSConfigJSON } from "type-fest";
 import { fileURLToPath } from "url";
 import type { Configuration, default as webpackType } from "webpack";
 import type { RuntimeCaching } from "workbox-build";
@@ -51,6 +52,28 @@ const withPWAInit = (
         if (!basePath) {
           basePath = "/";
         }
+
+        let tsconfigJson: TSConfigJSON | undefined;
+        let jsconfigJson: TSConfigJSON | undefined;
+
+        try {
+          tsconfigJson = JSON.parse(
+            fs.readFileSync(
+              path.join(
+                options.dir,
+                nextConfig.typescript?.tsconfigPath ?? "tsconfig.json"
+              ),
+              "utf-8"
+            )
+          );
+          jsconfigJson = JSON.parse(
+            fs.readFileSync(path.join(options.dir, "jsconfig.json"), "utf-8")
+          );
+        } catch {
+          // Do nothing, user may not have both these files.
+        }
+
+        const configJson = tsconfigJson ?? jsconfigJson ?? undefined;
 
         // For workbox configurations:
         // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-webpack-plugin.GenerateSW
@@ -174,7 +197,7 @@ const withPWAInit = (
             plugins: config.plugins.filter(
               (plugin) => plugin instanceof webpack.DefinePlugin
             ),
-            webpackResolve: config.resolve,
+            tsconfig: configJson,
             minify: !dev,
           });
 
@@ -193,9 +216,15 @@ const withPWAInit = (
               `> [PWA] Service worker won't be automatically registered as per the config, please call the following code in a componentDidMount callback or useEffect hook:`
             );
             console.log(`> [PWA]   window.workbox.register()`);
-            console.log(
-              `> [PWA] You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json.`
-            );
+            if (
+              !configJson?.compilerOptions?.types?.includes(
+                "@ducanh2912/next-pwa/workbox"
+              )
+            ) {
+              console.log(
+                `> [PWA] You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json/jsconfig.json.`
+              );
+            }
           }
 
           console.log(`> [PWA] Service worker: ${path.join(_dest, sw)}`);

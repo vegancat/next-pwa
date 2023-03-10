@@ -19,7 +19,6 @@
     "strict": true,
     "target": "esnext",
     "incremental": true,
-    "baseUrl": ".",
     "paths": {
       "@shared/*": ["./shared/*"]
     }
