@@ -19,6 +19,7 @@ import type { PluginOptions } from "./types.js";
 import {
   isGenerateSWConfig,
   isInjectManifestConfig,
+  loadJSON,
   overrideAfterCalledMethod,
 } from "./utils.js";
 
@@ -53,27 +54,13 @@ const withPWAInit = (
           basePath = "/";
         }
 
-        let tsconfigJson: TSConfigJSON | undefined;
-        let jsconfigJson: TSConfigJSON | undefined;
-
-        try {
-          tsconfigJson = JSON.parse(
-            fs.readFileSync(
-              path.join(
-                options.dir,
-                nextConfig.typescript?.tsconfigPath ?? "tsconfig.json"
-              ),
-              "utf-8"
+        const tsConfigJSON =
+          loadJSON<TSConfigJSON>(
+            path.join(
+              options.dir,
+              nextConfig.typescript?.tsconfigPath ?? "tsconfig.json"
             )
-          );
-          jsconfigJson = JSON.parse(
-            fs.readFileSync(path.join(options.dir, "jsconfig.json"), "utf-8")
-          );
-        } catch {
-          // Do nothing, user may not have both these files.
-        }
-
-        const configJson = tsconfigJson ?? jsconfigJson ?? undefined;
+          ) ?? loadJSON<TSConfigJSON>(path.join(options.dir, "jsconfig.json"));
 
         // For workbox configurations:
         // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-webpack-plugin.GenerateSW
@@ -197,7 +184,7 @@ const withPWAInit = (
             plugins: config.plugins.filter(
               (plugin) => plugin instanceof webpack.DefinePlugin
             ),
-            tsconfig: configJson,
+            tsconfig: tsConfigJSON,
             minify: !dev,
           });
 
@@ -217,7 +204,7 @@ const withPWAInit = (
             );
             console.log(`> [PWA]   window.workbox.register()`);
             if (
-              !configJson?.compilerOptions?.types?.includes(
+              !tsConfigJSON?.compilerOptions?.types?.includes(
                 "@ducanh2912/next-pwa/workbox"
               )
             ) {

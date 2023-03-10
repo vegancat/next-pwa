@@ -470,7 +470,7 @@ importers:
   examples/workboxless:
     dependencies:
       '@ducanh2912/next-pwa-workboxless':
-        specifier: workspace:*
+        specifier: latest
         version: link:../../packages/next-pwa-workboxless
       next:
         specifier: 13.2.4
