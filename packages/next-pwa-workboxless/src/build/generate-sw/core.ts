@@ -2,8 +2,7 @@ import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
-import type { Configuration } from "webpack";
-import webpack from "webpack";
+import type { Configuration, default as Webpack } from "webpack";
 
 import swcRc from "../../.swcrc.json";
 import { error } from "../../logger.js";
@@ -27,12 +26,20 @@ export interface GenerateSWConfig {
 }
 
 export const generateSW = ({
+  webpackInstance: webpack,
   destDir,
   mode,
   minify,
   importScripts,
   skipWaiting,
-}: GenerateSWConfig) => {
+}: GenerateSWConfig & {
+  webpackInstance?: typeof Webpack;
+}) => {
+  if (!webpack) {
+    error("Webpack instance is not provided to generateSW.");
+    return;
+  }
+
   const name = "sw.js";
   const swJs = path.join(__dirname, "base-sw.js");
 

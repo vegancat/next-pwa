@@ -10,7 +10,9 @@ interface GenerateSWWebpackConfig extends GenerateSWConfig {
 }
 
 export class GenerateSW {
-  protected config: GenerateSWWebpackConfig;
+  protected config: GenerateSWWebpackConfig & {
+    webpackInstance?: typeof Webpack;
+  };
 
   protected propagateConfigWithCompiler(compiler: Compiler): void {
     // Properties that are already set take precedence over derived
@@ -18,6 +20,7 @@ export class GenerateSW {
     this.config = Object.assign(
       {
         mode: compiler.options.mode,
+        webpackInstance: compiler.webpack,
       },
       this.config
     );
