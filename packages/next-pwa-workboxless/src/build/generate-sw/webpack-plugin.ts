@@ -1,4 +1,4 @@
-import type { Compiler, WebpackError } from "webpack";
+import type { Compiler, default as Webpack, WebpackError } from "webpack";
 
 import type { GenerateSWConfig } from "./core.js";
 import { generateSW } from "./core.js";
