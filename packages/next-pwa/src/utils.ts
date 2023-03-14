@@ -1,4 +1,10 @@
-import fs from "fs";
+import path from "path";
+import {
+  findConfigFile,
+  parseJsonConfigFileContent,
+  readConfigFile,
+  sys as tsSys,
+} from "typescript";
 import type { GenerateSW, InjectManifest } from "workbox-webpack-plugin";
 
 import type { WorkboxTypes } from "./private_types.js";
@@ -37,10 +43,28 @@ export const addPathAliasesToSWC = (
   config.jsc.paths = paths;
 };
 
-export const loadJSON = <T = unknown>(filePath: string): T | undefined => {
-  try {
-    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  } catch {
-    return undefined;
+export const loadTSConfig = (relativeTSConfigPath: string | undefined) => {
+  // Find tsconfig.json file
+  const tsConfigPath =
+    findConfigFile(
+      process.cwd(),
+      tsSys.fileExists,
+      relativeTSConfigPath ?? "tsconfig.json"
+    ) ?? findConfigFile(process.cwd(), tsSys.fileExists, "jsconfig.json");
+
+  if (!tsConfigPath) {
+    return;
   }
+
+  // Read tsconfig.json file
+  const tsConfigFile = readConfigFile(tsConfigPath, tsSys.readFile);
+
+  // Resolve extends
+  const parsedTSConfig = parseJsonConfigFileContent(
+    tsConfigFile.config,
+    tsSys,
+    path.dirname(tsConfigPath)
+  );
+
+  return parsedTSConfig;
 };

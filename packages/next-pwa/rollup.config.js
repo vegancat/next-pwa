@@ -32,6 +32,7 @@ const files = [
       "clean-webpack-plugin",
       "terser-webpack-plugin",
       "workbox-webpack-plugin",
+      "typescript",
       "webpack",
       "crypto",
       "fs",

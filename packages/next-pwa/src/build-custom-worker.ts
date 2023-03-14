@@ -3,7 +3,7 @@ import fs from "fs";
 import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
-import type { TsConfigJson as TSConfigJSON } from "type-fest";
+import type { ParsedCommandLine as TSConfigJSON } from "typescript";
 import type { Configuration } from "webpack";
 import webpack from "webpack";
 
@@ -62,11 +62,11 @@ const buildCustomWorker = ({
   console.log(`> [PWA] Custom worker found: ${customWorkerEntry}`);
   console.log(`> [PWA] Building custom worker: ${path.join(destDir, name)}...`);
 
-  if (tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths) {
+  if (tsconfig && tsconfig.options && tsconfig.options.paths) {
     addPathAliasesToSWC(
       swcRc,
-      path.join(baseDir, tsconfig.compilerOptions.baseUrl ?? "."),
-      tsconfig.compilerOptions.paths
+      path.join(baseDir, tsconfig.options.baseUrl ?? "."),
+      tsconfig.options.paths
     );
   }
 
