@@ -32,13 +32,13 @@ const files = [
       "clean-webpack-plugin",
       "terser-webpack-plugin",
       "workbox-webpack-plugin",
-      "typescript",
       "webpack",
       "crypto",
       "fs",
       "path",
       "url",
       "fast-glob",
+      "typescript",
       "workbox-window",
     ],
   },
@@ -70,7 +70,9 @@ export default files.map(({ input, output, external, plugins }) =>
       },
     },
     plugins: [
-      nodeResolve(),
+      nodeResolve({
+        preferBuiltins: true,
+      }),
       typescript({
         noForceEmit: true,
         noEmitOnError: !isDev,

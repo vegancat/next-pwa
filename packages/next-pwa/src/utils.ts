@@ -1,10 +1,6 @@
+import fs from "fs";
 import path from "path";
-import {
-  findConfigFile,
-  parseJsonConfigFileContent,
-  readConfigFile,
-  sys as tsSys,
-} from "typescript";
+import type { TsConfigJson as TSConfigJSON } from "type-fest";
 import type { GenerateSW, InjectManifest } from "workbox-webpack-plugin";
 
 import type { WorkboxTypes } from "./private_types.js";
@@ -43,28 +39,39 @@ export const addPathAliasesToSWC = (
   config.jsc.paths = paths;
 };
 
-export const loadTSConfig = (relativeTSConfigPath: string | undefined) => {
-  // Find tsconfig.json file
-  const tsConfigPath =
-    findConfigFile(
-      process.cwd(),
-      tsSys.fileExists,
-      relativeTSConfigPath ?? "tsconfig.json"
-    ) ?? findConfigFile(process.cwd(), tsSys.fileExists, "jsconfig.json");
+export const loadTSConfig = (
+  baseDir: string,
+  relativeTSConfigPath: string | undefined
+): TSConfigJSON | undefined => {
+  try {
+    // Find tsconfig.json file
+    const tsConfigPath = findFirstTruthy(
+      [relativeTSConfigPath ?? "tsconfig.json", "jsconfig.json"],
+      (filePath) => {
+        const resolvedPath = path.join(baseDir, filePath);
+        return fs.existsSync(resolvedPath) ? resolvedPath : undefined;
+      }
+    );
 
-  if (!tsConfigPath) {
-    return;
+    if (!tsConfigPath) {
+      return undefined;
+    }
+
+    // Read tsconfig.json file
+    const tsConfigFile = JSON.parse(fs.readFileSync(tsConfigPath, "utf-8"));
+
+    return tsConfigFile;
+  } catch {
+    return undefined;
   }
+};
 
-  // Read tsconfig.json file
-  const tsConfigFile = readConfigFile(tsConfigPath, tsSys.readFile);
-
-  // Resolve extends
-  const parsedTSConfig = parseJsonConfigFileContent(
-    tsConfigFile.config,
-    tsSys,
-    path.dirname(tsConfigPath)
-  );
-
-  return parsedTSConfig;
+export const findFirstTruthy = <T, U>(arr: T[], fn: (elm: T) => U) => {
+  for (const i of arr) {
+    const resolved = fn(i);
+    if (resolved) {
+      return resolved;
+    }
+  }
+  return undefined;
 };

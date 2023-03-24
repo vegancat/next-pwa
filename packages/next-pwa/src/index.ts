@@ -10,8 +10,9 @@ import type { RuntimeCaching } from "workbox-build";
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 import WorkboxPlugin from "workbox-webpack-plugin";
 
-import buildCustomWorker from "./build-custom-worker.js";
-import buildFallbackWorker from "./build-fallback-worker.js";
+import { buildCustomWorker } from "./build-custom-worker.js";
+import { getDefaultDocumentPage } from "./build-fallback-worker/get-default-document-page.js";
+import { buildFallbackWorker } from "./build-fallback-worker/index.js";
 import defaultCache from "./cache.js";
 import type { SharedWorkboxOptionsKeys } from "./private_types.js";
 import type { PluginOptions } from "./types.js";
@@ -53,7 +54,10 @@ const withPWAInit = (
           basePath = "/";
         }
 
-        const tsConfigJSON = loadTSConfig(nextConfig?.typescript?.tsconfigPath);
+        const tsConfigJSON = loadTSConfig(
+          options.dir,
+          nextConfig?.typescript?.tsconfigPath
+        );
 
         // For workbox configurations:
         // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-webpack-plugin.GenerateSW
@@ -197,7 +201,7 @@ const withPWAInit = (
             );
             console.log(`> [PWA]   window.workbox.register()`);
             if (
-              !tsConfigJSON?.options?.types?.includes(
+              !tsConfigJSON?.compilerOptions?.types?.includes(
                 "@ducanh2912/next-pwa/workbox"
               )
             ) {
@@ -269,6 +273,13 @@ const withPWAInit = (
           let hasFallbacks = false;
 
           if (fallbacks) {
+            if (!fallbacks.document) {
+              fallbacks.document = getDefaultDocumentPage(
+                options.dir,
+                pageExtensions,
+                isAppDirEnabled
+              );
+            }
             const res = buildFallbackWorker({
               id: buildId,
               fallbacks,

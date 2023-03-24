@@ -131,7 +131,7 @@ export interface PluginOptions {
    * Config precached routes to fallback when both cache and network are not
    * available to serve resources. If you just need a offline fallback page,
    * simply create a `/_offline.tsx` file in your `pages/` dir or a
-   * `/_offline/page.tsx` file in your `app/` dir and you are all set, no
+   * `/~offline/page.tsx` file in your `app/` dir and you are all set, no
    * configuration necessary.
    */
   fallbacks?: FallbackRoutes;

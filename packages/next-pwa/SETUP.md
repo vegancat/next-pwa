@@ -244,7 +244,7 @@ export const metadata: Metadata = {
 
 When fetching from both cache and network fails and offline fallbacks are enabled, a precached resource is served rather than an error.
 
-To get started, simply add a `/_offline.tsx` file to your `pages/` directory or a `/_offline/page.tsx` file to your `app/` directory. You are all set! When the user is offline, all pages which are not cached will fallback to `/_offline`.
+To get started, simply add a `/_offline.tsx` file to your `pages/` directory or a `/~offline/page.tsx` file to your `app/` directory. You are all set! When the user is offline, all pages which are not cached will fallback to `/_offline`.
 
 **[Use this example to see it in action](/examples/offline-fallback-v2)**
 
