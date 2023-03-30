@@ -98,6 +98,7 @@ const withPWAInit = (
               destDir: resolvedDest,
               minify: !dev,
               importScripts,
+              runtimeCaching: [],
               skipWaiting,
             })
           );

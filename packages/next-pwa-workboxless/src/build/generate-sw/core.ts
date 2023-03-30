@@ -6,6 +6,7 @@ import type { Configuration, default as Webpack } from "webpack";
 
 import swcRc from "../../.swcrc.json";
 import { error } from "../../logger.js";
+import type { RuntimeCaching } from "../../private-types.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const require = createRequire(import.meta.url);
@@ -22,6 +23,7 @@ export interface GenerateSWConfig {
    * additional code, such as a push event listener.
    */
   importScripts?: string[];
+  runtimeCaching: RuntimeCaching[];
   skipWaiting: boolean;
 }
 
