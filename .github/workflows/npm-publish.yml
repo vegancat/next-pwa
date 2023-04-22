@@ -37,6 +37,8 @@ jobs:
     name: 🚀 Release packages
     needs: [typecheck_lint_build]
     runs-on: ${{ matrix.os }}
+    permissions:
+      id-token: write
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -46,7 +48,7 @@ jobs:
         node-version: ["18.x"]
         pnpm-version: ["7.x"]
         os: [ubuntu-latest]
-    if: ${{ github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, 'RELEASING') }}
+    if: ${{ github.ref == 'refs/heads/master' && (contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'RELEASING')) }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
