@@ -1,4 +1,4 @@
-import type { StringKeyOf } from "./src/private_types.js";
+import type { StringKeyOf } from "./src/private-types.js";
 
 declare global {
   interface Window {

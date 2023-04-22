@@ -3,7 +3,7 @@ import path from "path";
 import type { TsConfigJson as TSConfigJSON } from "type-fest";
 import type { GenerateSW, InjectManifest } from "workbox-webpack-plugin";
 
-import type { WorkboxTypes } from "./private_types.js";
+import type { WorkboxTypes } from "./private-types.js";
 
 export const overrideAfterCalledMethod = (
   workboxPlugin: InjectManifest | GenerateSW

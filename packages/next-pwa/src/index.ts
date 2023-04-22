@@ -15,7 +15,7 @@ import { getDefaultDocumentPage } from "./build-fallback-worker/get-default-docu
 import { buildFallbackWorker } from "./build-fallback-worker/index.js";
 import defaultCache from "./cache.js";
 import * as logger from "./logger.js";
-import type { SharedWorkboxOptionsKeys } from "./private_types.js";
+import type { SharedWorkboxOptionsKeys } from "./private-types.js";
 import type { PluginOptions } from "./types.js";
 import {
   isGenerateSWConfig,

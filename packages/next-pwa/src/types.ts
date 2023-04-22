@@ -1,6 +1,6 @@
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
 
-import type { WorkboxTypes } from "./private_types.js";
+import type { WorkboxTypes } from "./private-types.js";
 
 export interface PluginOptions {
   /**
