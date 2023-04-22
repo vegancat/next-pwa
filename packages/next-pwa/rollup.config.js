@@ -71,6 +71,7 @@ export default files.map(({ input, output, external, plugins }) =>
     },
     plugins: [
       nodeResolve({
+        exportConditions: ["node"],
         preferBuiltins: true,
       }),
       typescript({

@@ -8,6 +8,7 @@ import type { Configuration } from "webpack";
 import webpack from "webpack";
 
 import swcRc from "./.swcrc.json";
+import * as logger from "./logger.js";
 import { addPathAliasesToSWC } from "./utils.js";
 
 const require = createRequire(import.meta.url);
@@ -50,8 +51,8 @@ export const buildCustomWorker = ({
   if (customWorkerEntries.length === 0) return;
 
   if (customWorkerEntries.length > 1) {
-    console.warn(
-      `> [PWA] WARNING: More than one custom worker found (${customWorkerEntries.join(
+    logger.warn(
+      `WARNING: More than one custom worker found (${customWorkerEntries.join(
         ","
       )}), a custom worker will not be built.`
     );
@@ -59,8 +60,8 @@ export const buildCustomWorker = ({
   }
 
   const customWorkerEntry = customWorkerEntries[0];
-  console.log(`> [PWA] Custom worker found: ${customWorkerEntry}`);
-  console.log(`> [PWA] Building custom worker: ${path.join(destDir, name)}...`);
+  logger.info(`Custom worker found: ${customWorkerEntry}`);
+  logger.info(`Building custom worker: ${path.join(destDir, name)}...`);
 
   if (tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths) {
     addPathAliasesToSWC(
@@ -134,8 +135,8 @@ export const buildCustomWorker = ({
       : undefined,
   }).run((error, status) => {
     if (error || status?.hasErrors()) {
-      console.error(`> [PWA] Failed to build custom worker.`);
-      console.error(status?.toString({ colors: true }));
+      logger.error(`> [PWA] Failed to build custom worker.`);
+      logger.error(status?.toString({ colors: true }));
       process.exit(-1);
     }
   });

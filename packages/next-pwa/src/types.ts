@@ -6,7 +6,6 @@ export interface PluginOptions {
   /**
    * Disable PWA. Set to `true` to completely disable PWA, set to `false` to
    * generate service worker in both dev and prod.
-   *
    * @default false
    */
   disable?: boolean;
@@ -15,7 +14,6 @@ export interface PluginOptions {
    * this to `false` when you want to register the service worker yourself (this
    * can be done by running `window.workbox.register()` in
    * `componentDidMount`/`useEffect` in your app).
-   *
    * @example
    *   ```tsx
    *   // app/register-pwa.tsx
@@ -64,21 +62,18 @@ export interface PluginOptions {
    * Set output directory for service worker. Relative to Next.js's root
    * directory. By default, this plugin uses `.next`, but it is recommended to
    * change it to `public` instead.
-   *
    * @default ".next"
    */
   dest?: string;
   /**
    * Service worker script's filename. Set to a string if you want to customize
    * the output filename.
-   *
    * @default "/sw.js"
    */
   sw?: string;
   /**
    * Turn on caching for start URL. [Discussion of use cases for this
    * option](https://github.com/shadowwalker/next-pwa/pull/296#issuecomment-1094167025)
-   *
    * @default true
    */
   cacheStartUrl?: boolean;
@@ -88,7 +83,6 @@ export interface PluginOptions {
    * Effective only when `cacheStartUrl` is set to `true`. Set to `false` if
    * your start URL always returns same HTML document, then start URL will be
    * precached and as such help speed up first load time.
-   *
    * @default true
    */
   dynamicStartUrl?: boolean;
@@ -96,7 +90,6 @@ export interface PluginOptions {
    * If your start URL redirect to another route such as `/login`, it's
    * recommended to setup this redirected URL for the best user experience.
    * Effective when `dynamicStartUrl` is set to `true`
-   *
    * @default undefined
    */
   dynamicStartUrlRedirect?: string;
@@ -104,7 +97,6 @@ export interface PluginOptions {
    * An array of glob pattern strings to exclude files in the public folder from
    * being precached. By default, this plugin excludes public/noprecache.
    * Remember to add ! before each glob pattern for it to work :)
-   *
    * @example
    *   ```ts
    *   ["!img/super-large-image.jpg", "!fonts/not-used-fonts.otf"];
@@ -116,7 +108,6 @@ export interface PluginOptions {
    * This is interpreted following the same rules as Webpack's standard exclude
    * option. Relative to `.next/static` or your custom build folder. Defaults to
    * [].
-   *
    * @example
    *   ```ts
    *   [/chunks\/images\/.*$/];
@@ -140,7 +131,6 @@ export interface PluginOptions {
    * `next/link` in frontend. This improves user experience in some cases but it
    * also adds some overhead because of additional network calls, so this can be
    * considered a tradeoff.
-   *
    * @default false
    */
   cacheOnFrontEndNav?: boolean;
@@ -156,14 +146,12 @@ export interface PluginOptions {
    * example](https://github.com/DuCanhGH/next-pwa/tree/master/examples/custom-worker).
    * `next-pwa` will look into root and `src` directory for this directory.
    * Relative to Next.js's root directory.
-   *
    * @default "worker"
    */
   customWorkerDir?: string;
   /**
    * Reload the app when it detects that it has gone back online. Indicate if
    * the app should call `location.reload()` to refresh the app.
-   *
    * @default true
    */
   reloadOnOnline?: boolean;
@@ -178,7 +166,6 @@ export interface PluginOptions {
 export interface FallbackRoutes {
   /**
    * Fallback route for document (pages).
-   *
    * @default
    *   ```js
    *   "/_offline" // or none if it doesn't exist.
@@ -187,31 +174,26 @@ export interface FallbackRoutes {
   document?: string;
   /**
    * Fallback route for data, defaults to none.
-   *
    * @default undefined
    */
   data?: string;
   /**
    * Fallback route for images, defaults to none.
-   *
    * @default undefined
    */
   image?: string;
   /**
    * Fallback route for audios, defaults to none.
-   *
    * @default undefined
    */
   audio?: string;
   /**
    * Fallback route for videos, defaults to none.
-   *
    * @default undefined
    */
   video?: string;
   /**
    * Fallback route for fonts, defaults to none.
-   *
    * @default undefined
    */
   font?: string;

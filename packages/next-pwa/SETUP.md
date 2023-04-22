@@ -98,7 +98,7 @@ app.prepare().then(() => {
 
 ### Step 2: Add a manifest.json file
 
-Create a `manifest.json` file in your `public` folder:
+Create a `manifest.json` file in your `public` folder (or `app` if you are using the `app` directory):
 
 ```json
 {
@@ -183,7 +183,7 @@ Add the following code to your `_app.tsx`'s `<Head />`:
 </head>
 ```
 
-or if you are using appDir, export this from your root `layout.tsx`:
+or if you are using the `app` directory, export this from your root `layout.tsx` (also add `favicon.ico`, `opengraph-image.png` and `apple-icon.png` to `app/`):
 
 ```ts
 import type { Metadata } from "next";
@@ -200,7 +200,6 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
   themeColor: "#FFFFFF",
   appleWebApp: {
     capable: true,
@@ -210,14 +209,6 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  icons: {
-    shortcut: "/favicon.ico",
-    apple: [
-      { url: "/icons/touch-icon-ipad.png", sizes: "152x152" },
-      { url: "/icons/touch-icon-ipad-retina.png", sizes: "167x167" },
-      { url: "/icons/touch-icon-iphone-retina.png", sizes: "180x180" },
-    ],
-  },
   openGraph: {
     type: "website",
     siteName: APP_NAME,
@@ -226,7 +217,6 @@ export const metadata: Metadata = {
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
-    images: "/icons/og.png",
   },
   twitter: {
     card: "summary",
@@ -235,7 +225,6 @@ export const metadata: Metadata = {
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
-    images: "/icons/twitter.png",
   },
 };
 ```
@@ -244,7 +233,7 @@ export const metadata: Metadata = {
 
 When fetching from both cache and network fails and offline fallbacks are enabled, a precached resource is served rather than an error.
 
-To get started, simply add a `/_offline.tsx` file to your `pages/` directory or a `/~offline/page.tsx` file to your `app/` directory. You are all set! When the user is offline, all pages which are not cached will fallback to `/_offline`.
+To get started, simply add a `/_offline.tsx` file to `pages/` or a `/~offline/page.tsx` file to `app/`. You are all set! When the user is offline, all pages which are not cached will fallback to `/_offline`.
 
 **[Use this example to see it in action](/examples/offline-fallback-v2)**
 

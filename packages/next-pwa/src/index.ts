@@ -14,6 +14,7 @@ import { buildCustomWorker } from "./build-custom-worker.js";
 import { getDefaultDocumentPage } from "./build-fallback-worker/get-default-document-page.js";
 import { buildFallbackWorker } from "./build-fallback-worker/index.js";
 import defaultCache from "./cache.js";
+import * as logger from "./logger.js";
 import type { SharedWorkboxOptionsKeys } from "./private_types.js";
 import type { PluginOptions } from "./types.js";
 import {
@@ -105,20 +106,18 @@ const withPWAInit = (
         }
 
         if (disable) {
-          options.isServer && console.log("> [PWA] PWA support is disabled.");
+          options.isServer && logger.info("PWA support is disabled.");
           return config;
         }
 
-        console.log(
-          `> [PWA] Compiling for ${
-            options.isServer ? "server" : "client (static)"
-          }...`
+        logger.info(
+          `Compiling for ${options.isServer ? "server" : "client (static)"}...`
         );
 
         if (isGenerateSWConfig(workboxOptions)) {
           if (workboxOptions.runtimeCaching) {
-            console.log(
-              "> [PWA] Custom runtimeCaching array found, using it instead of the default one."
+            logger.info(
+              "Custom runtimeCaching array found, using it instead of the default one."
             );
             runtimeCaching = workboxOptions.runtimeCaching;
           }
@@ -189,31 +188,25 @@ const withPWAInit = (
             importScripts.unshift(customWorkerScriptName);
           }
 
-          if (register) {
-            console.log(
-              `> [PWA] Service worker will be automatically registered with: ${path.resolve(
-                swEntryJs
-              )}`
+          if (!register) {
+            logger.info(
+              `Service worker won't be automatically registered as per the config, please call the following code in a componentDidMount callback or useEffect hook:`
             );
-          } else {
-            console.log(
-              `> [PWA] Service worker won't be automatically registered as per the config, please call the following code in a componentDidMount callback or useEffect hook:`
-            );
-            console.log(`> [PWA]   window.workbox.register()`);
+            logger.info(`  window.workbox.register()`);
             if (
               !tsConfigJSON?.compilerOptions?.types?.includes(
                 "@ducanh2912/next-pwa/workbox"
               )
             ) {
-              console.log(
-                `> [PWA] You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json/jsconfig.json.`
+              logger.info(
+                "You may also want to add @ducanh2912/next-pwa/workbox to compilerOptions.types in your tsconfig.json/jsconfig.json."
               );
             }
           }
 
-          console.log(`> [PWA] Service worker: ${path.join(_dest, sw)}`);
-          console.log(`> [PWA]   URL: ${_sw}`);
-          console.log(`> [PWA]   Scope: ${_scope}`);
+          logger.info(`Service worker: ${path.join(dest, sw)}`);
+          logger.info(`  URL: ${_sw}`);
+          logger.info(`  Scope: ${_scope}`);
 
           config.plugins.push(
             new CleanWebpackPlugin({
@@ -379,7 +372,7 @@ const withPWAInit = (
 
           if (isInjectManifestConfig(workboxOptions)) {
             const swSrc = path.join(options.dir, workboxOptions.swSrc);
-            console.log(`> [PWA] Using InjectManifest with ${swSrc}`);
+            logger.info(`Using InjectManifest with ${swSrc}`);
             const workboxPlugin = new WorkboxPlugin.InjectManifest({
               ...workboxCommon,
               ...workbox,
@@ -399,8 +392,8 @@ const withPWAInit = (
             let shutWorkboxAfterCalledMessageUp = false;
 
             if (dev) {
-              console.log(
-                "> [PWA] Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
+              logger.info(
+                "Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
               );
               ignoreURLParametersMatching.push(/ts/);
               runtimeCaching = [

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 
+import * as logger from "../logger.js";
 import { findFirstTruthy } from "../utils.js";
 
 export const getDefaultDocumentPage = (
@@ -31,8 +32,8 @@ export const getDefaultDocumentPage = (
       }
       const appDirLegacyOffline = path.join(appDir, `_offline/page.${ext}`);
       if (fs.existsSync(appDirLegacyOffline)) {
-        console.warn(
-          "> [PWA] Next.js App Router now ignores folders prefixed by underscore (_). " +
+        logger.warn(
+          "Next.js App Router now ignores folders prefixed by underscore (_). " +
             'Please replace "/_offline" with "/~offline". "/_offline" in "app/" will no longer automatically ' +
             "enable the fallback worker in the next major version."
         );

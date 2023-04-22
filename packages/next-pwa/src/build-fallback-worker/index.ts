@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import webpack from "webpack";
 
 import swcRc from "../.swcrc.json";
+import * as logger from "../logger.js";
 import type { FallbackRoutes } from "../types.js";
 import { getFallbackEnvs } from "./get-fallback-envs.js";
 
@@ -98,8 +99,8 @@ export const buildFallbackWorker = ({
       : undefined,
   }).run((error, status) => {
     if (error || status?.hasErrors()) {
-      console.error(`> [PWA] Failed to build fallback worker.`);
-      console.error(status?.toString({ colors: true }));
+      logger.error("Failed to build fallback worker.");
+      logger.error(status?.toString({ colors: true }));
       process.exit(-1);
     }
   });

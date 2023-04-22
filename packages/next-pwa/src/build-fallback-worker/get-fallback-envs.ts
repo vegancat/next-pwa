@@ -1,5 +1,6 @@
 import path from "path";
 
+import * as logger from "../logger.js";
 import type { FallbackRoutes } from "../types.js";
 
 export const getFallbackEnvs = ({
@@ -26,30 +27,28 @@ export const getFallbackEnvs = ({
 
   if (Object.values(envs).filter((v) => !!v).length === 0) return;
 
-  console.log(
-    "> [PWA] This app will fallback to these precached routes when fetching from cache or network fails:"
+  logger.info(
+    "This app will fallback to these precached routes when fetching from cache or network fails:"
   );
 
   if (envs.__PWA_FALLBACK_DOCUMENT__) {
-    console.log(
-      `> [PWA]   Documents (pages): ${envs.__PWA_FALLBACK_DOCUMENT__}`
-    );
+    logger.info(`  Documents (pages): ${envs.__PWA_FALLBACK_DOCUMENT__}`);
   }
   if (envs.__PWA_FALLBACK_IMAGE__) {
-    console.log(`> [PWA]   Images: ${envs.__PWA_FALLBACK_IMAGE__}`);
+    logger.info(`  Images: ${envs.__PWA_FALLBACK_IMAGE__}`);
   }
   if (envs.__PWA_FALLBACK_AUDIO__) {
-    console.log(`> [PWA]   Audio: ${envs.__PWA_FALLBACK_AUDIO__}`);
+    logger.info(`  Audio: ${envs.__PWA_FALLBACK_AUDIO__}`);
   }
   if (envs.__PWA_FALLBACK_VIDEO__) {
-    console.log(`> [PWA]   Videos: ${envs.__PWA_FALLBACK_VIDEO__}`);
+    logger.info(`  Videos: ${envs.__PWA_FALLBACK_VIDEO__}`);
   }
   if (envs.__PWA_FALLBACK_FONT__) {
-    console.log(`> [PWA]   Fonts: ${envs.__PWA_FALLBACK_FONT__}`);
+    logger.info(`  Fonts: ${envs.__PWA_FALLBACK_FONT__}`);
   }
   if (envs.__PWA_FALLBACK_DATA__) {
-    console.log(
-      `> [PWA]   Data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`
+    logger.info(
+      `  Data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`
     );
   }
 
