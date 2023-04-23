@@ -5,7 +5,7 @@
   "description": "PWA for Next.js, powered by pure ServiceWorker.",
   "repository": "https://github.com/DuCanhGH/next-pwa",
   "author": "DuCanhGH",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "files": [
     "dist"
