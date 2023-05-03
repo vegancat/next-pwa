@@ -10,13 +10,12 @@ self.fallback = async (request) => {
   };
   const fallbackResponse = fallbackUrl[destination];
   if (fallbackResponse) {
-    return (
-      caches.match(fallbackResponse, {
-        ignoreSearch: true,
-      }) ?? Response.error()
-    );
+    return caches.match(fallbackResponse, {
+      ignoreSearch: true,
+    });
   }
   if (
+    destination === "" &&
     process.env.__PWA_FALLBACK_DATA__ &&
     url.match(/\/_next\/data\/.+\/.+\.json$/i)
   ) {

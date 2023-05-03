@@ -4,7 +4,6 @@ import fg from "fast-glob";
 import fs from "fs";
 import type { NextConfig } from "next";
 import path from "path";
-import type { TsConfigJson as TSConfigJSON } from "type-fest";
 import { fileURLToPath } from "url";
 import type { Configuration, default as webpackType } from "webpack";
 import type { RuntimeCaching } from "workbox-build";

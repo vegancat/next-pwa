@@ -5,7 +5,7 @@ import type { Configuration, default as Webpack } from "webpack";
 import { buildFallbackWorker } from "./build/fallback-routes/index.js";
 import type { GenerateSWConfig } from "./build/generate-sw/index.js";
 import { GenerateSW } from "./build/generate-sw/index.js";
-import { info } from "./logger.js";
+import * as logger from "./logger.js";
 import type { PluginOptions } from "./types.js";
 
 let warnedAboutDev = false;
@@ -47,11 +47,11 @@ const withPWAInit = (
         }
 
         if (disable) {
-          context.isServer && info("PWA support is disabled.");
+          context.isServer && logger.info("PWA support is disabled.");
           return config;
         }
 
-        info(
+        logger.info(
           `Compiling for ${context.isServer ? "server" : "client (static)"}...`
         );
 
@@ -66,10 +66,36 @@ const withPWAInit = (
           })
         );
 
+        const swEntryJs = path.join(__dirname, "sw-entry.js");
+        const entry = config.entry as () => Promise<
+          Record<string, string[] | string>
+        >;
+        config.entry = () =>
+          entry().then((entries) => {
+            if (entries["main.js"] && !entries["main.js"].includes(swEntryJs)) {
+              if (Array.isArray(entries["main.js"])) {
+                entries["main.js"].unshift(swEntryJs);
+              } else if (typeof entries["main.js"] === "string") {
+                entries["main.js"] = [swEntryJs, entries["main.js"]];
+              }
+            }
+            if (
+              entries["main-app"] &&
+              !entries["main-app"].includes(swEntryJs)
+            ) {
+              if (Array.isArray(entries["main-app"])) {
+                entries["main-app"].unshift(swEntryJs);
+              } else if (typeof entries["main-app"] === "string") {
+                entries["main-app"] = [swEntryJs, entries["main-app"]];
+              }
+            }
+            return entries;
+          });
+
         if (!context.isServer) {
           if (dev && !warnedAboutDev) {
-            info(
-              "Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker."
+            logger.info(
+              "Building in development mode. Caching and precaching are mostly disabled, but you can continue developing other functions in the service worker."
             );
             warnedAboutDev = true;
           }
@@ -98,7 +124,6 @@ const withPWAInit = (
               destDir: resolvedDest,
               minify: !dev,
               importScripts,
-              runtimeCaching: [],
               skipWaiting,
             })
           );

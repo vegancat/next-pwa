@@ -1,8 +1,8 @@
 import type { RuntimeCaching } from "../../private-types.js";
+import { runtimeCaching } from "./runtime-caching.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
-declare const __PWA_RUNTIME_CACHING__: RuntimeCaching[];
 declare const __PWA_IMPORT_SCRIPTS__: string[] | undefined;
 declare const __PWA_SKIP_WAITING__: boolean;
 
@@ -10,87 +10,95 @@ if (__PWA_IMPORT_SCRIPTS__) {
   importScripts(...__PWA_IMPORT_SCRIPTS__);
 }
 
-const rscResponseHeaders = new Set([
-  "text/x-component",
-  "text/plain",
-  "application/octet-stream",
-]);
+const FALLBACK_CACHE_NAME = "__next_pwa_cache__";
 
-const mapUrlToCacheType: Record<string, RuntimeCaching> = {};
+const mapUrlToCacheType = new Map<Request, RuntimeCaching>();
 
-const getHandler = (request: Request) => {
-  for (const handler of __PWA_RUNTIME_CACHING__) {
-    if (
-      (handler.urlPattern instanceof RegExp &&
-        handler.urlPattern.test(request.url)) ||
-      (typeof handler.urlPattern === "string" &&
-        request.url === handler.urlPattern) ||
-      (typeof handler.urlPattern === "function" &&
-        handler.urlPattern(request) &&
-        handler.method === request.method)
-    ) {
-      mapUrlToCacheType[request.url] = handler;
-      return handler;
+/**
+ * Check if a runtimeCaching's entry is valid for a request.
+ * @param entry
+ * @param request
+ * @returns
+ */
+const checkEntry = (
+  entry: RuntimeCaching,
+  request: Request,
+  requestUrl: URL
+) => {
+  switch (typeof entry.urlPattern) {
+    case "function":
+      return entry.urlPattern({
+        request,
+        url: requestUrl,
+        sameOrigin: requestUrl.origin === self.location.origin,
+      });
+    case "string":
+      return request.url === entry.urlPattern;
+    default:
+      return entry.urlPattern.test(request.url);
+  }
+};
+
+const getRuntimeCachingEntry = (request: Request) => {
+  const requestUrl = new URL(request.url);
+  for (const entry of runtimeCaching) {
+    if (checkEntry(entry, request, requestUrl)) {
+      mapUrlToCacheType.set(request, entry);
+      return entry;
     }
   }
   return undefined;
 };
 
-const addToCache = async (
-  { urlPattern, handler, options }: RuntimeCaching,
-  request: Request,
-  response: Response
-) => {
-  if (
-    (urlPattern instanceof RegExp && urlPattern.test(request.url)) ||
-    (typeof urlPattern === "string" && request.url === urlPattern) ||
-    (typeof urlPattern === "function" && urlPattern(request))
-  ) {
-    if (handler !== "CacheOnly" && handler !== "NetworkOnly") {
-      let cacheName = options?.cacheName ?? "__next_pwa_cache__";
-      // special handling for RSC.
-      if (cacheName === "next-html-response") {
-        const resContentType = response.headers.get("Content-Type");
-        if (resContentType && rscResponseHeaders.has(resContentType)) {
-          cacheName = "next-rsc-response";
-        }
-      }
-      const cache = await caches.open(cacheName);
-      cache.put(request, response);
-    }
-  }
-};
-
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     (async () => {
-      const cachedResponse = await caches.match(event.request);
-      const handler =
-        mapUrlToCacheType[event.request.url] ?? getHandler(event.request);
+      const entry =
+        mapUrlToCacheType.get(event.request) ??
+        getRuntimeCachingEntry(event.request);
 
-      if (!handler) {
+      if (!entry || entry.handler === "NetworkOnly") {
         return await fetch(event.request);
       }
 
-      if (handler.handler === "CacheOnly") {
+      if (typeof entry.handler === "function") {
+        return entry.handler(event.request);
+      }
+
+      const cachedResponse = await caches.match(event.request);
+
+      if (entry.handler === "CacheOnly") {
         return cachedResponse ?? Response.error();
       }
 
-      if (handler.handler === "CacheFirst" && cachedResponse) {
+      if (entry.handler === "CacheFirst" && cachedResponse) {
         return cachedResponse;
       }
 
-      let response = await fetch(event.request);
-      if (!response.ok && handler.handler !== "NetworkOnly") {
-        if (cachedResponse) {
-          response = cachedResponse;
-        } else {
-          response = Response.error();
-        }
+      let response = await fetch(event.request).catch(() => cachedResponse);
+
+      if (!response) {
+        response = Response.error();
       }
+
       if (response.ok) {
-        addToCache(handler, event.request, response);
+        const clonedResponse = response.clone();
+
+        // Add a [request, response] pair to `caches`.
+        let cacheName = entry.options?.cacheName ?? FALLBACK_CACHE_NAME;
+        if (
+          cacheName === "next-html-response" &&
+          event.request.headers.get("RSC") === "1"
+        ) {
+          // special handling for RSC.
+          cacheName = "next-rsc-response";
+        }
+
+        const cache = await caches.open(cacheName);
+
+        await cache.put(event.request, clonedResponse);
       }
+
       return response;
     })()
   );
