@@ -1,5 +1,24 @@
 # @ducanh2912/next-pwa
 
+## 8.3.0
+
+### Minor Changes
+
+- 537566f: chore(deps): monthly dependencies maintenance
+- 537566f: feat(logging): use chalk with console.log
+
+  - Log with `info  -`, `warn  -`, `error -`, `wait  -` to match Next's style of logging.
+
+  - chalk is bundled with the package so there shouldn't be any compatibility issue.
+
+## 8.2.0
+
+### Minor Changes
+
+- 8421d6d: feat(fallbackRoutes): enable the fallback worker when `app/~offline/page.js` is found
+
+  - This also adds a warning about Next.js appDir ignoring folders prefixed by underscore and suggests migrating to /~offline when /\_offline is found.
+
 ## 8.1.1
 
 ### Patch Changes

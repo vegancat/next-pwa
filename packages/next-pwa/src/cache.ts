@@ -47,6 +47,17 @@ const defaultCache: RuntimeCaching[] = [
     },
   },
   {
+    urlPattern: /\/_next\/static.+\.js$/i,
+    handler: "CacheFirst",
+    options: {
+      cacheName: "next-static-js-assets",
+      expiration: {
+        maxEntries: 64,
+        maxAgeSeconds: 24 * 60 * 60, // 24 hours
+      },
+    },
+  },
+  {
     urlPattern: /\/_next\/image\?url=.+$/i,
     handler: "StaleWhileRevalidate",
     options: {
@@ -126,9 +137,8 @@ const defaultCache: RuntimeCaching[] = [
     },
   },
   {
-    urlPattern: ({ sameOrigin, url }) => {
+    urlPattern: ({ sameOrigin, url: { pathname } }) => {
       if (!sameOrigin) return false;
-      const pathname = url.pathname;
       // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without having an impact on other environments
       // The above route is the default for next-auth, you may need to change it if your OAuth workflow has a different callback route
       // Issue: https://github.com/shadowwalker/next-pwa/issues/131#issuecomment-821894809
@@ -148,15 +158,28 @@ const defaultCache: RuntimeCaching[] = [
     },
   },
   {
-    urlPattern: ({ url, sameOrigin }) => {
-      if (!sameOrigin) return false;
-      const pathname = url.pathname;
-      if (pathname.startsWith("/api/")) return false;
-      return true;
-    },
+    urlPattern: ({ request, url: { pathname }, sameOrigin }) =>
+      request.headers.get("RSC") === "1" &&
+      sameOrigin &&
+      !pathname.startsWith("/api/"),
     handler: "NetworkFirst",
     options: {
-      cacheName: "others",
+      cacheName: "pages-rsc",
+      expiration: {
+        maxEntries: 32,
+        maxAgeSeconds: 24 * 60 * 60, // 24 hours
+      },
+      matchOptions: {
+        ignoreVary: true,
+      },
+    },
+  },
+  {
+    urlPattern: ({ url: { pathname }, sameOrigin }) =>
+      sameOrigin && !pathname.startsWith("/api/"),
+    handler: "NetworkFirst",
+    options: {
+      cacheName: "pages",
       expiration: {
         maxEntries: 32,
         maxAgeSeconds: 24 * 60 * 60, // 24 hours
@@ -164,9 +187,7 @@ const defaultCache: RuntimeCaching[] = [
     },
   },
   {
-    urlPattern: ({ sameOrigin }) => {
-      return !sameOrigin;
-    },
+    urlPattern: ({ sameOrigin }) => !sameOrigin,
     handler: "NetworkFirst",
     options: {
       cacheName: "cross-origin",

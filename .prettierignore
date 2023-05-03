@@ -38,3 +38,7 @@ examples/*/.next
 **/public/worker**
 **/public/fallback**
 **/public/precache**
+
+# others
+LICENSE
+CODE_OF_CONDUCT.md

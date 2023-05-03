@@ -6,19 +6,16 @@ type Impossible<K extends keyof any> = { [P in K]?: never };
 type GenerateSWOverrideJSDoc = {
   /**
    * Note: This plugin changes the default to `true`.
-   *
    * @default true ("next-pwa")
    */
   skipWaiting?: GenerateSWConfig["skipWaiting"];
   /**
    * Note: This plugin changes the default to `true`.
-   *
    * @default true ("next-pwa")
    */
   clientsClaim?: GenerateSWConfig["clientsClaim"];
   /**
    * Note: This plugin changes the default to `true`.
-   *
    * @default true ("next-pwa")
    */
   cleanUpOutdatedCaches?: GenerateSWConfig["cleanupOutdatedCaches"];

@@ -1,11 +1,11 @@
 {
   "name": "@ducanh2912/next-pwa",
-  "version": "8.1.1",
+  "version": "8.3.0",
   "type": "module",
   "description": "PWA for Next.js, powered by Workbox.",
   "repository": "https://github.com/DuCanhGH/next-pwa",
   "author": "ShadowWalker <w@weiw.io>, DuCanhGH",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "private": false,
   "files": [
     "dist"
@@ -45,7 +45,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@swc/core": "1.3.39",
+    "@swc/core": "1.3.53",
     "clean-webpack-plugin": "4.0.0",
     "fast-glob": "3.2.12",
     "swc-loader": "0.2.3",
@@ -57,15 +57,17 @@
   },
   "devDependencies": {
     "@rollup/plugin-json": "6.0.0",
-    "@rollup/plugin-node-resolve": "15.0.1",
-    "@rollup/plugin-terser": "0.4.0",
-    "@rollup/plugin-typescript": "11.0.0",
-    "@types/node": "18.15.0",
-    "rollup": "3.19.0",
+    "@rollup/plugin-node-resolve": "15.0.2",
+    "@rollup/plugin-terser": "0.4.1",
+    "@rollup/plugin-typescript": "11.1.0",
+    "@types/node": "18.15.13",
+    "chalk": "5.2.0",
+    "next": "13.3.1",
+    "rollup": "3.20.7",
     "tsconfig": "workspace:*",
-    "type-fest": "3.6.1",
-    "typescript": "5.1.0-dev.20230310",
-    "webpack": "5.76.0"
+    "type-fest": "3.8.0",
+    "typescript": "5.1.0-dev.20230422",
+    "webpack": "5.80.0"
   },
   "peerDependencies": {
     "next": ">=9.1.0",

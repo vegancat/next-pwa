@@ -1,7 +1,9 @@
 import fs from "fs";
+import path from "path";
+import type { TsConfigJson as TSConfigJSON } from "type-fest";
 import type { GenerateSW, InjectManifest } from "workbox-webpack-plugin";
 
-import type { WorkboxTypes } from "./private_types.js";
+import type { WorkboxTypes } from "./private-types.js";
 
 export const overrideAfterCalledMethod = (
   workboxPlugin: InjectManifest | GenerateSW
@@ -37,10 +39,39 @@ export const addPathAliasesToSWC = (
   config.jsc.paths = paths;
 };
 
-export const loadJSON = <T = unknown>(filePath: string): T | undefined => {
+export const loadTSConfig = (
+  baseDir: string,
+  relativeTSConfigPath: string | undefined
+): TSConfigJSON | undefined => {
   try {
-    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    // Find tsconfig.json file
+    const tsConfigPath = findFirstTruthy(
+      [relativeTSConfigPath ?? "tsconfig.json", "jsconfig.json"],
+      (filePath) => {
+        const resolvedPath = path.join(baseDir, filePath);
+        return fs.existsSync(resolvedPath) ? resolvedPath : undefined;
+      }
+    );
+
+    if (!tsConfigPath) {
+      return undefined;
+    }
+
+    // Read tsconfig.json file
+    const tsConfigFile = JSON.parse(fs.readFileSync(tsConfigPath, "utf-8"));
+
+    return tsConfigFile;
   } catch {
     return undefined;
   }
+};
+
+export const findFirstTruthy = <T, U>(arr: T[], fn: (elm: T) => U) => {
+  for (const i of arr) {
+    const resolved = fn(i);
+    if (resolved) {
+      return resolved;
+    }
+  }
+  return undefined;
 };

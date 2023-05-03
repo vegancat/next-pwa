@@ -10,7 +10,7 @@ jobs:
       TURBO_REMOTE_ONLY: true
     strategy:
       matrix:
-        node-version: ["16.x"]
+        node-version: ["18.x"]
         pnpm-version: ["7.x"]
         os: [ubuntu-latest]
     steps:
@@ -37,16 +37,18 @@ jobs:
     name: 🚀 Release packages
     needs: [typecheck_lint_build]
     runs-on: ${{ matrix.os }}
+    permissions:
+      id-token: write
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       TURBO_REMOTE_ONLY: true
     strategy:
       matrix:
-        node-version: ["16.x"]
+        node-version: ["18.x"]
         pnpm-version: ["7.x"]
         os: [ubuntu-latest]
-    if: ${{ github.ref == 'refs/heads/master' && (contains(github.event.head_commit.message, '[bump ver]') || contains(github.event.head_commit.message, 'RELEASING')) }}
+    if: ${{ github.ref == 'refs/heads/master' && (contains(github.event.head_commit.message, '[bump]') || contains(github.event.head_commit.message, 'RELEASING')) }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -59,6 +61,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Update npm
+        run: npm i -g npm@9
       - name: Install dependencies
         run: pnpm install
       - name: Publish to npm

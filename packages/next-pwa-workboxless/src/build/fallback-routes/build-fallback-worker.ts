@@ -4,7 +4,7 @@ import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
-import type { default as Webpack } from "webpack";
+import type Webpack from "webpack";
 
 import swcRc from "../../.swcrc.json";
 import { error, info } from "../../logger.js";

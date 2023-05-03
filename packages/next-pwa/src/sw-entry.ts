@@ -74,7 +74,7 @@ if (
         return;
       }
       if (__PWA_CACHE_ON_FRONT_END_NAV__ && url !== __PWA_START_URL__) {
-        return caches.open("others").then((cache) =>
+        return caches.open("pages").then((cache) =>
           cache.match(url, { ignoreSearch: true }).then((res) => {
             if (!res) {
               return cache.add(url);
