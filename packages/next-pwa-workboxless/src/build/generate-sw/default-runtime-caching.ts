@@ -1,6 +1,6 @@
-import type { RuntimeCaching } from "../../private-types.js";
+import type { RuntimeCaching } from "../../types.js";
 
-export const runtimeCaching: RuntimeCaching[] = [
+export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   {
     urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
     handler: "CacheFirst",
@@ -166,6 +166,18 @@ export const runtimeCaching: RuntimeCaching[] = [
         maxEntries: 32,
         maxAgeSeconds: 24 * 60 * 60, // 24 hours
       },
+    },
+  },
+  {
+    urlPattern: ({ sameOrigin }) => !sameOrigin,
+    handler: "NetworkFirst",
+    options: {
+      cacheName: "cross-origin",
+      expiration: {
+        maxEntries: 32,
+        maxAgeSeconds: 60 * 60, // 1 hour
+      },
+      // networkTimeoutSeconds: 10,
     },
   },
 ];

@@ -39,13 +39,6 @@ const files = [
     },
   },
   {
-    input: "src/build/fallback-routes/fallback.ts",
-    output: {
-      file: "dist/fallback.js",
-      format: "cjs",
-    },
-  },
-  {
     input: "src/sw-entry.ts",
     output: {
       file: "dist/sw-entry.js",

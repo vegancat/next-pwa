@@ -1,12 +1,13 @@
+import path from "node:path";
+
 import type { NextConfig } from "next";
-import path from "path";
 import type { Configuration, default as Webpack } from "webpack";
 
-import { buildFallbackWorker } from "./build/fallback-routes/index.js";
-import type { GenerateSWConfig } from "./build/generate-sw/index.js";
+import { getDefaultDocumentPage } from "./build/generate-sw/core-utils.js";
+import { DEFAULT_RUNTIME_CACHING } from "./build/generate-sw/default-runtime-caching.js";
 import { GenerateSW } from "./build/generate-sw/index.js";
 import * as logger from "./logger.js";
-import type { PluginOptions } from "./types.js";
+import type { PluginOptions, RuntimeCaching } from "./types.js";
 
 let warnedAboutDev = false;
 
@@ -34,12 +35,14 @@ const withPWAInit = (
         }
 
         const {
-          disable = false,
           dest = "public",
+          disable = false,
           fallbackRoutes = {},
+          importScripts = [],
           logging = dev,
-          register = true,
           skipWaiting = true,
+          register = true,
+          runtimeCaching: providedRuntimeCaching,
         } = pluginOptions;
 
         if (typeof nextConfig.webpack === "function") {
@@ -100,31 +103,58 @@ const withPWAInit = (
             warnedAboutDev = true;
           }
           const resolvedDest = path.join(context.dir, dest);
-          const importScripts: GenerateSWConfig["importScripts"] = [];
 
-          if (fallbackRoutes) {
-            const res = buildFallbackWorker({
-              webpackInstance: webpack,
-              id: buildId,
-              fallbackRoutes,
-              baseDir: context.dir,
-              destDir: resolvedDest,
-              minify: !dev,
+          if (!fallbackRoutes.document) {
+            fallbackRoutes.document = getDefaultDocumentPage(
+              context.dir,
               pageExtensions,
-              isAppDirEnabled,
-            });
-            if (res) {
-              importScripts.unshift(res.name);
+              isAppDirEnabled
+            );
+          }
+
+          const runtimeCaching: RuntimeCaching[] = [];
+          const runtimeCachingKeys = new Set<string>();
+
+          const addEntryToRuntimeCaching = (entry: RuntimeCaching) => {
+            const cacheName = entry.options?.cacheName;
+            if (cacheName && runtimeCachingKeys.has(cacheName)) {
+              return;
             }
+
+            if (cacheName) {
+              runtimeCachingKeys.add(cacheName);
+            }
+
+            // provide default values here.
+            if (!entry.method) {
+              entry.method = "GET";
+            }
+
+            runtimeCaching.push(entry);
+          };
+
+          if (providedRuntimeCaching) {
+            for (const entry of providedRuntimeCaching) {
+              addEntryToRuntimeCaching(entry);
+            }
+          }
+
+          for (const entry of DEFAULT_RUNTIME_CACHING) {
+            addEntryToRuntimeCaching(entry);
           }
 
           config.plugins.push(
             new GenerateSW({
               id: buildId,
+              baseDir: context.dir,
               destDir: resolvedDest,
-              minify: !dev,
+              fallbackRoutes,
               importScripts,
+              isAppDirEnabled,
+              minify: !dev,
+              pageExtensions,
               skipWaiting,
+              runtimeCaching,
             })
           );
         }
@@ -136,3 +166,4 @@ const withPWAInit = (
 };
 
 export default withPWAInit;
+export { DEFAULT_RUNTIME_CACHING as defaultRuntimeCaching };

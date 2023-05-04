@@ -1,42 +1,62 @@
-import { createRequire } from "module";
-import path from "path";
+import { createRequire } from "node:module";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+import type { NextConfig } from "next";
 import TerserPlugin from "terser-webpack-plugin";
-import { fileURLToPath } from "url";
 import type { Configuration, default as Webpack } from "webpack";
 
 import swcRc from "../../.swcrc.json";
-import { error } from "../../logger.js";
+import * as logger from "../../logger.js";
+import type { FallbackRoutes, RuntimeCaching } from "../../types.js";
+import { getFallbackEnvs } from "./core-utils.js";
+import { runtimeCachingConverter } from "./runtime-caching-converter.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const require = createRequire(import.meta.url);
 
+export type ImportScripts = string[] | undefined;
+
 export interface GenerateSWConfig {
   id: string;
+  baseDir: string;
   destDir: string;
+  fallbackRoutes: FallbackRoutes;
+  importScripts?: ImportScripts;
+  isAppDirEnabled: boolean;
   mode?: Configuration["mode"];
   minify?: boolean;
-  /**
-   * A list of JavaScript files that should be passed to `importScripts()` inside
-   * the generated service worker file. This is useful when you want to let
-   * `next-pwa` create your top-level service worker file, but want to include some
-   * additional code, such as a push event listener.
-   */
-  importScripts?: string[];
+  pageExtensions: NonNullable<NextConfig["pageExtensions"]>;
   skipWaiting: boolean;
+  runtimeCaching: RuntimeCaching[];
 }
 
 export const generateSW = ({
   webpackInstance: webpack,
+  baseDir,
   destDir,
+  fallbackRoutes,
+  id,
+  importScripts,
+  isAppDirEnabled,
   mode,
   minify,
-  importScripts,
+  pageExtensions,
   skipWaiting,
+  runtimeCaching,
 }: GenerateSWConfig & {
   webpackInstance?: typeof Webpack;
 }) => {
+  const envs = getFallbackEnvs({
+    fallbackRoutes,
+    baseDir,
+    id,
+    pageExtensions,
+    isAppDirEnabled,
+  });
+
   if (!webpack) {
-    error("Webpack instance is not provided to generateSW.");
+    logger.error("Webpack instance is not provided to generateSW.");
     return;
   }
 
@@ -92,8 +112,10 @@ export const generateSW = ({
     plugins: [
       new webpack.DefinePlugin({
         __PWA_IMPORT_SCRIPTS__: JSON.stringify(importScripts),
+        __PWA_RUNTIME_CACHING__: runtimeCachingConverter(runtimeCaching),
         __PWA_SKIP_WAITING__: skipWaiting.toString(),
       }),
+      new webpack.EnvironmentPlugin(envs),
     ],
     optimization: minify
       ? {
@@ -103,8 +125,8 @@ export const generateSW = ({
       : undefined,
   }).run((err, status) => {
     if (err || status?.hasErrors()) {
-      error("Failed to build service worker.");
-      error(status?.toString({ colors: true }));
+      logger.error("Failed to build service worker.");
+      logger.error(status?.toString({ colors: true }));
       process.exit(-1);
     }
   });
