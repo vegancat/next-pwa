@@ -1,5 +1,5 @@
 import type { RuntimeCaching } from "../../types.js";
-import { checkEntry, fallback } from "./base-sw-utils.js";
+import { checkEntry, fallback, getFetch } from "./base-sw-utils.js";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -82,9 +82,15 @@ self.addEventListener("fetch", (event) => {
         return cachedResponse;
       }
 
+      const entryTimeout = entry?.options?.networkTimeoutSeconds;
+
       // Fetch, fallback to cachedResponse, if it doesn't exist then fallback to
       // fallbackRoutes.
-      const response = await fetch(event.request).catch(() => cachedResponse);
+      const response = await getFetch(
+        entryTimeout,
+        entry.handler,
+        event.request
+      ).catch(() => cachedResponse);
 
       // Fetched successfully, we may add it to the cache.
       if (response && response.ok) {

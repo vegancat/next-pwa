@@ -1,23 +1,36 @@
 import type { RuntimeCaching } from "../../types.js";
 
+const getRequiredOptionErrorMessage = (
+  optionName: string,
+  entryCacheName: string | undefined
+) =>
+  `${optionName} is a required option in runtimeCaching! ${
+    entryCacheName ? `(entry's cacheName: ${entryCacheName})` : ""
+  }`;
+
 export const runtimeCachingConverter = (runtimeCaching: RuntimeCaching[]) =>
   `[${runtimeCaching
     .map((entry) => {
       if (!entry.urlPattern) {
-        throw new Error("You must define urlPattern (runtimeCaching).");
+        throw new Error(
+          getRequiredOptionErrorMessage("urlPattern", entry.options?.cacheName)
+        );
       }
 
       if (!entry.handler) {
-        throw new Error("You must define handler (runtimeCaching).");
+        throw new Error(
+          getRequiredOptionErrorMessage("handler", entry?.options?.cacheName)
+        );
       }
 
       if (
         entry.options &&
-        (entry.options as any).networkTimeoutSeconds &&
-        entry.handler !== "NetworkFirst"
+        entry.options.networkTimeoutSeconds &&
+        entry.handler !== "NetworkFirst" &&
+        entry.handler !== "NetworkOnly"
       ) {
         throw new Error(
-          "options.networkTimeoutSeconds must be used with NetworkFirst (runtimeCaching)."
+          "options.networkTimeoutSeconds can only be used with NetworkFirst or NetworkOnly (runtimeCaching)."
         );
       }
 

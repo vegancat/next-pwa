@@ -151,11 +151,17 @@ export interface RuntimeCaching {
      */
     cacheName?: string;
     /**
-     * Not yet supported.
+     * Not supported yet.
      */
     expiration?: {
       maxEntries?: number;
       maxAgeSeconds?: number;
     };
+    /**
+     * If provided, this will set time (in seconds) to wait before timing out a
+     * request. Note that only `'NetworkFirst'` and `'NetworkOnly'` support
+     * `networkTimeoutSeconds`.
+     */
+    networkTimeoutSeconds?: number;
   };
 }

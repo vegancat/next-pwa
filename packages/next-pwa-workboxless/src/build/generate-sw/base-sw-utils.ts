@@ -65,3 +65,47 @@ export const checkEntry = (
       return entry.urlPattern.test(request.url);
   }
 };
+
+interface RequestWithTimeoutInit extends RequestInit {
+  /**
+   * Time (in seconds) to wait before timing out a request.
+   */
+  timeout: number;
+}
+
+export const fetchWithTimeout = async (
+  input: URL | RequestInfo,
+  init?: RequestWithTimeoutInit
+) => {
+  const { timeout = 8 } = init ?? {};
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout * 1000);
+
+  const response = await fetch(input, {
+    ...init,
+    signal: controller.signal,
+  });
+
+  clearTimeout(id);
+
+  return response;
+};
+
+export const getFetch = (
+  timeout: number | undefined,
+  handler: RuntimeCaching["handler"],
+  request: URL | RequestInfo
+) => {
+  let fetchEvent: Promise<Response>;
+
+  if ((handler === "NetworkFirst" || handler === "NetworkOnly") && timeout) {
+    fetchEvent = fetchWithTimeout(request, {
+      timeout: timeout,
+    });
+  } else {
+    fetchEvent = fetch(request);
+  }
+
+  return fetchEvent;
+};
