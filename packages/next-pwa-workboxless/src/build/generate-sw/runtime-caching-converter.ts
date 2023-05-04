@@ -8,6 +8,11 @@ const getRequiredOptionErrorMessage = (
     entryCacheName ? `(entry's cacheName: ${entryCacheName})` : ""
   }`;
 
+/**
+ * Stringify runtimeCaching so that it can be inlined.
+ * @param runtimeCaching
+ * @returns
+ */
 export const runtimeCachingConverter = (runtimeCaching: RuntimeCaching[]) =>
   `[${runtimeCaching
     .map((entry) => {

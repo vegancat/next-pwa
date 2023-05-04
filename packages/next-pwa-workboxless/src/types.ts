@@ -1,4 +1,11 @@
+import type { Asset, Compilation } from "webpack";
+
 import type { ImportScripts } from "./build/generate-sw/core.js";
+
+export type FilterEntry =
+  | string
+  | RegExp
+  | ((args: { asset: Asset; compilation: Compilation }) => boolean);
 
 export interface PluginOptions {
   /**
@@ -16,6 +23,10 @@ export interface PluginOptions {
    */
   dest?: string;
   /**
+   * One or more specifiers used to exclude assets from the precache manifest.
+   */
+  exclude?: FilterEntry[];
+  /**
    * Config precached routes to fallback when both cache and network are not
    * available to serve resources. If you just need a offline fallback page,
    * simply create a `/_offline.tsx` file in your `pages/` dir or a
@@ -23,6 +34,10 @@ export interface PluginOptions {
    * configuration necessary.
    */
   fallbackRoutes?: FallbackRoutes;
+  /**
+   * One or more specifiers used to include assets from the precache manifest.
+   */
+  include?: FilterEntry[];
   /**
    * A list of JavaScript files that should be passed to `importScripts()` inside
    * the generated service worker file. This is useful when you want to let

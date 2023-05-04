@@ -1,3 +1,4 @@
+// import type { ManifestEntry } from "../../private-types.js";
 import type { RuntimeCaching } from "../../types.js";
 import { checkEntry, fallback, getFetch } from "./base-sw-utils.js";
 
@@ -5,11 +6,20 @@ declare const self: ServiceWorkerGlobalScope;
 
 declare const __PWA_IMPORT_SCRIPTS__: readonly string[] | undefined;
 declare const __PWA_RUNTIME_CACHING__: readonly RuntimeCaching[];
+// declare const __PWA_MANIFEST_ENTRIES__: readonly ManifestEntry[];
 declare const __PWA_SKIP_WAITING__: boolean;
 
 if (__PWA_IMPORT_SCRIPTS__) {
   importScripts(...__PWA_IMPORT_SCRIPTS__);
 }
+
+// const manifestEntries = __PWA_MANIFEST_ENTRIES__;
+
+// self.addEventListener("install", (event) => {
+//   event.waitUntil(async () => {
+
+//   });
+// });
 
 // __PWA_RUNTIME_CACHING__ is inlined, and if we reference it multiple times
 // they will all get replaced by the actual array, which is not the desired

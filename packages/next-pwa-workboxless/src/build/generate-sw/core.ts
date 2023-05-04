@@ -8,8 +8,10 @@ import type { Configuration, default as Webpack } from "webpack";
 
 import swcRc from "../../.swcrc.json";
 import * as logger from "../../logger.js";
+import type { ManifestEntry } from "../../private-types.js";
 import type { FallbackRoutes, RuntimeCaching } from "../../types.js";
 import { getFallbackEnvs } from "./core-utils.js";
+import { runtimeCachingConverter } from "./runtime-caching-converter.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const require = createRequire(import.meta.url);
@@ -18,16 +20,19 @@ export type ImportScripts = string[] | undefined;
 
 export interface GenerateSWConfig {
   id: string;
-  baseDir: string;
-  destDir: string;
-  fallbackRoutes: FallbackRoutes;
-  importScripts?: ImportScripts;
-  isAppDirEnabled: boolean;
   mode?: Configuration["mode"];
   minify?: boolean;
+  baseDir: string;
+  destDir: string;
+  isAppDirEnabled: boolean;
   pageExtensions: NonNullable<NextConfig["pageExtensions"]>;
+
+  importScripts?: ImportScripts;
+  manifestEntries?: ManifestEntry[];
   skipWaiting: boolean;
   runtimeCaching: RuntimeCaching[];
+
+  fallbackRoutes: FallbackRoutes;
 }
 
 export const generateSW = ({
@@ -38,10 +43,12 @@ export const generateSW = ({
   id,
   importScripts,
   isAppDirEnabled,
+  manifestEntries = [],
   mode,
   minify,
   pageExtensions,
   skipWaiting,
+  runtimeCaching,
 }: GenerateSWConfig & {
   webpackInstance?: typeof Webpack;
 }) => {
@@ -59,7 +66,7 @@ export const generateSW = ({
   }
 
   const name = "sw.js";
-  const swJs = path.join(__dirname, "build/generate-sw/base-sw.ts");
+  const swJs = path.join(__dirname, "base-sw.js");
 
   webpack({
     mode,
@@ -68,7 +75,7 @@ export const generateSW = ({
       main: swJs,
     },
     resolve: {
-      extensions: [".js", ".ts"],
+      extensions: [".js"],
       fallback: {
         module: false,
         dgram: false,
@@ -110,6 +117,8 @@ export const generateSW = ({
     plugins: [
       new webpack.DefinePlugin({
         __PWA_IMPORT_SCRIPTS__: JSON.stringify(importScripts),
+        __PWA_RUNTIME_CACHING__: runtimeCachingConverter(runtimeCaching),
+        __PWA_MANIFEST_ENTRIES__: JSON.stringify(manifestEntries),
         __PWA_SKIP_WAITING__: skipWaiting.toString(),
       }),
       new webpack.EnvironmentPlugin(envs),
