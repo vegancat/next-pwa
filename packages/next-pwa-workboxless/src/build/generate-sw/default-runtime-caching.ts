@@ -14,7 +14,7 @@ export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   },
   {
     urlPattern: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "google-fonts-stylesheets",
       expiration: {
@@ -25,7 +25,7 @@ export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   },
   {
     urlPattern: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "static-font-assets",
       expiration: {
@@ -36,7 +36,7 @@ export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   },
   {
     urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "static-image-assets",
       expiration: {
@@ -58,7 +58,7 @@ export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   },
   {
     urlPattern: /\/_next\/image\?url=.+$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "next-image",
       expiration: {
@@ -93,7 +93,7 @@ export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   },
   {
     urlPattern: /\.(?:js)$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "static-js-assets",
       expiration: {
@@ -104,7 +104,7 @@ export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   },
   {
     urlPattern: /\.(?:css|less)$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "static-style-assets",
       expiration: {
@@ -115,7 +115,7 @@ export const DEFAULT_RUNTIME_CACHING: RuntimeCaching[] = [
   },
   {
     urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
-    handler: "StaleWhileRevalidate",
+    handler: "CacheFirst",
     options: {
       cacheName: "next-data",
       expiration: {

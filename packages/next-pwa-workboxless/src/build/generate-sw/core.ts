@@ -10,7 +10,6 @@ import swcRc from "../../.swcrc.json";
 import * as logger from "../../logger.js";
 import type { FallbackRoutes, RuntimeCaching } from "../../types.js";
 import { getFallbackEnvs } from "./core-utils.js";
-import { runtimeCachingConverter } from "./runtime-caching-converter.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const require = createRequire(import.meta.url);
@@ -43,7 +42,6 @@ export const generateSW = ({
   minify,
   pageExtensions,
   skipWaiting,
-  runtimeCaching,
 }: GenerateSWConfig & {
   webpackInstance?: typeof Webpack;
 }) => {
@@ -61,7 +59,7 @@ export const generateSW = ({
   }
 
   const name = "sw.js";
-  const swJs = path.join(__dirname, "base-sw.js");
+  const swJs = path.join(__dirname, "build/generate-sw/base-sw.ts");
 
   webpack({
     mode,
@@ -70,7 +68,7 @@ export const generateSW = ({
       main: swJs,
     },
     resolve: {
-      extensions: [".js"],
+      extensions: [".js", ".ts"],
       fallback: {
         module: false,
         dgram: false,
@@ -112,7 +110,6 @@ export const generateSW = ({
     plugins: [
       new webpack.DefinePlugin({
         __PWA_IMPORT_SCRIPTS__: JSON.stringify(importScripts),
-        __PWA_RUNTIME_CACHING__: runtimeCachingConverter(runtimeCaching),
         __PWA_SKIP_WAITING__: skipWaiting.toString(),
       }),
       new webpack.EnvironmentPlugin(envs),

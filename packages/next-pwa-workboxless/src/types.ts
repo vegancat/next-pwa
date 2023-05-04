@@ -109,8 +109,7 @@ export type StrategyName =
   | "CacheFirst"
   | "CacheOnly"
   | "NetworkFirst"
-  | "NetworkOnly"
-  | "StaleWhileRevalidate";
+  | "NetworkOnly";
 
 export interface MatchCallbackOptions {
   request: Request;
