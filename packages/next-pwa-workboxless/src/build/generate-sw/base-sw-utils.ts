@@ -66,7 +66,7 @@ export const checkEntry = (
   }
 };
 
-interface RequestWithTimeoutInit extends RequestInit {
+interface RequestWithTimeoutInit extends Omit<RequestInit, "signal"> {
   /**
    * Time (in seconds) to wait before timing out a request.
    */
@@ -77,13 +77,13 @@ export const fetchWithTimeout = async (
   input: URL | RequestInfo,
   init?: RequestWithTimeoutInit
 ) => {
-  const { timeout = 8 } = init ?? {};
+  const { timeout = 8, ...rest } = init ?? {};
 
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout * 1000);
 
   const response = await fetch(input, {
-    ...init,
+    ...rest,
     signal: controller.signal,
   });
 
@@ -95,16 +95,18 @@ export const fetchWithTimeout = async (
 export const getFetch = (
   timeout: number | undefined,
   handler: RuntimeCaching["handler"],
-  request: URL | RequestInfo
+  request: URL | RequestInfo,
+  init?: RequestInit
 ) => {
   let fetchEvent: Promise<Response>;
 
   if ((handler === "NetworkFirst" || handler === "NetworkOnly") && timeout) {
     fetchEvent = fetchWithTimeout(request, {
+      ...init,
       timeout: timeout,
     });
   } else {
-    fetchEvent = fetch(request);
+    fetchEvent = fetch(request, init);
   }
 
   return fetchEvent;
