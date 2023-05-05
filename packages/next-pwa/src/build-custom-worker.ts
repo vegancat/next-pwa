@@ -135,7 +135,7 @@ export const buildCustomWorker = ({
       : undefined,
   }).run((error, status) => {
     if (error || status?.hasErrors()) {
-      logger.error(`> [PWA] Failed to build custom worker.`);
+      logger.error(`Failed to build custom worker.`);
       logger.error(status?.toString({ colors: true }));
       process.exit(-1);
     }
