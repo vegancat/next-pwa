@@ -1,10 +1,26 @@
 import chalk from "chalk";
+import { createRequire } from "module";
+import type nextPackageJsonType from "next/package.json";
+import { gte as semverGte } from "semver";
+
+const require = createRequire(import.meta.url);
+
+const nextPackageJson =
+  require("next/package.json") as typeof nextPackageJsonType;
+
+const isNextNewerThan13_4_1 = semverGte(nextPackageJson.version, "13.4.1");
+
+const getPrefix = (color: string, oldStyleSpace = 0) => {
+  return isNextNewerThan13_4_1
+    ? `- ${color} (pwa)`
+    : `${color}${" ".repeat(oldStyleSpace)}- (PWA)`;
+};
 
 export const prefixes = {
-  wait: chalk.cyan("wait") + "  - (PWA)",
-  error: chalk.red("error") + " - (PWA)",
-  warn: chalk.yellow("warn") + "  - (PWA)",
-  info: chalk.cyan("info") + "  - (PWA)",
+  wait: getPrefix(chalk.cyan("wait"), 2),
+  error: getPrefix(chalk.red("error"), 1),
+  warn: getPrefix(chalk.yellow("warn"), 2),
+  info: getPrefix(chalk.cyan("info"), 2),
 } as const;
 
 export const wait = (...message: any[]) => {

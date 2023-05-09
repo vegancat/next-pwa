@@ -29,6 +29,8 @@ const files = [
       },
     ],
     external: [
+      "next",
+      "semver",
       "clean-webpack-plugin",
       "terser-webpack-plugin",
       "workbox-webpack-plugin",
