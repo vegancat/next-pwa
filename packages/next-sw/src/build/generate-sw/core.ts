@@ -4,10 +4,10 @@ import { fileURLToPath } from "node:url";
 
 import type { NextConfig } from "next";
 import TerserPlugin from "terser-webpack-plugin";
+import { logger } from "utils";
 import type { Configuration, default as Webpack } from "webpack";
 
 import swcRc from "../../.swcrc.json";
-import * as logger from "../../logger.js";
 import type { ManifestEntry } from "../../private-types.js";
 import type { FallbackRoutes, RuntimeCaching } from "../../types.js";
 import { getFallbackEnvs } from "./core-utils.js";

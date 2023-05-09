@@ -2,25 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 import type { NextConfig } from "next";
+import { findFirstTruthy, logger } from "utils";
 
-import * as logger from "../../logger.js";
 import type { FallbackRoutes } from "../../types.js";
-
-/**
- * Find the first truthy value in an array.
- * @param arr
- * @param fn
- * @returns
- */
-const findFirstTruthy = <T, U>(arr: T[], fn: (elm: T) => U) => {
-  for (const i of arr) {
-    const resolved = fn(i);
-    if (resolved) {
-      return resolved;
-    }
-  }
-  return undefined;
-};
 
 /**
  * Get the default document page for fallbackRoutes.

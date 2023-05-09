@@ -1,12 +1,12 @@
 import path from "node:path";
 
 import type { NextConfig } from "next";
+import { logger } from "utils";
 import type { Configuration, default as Webpack } from "webpack";
 
 import { getDefaultDocumentPage } from "./build/generate-sw/core-utils.js";
 import { DEFAULT_RUNTIME_CACHING } from "./build/generate-sw/default-runtime-caching.js";
 import { GenerateSW } from "./build/generate-sw/index.js";
-import * as logger from "./logger.js";
 import type { PluginOptions, RuntimeCaching } from "./types.js";
 
 let warnedAboutDev = false;
