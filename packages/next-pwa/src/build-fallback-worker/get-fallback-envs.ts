@@ -1,6 +1,7 @@
-import path from "path";
+import path from "node:path";
 
-import * as logger from "../logger.js";
+import { logger } from "utils";
+
 import type { FallbackRoutes } from "../types.js";
 
 export const getFallbackEnvs = ({

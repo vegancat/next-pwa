@@ -69,6 +69,7 @@
     "tsconfig": "workspace:*",
     "type-fest": "3.10.0",
     "typescript": "5.1.0-dev.20230509",
+    "utils": "workspace:*",
     "webpack": "5.82.0"
   },
   "peerDependencies": {

@@ -1,15 +1,15 @@
+import fs from "node:fs";
+import { createRequire } from "node:module";
+import path from "node:path";
+
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import fs from "fs";
-import { createRequire } from "module";
-import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import type { TsConfigJson as TSConfigJSON } from "type-fest";
+import { addPathAliasesToSWC, logger } from "utils";
 import type { Configuration } from "webpack";
 import webpack from "webpack";
 
 import swcRc from "./.swcrc.json";
-import * as logger from "./logger.js";
-import { addPathAliasesToSWC } from "./utils.js";
 
 const require = createRequire(import.meta.url);
 
