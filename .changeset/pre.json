@@ -1,5 +1,5 @@
 {
-  "mode": "exit",
+  "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
     "@next-pwa-example/basic": "1.0.0",
@@ -13,9 +13,9 @@
     "@next-pwa-example/web-push": "1.0.0",
     "@next-pwa-example/workboxless": "0.1.0",
     "@ducanh2912/next-pwa": "8.3.0",
-    "@ducanh2912/next-sw": "1.0.0-alpha.0",
+    "@ducanh2912/next-sw": "1.0.0-alpha.1",
     "tsconfig": "0.0.0",
     "utils": "0.0.0"
   },
-  "changesets": ["empty-carrots-drop"]
+  "changesets": ["cold-lobsters-begin", "empty-carrots-drop"]
 }

@@ -5,7 +5,7 @@
   "description": "PWA for Next.js, powered by Workbox.",
   "repository": "https://github.com/DuCanhGH/next-pwa",
   "author": "ShadowWalker <w@weiw.io>, DuCanhGH",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "private": false,
   "files": [
     "dist"
