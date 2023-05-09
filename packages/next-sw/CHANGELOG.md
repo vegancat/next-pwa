@@ -1,5 +1,11 @@
 # @ducanh2912/next-sw
 
+## 1.0.0-alpha.2
+
+### Patch Changes
+
+- f231e39: Add provenance
+
 ## 1.0.0-alpha.1
 
 ### Patch Changes
