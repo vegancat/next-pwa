@@ -1,6 +1,6 @@
 {
-  "name": "@ducanh2912/next-pwa-workboxless",
-  "version": "1.0.0",
+  "name": "@ducanh2912/next-sw",
+  "version": "1.0.0-alpha.1",
   "type": "module",
   "description": "PWA for Next.js, powered by pure ServiceWorker.",
   "repository": "https://github.com/DuCanhGH/next-pwa",
@@ -14,15 +14,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/next-pwa-workboxless.cjs",
-      "default": "./dist/next-pwa-workboxless.module.js"
+      "require": "./dist/next-sw.cjs",
+      "default": "./dist/next-sw.module.js"
     },
     "./workbox": {
       "types": "./dist/sw-entry.d.ts"
     }
   },
-  "main": "./dist/next-pwa-workboxless.cjs",
-  "module": "./dist/next-pwa-workboxless.module.js",
+  "main": "./dist/next-sw.cjs",
+  "module": "./dist/next-sw.module.js",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
@@ -44,26 +44,26 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@swc/core": "1.3.53",
+    "@swc/core": "1.3.57",
     "clean-webpack-plugin": "4.0.0",
     "swc-loader": "0.2.3",
-    "terser-webpack-plugin": "5.3.7"
+    "terser-webpack-plugin": "5.3.8"
   },
   "devDependencies": {
     "@rollup/plugin-json": "6.0.0",
     "@rollup/plugin-node-resolve": "15.0.2",
     "@rollup/plugin-terser": "0.4.1",
     "@rollup/plugin-typescript": "11.1.0",
-    "@types/node": "18.15.13",
+    "@types/node": "20.1.1",
     "chalk": "5.2.0",
-    "next": "13.3.1",
-    "rollup": "3.20.7",
+    "next": "13.4.1",
+    "rollup": "3.21.5",
     "tsconfig": "workspace:*",
-    "typescript": "5.1.0-dev.20230422",
-    "webpack": "5.80.0"
+    "typescript": "5.1.0-dev.20230509",
+    "utils": "workspace:*",
+    "webpack": "5.82.0"
   },
   "peerDependencies": {
-    "next": ">=9.1.0",
-    "webpack": ">=5.9.0"
+    "next": ">=9.1.0"
   }
 }

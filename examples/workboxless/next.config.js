@@ -1,4 +1,4 @@
-const withPWA = require("@ducanh2912/next-pwa-workboxless").default();
+const withPWA = require("@ducanh2912/next-sw").default();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

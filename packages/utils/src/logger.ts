@@ -1,15 +1,19 @@
 import chalk from "chalk";
-import { createRequire } from "module";
-import type nextPackageJsonType from "next/package.json";
 import { gte as semverGte } from "semver";
 
-const require = createRequire(import.meta.url);
+import { getPackageVersion } from "./get-package-version.js";
 
-const nextPackageJson =
-  require("next/package.json") as typeof nextPackageJsonType;
+const nextPackageJson = getPackageVersion("next");
 
-const isNextNewerThan13_4_1 = semverGte(nextPackageJson.version, "13.4.1");
+const isNextNewerThan13_4_1 =
+  !!nextPackageJson && semverGte(nextPackageJson, "13.4.1");
 
+/**
+ * Get logging prefix
+ * @param color
+ * @param oldStyleSpace
+ * @returns
+ */
 const getPrefix = (color: string, oldStyleSpace = 0) => {
   return isNextNewerThan13_4_1
     ? `- ${color} (pwa)`

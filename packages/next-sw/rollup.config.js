@@ -19,30 +19,28 @@ const files = [
     input: "src/index.ts",
     output: [
       {
-        file: "dist/next-pwa-workboxless.cjs",
+        file: "dist/next-sw.cjs",
         format: "cjs",
         exports: "named",
       },
       {
-        file: "dist/next-pwa-workboxless.module.js",
+        file: "dist/next-sw.module.js",
         format: "esm",
       },
     ],
     // chalk should be bundled with the package to work with CJS.
-    external: ["clean-webpack-plugin", "terser-webpack-plugin", "webpack"],
+    external: [
+      "clean-webpack-plugin",
+      "terser-webpack-plugin",
+      "webpack",
+      "semver",
+    ],
   },
   {
     input: "src/build/generate-sw/base-sw.ts",
     output: {
       file: "dist/base-sw.js",
       format: "esm",
-    },
-  },
-  {
-    input: "src/build/fallback-routes/fallback.ts",
-    output: {
-      file: "dist/fallback.js",
-      format: "cjs",
     },
   },
   {

@@ -1,10 +1,12 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import crypto from "crypto";
 import fg from "fast-glob";
-import fs from "fs";
 import type { NextConfig } from "next";
-import path from "path";
-import { fileURLToPath } from "url";
+import { loadTSConfig, logger } from "utils";
 import type { Configuration, default as webpackType } from "webpack";
 import type { RuntimeCaching } from "workbox-build";
 import type { GenerateSWConfig } from "workbox-webpack-plugin";
@@ -14,13 +16,11 @@ import { buildCustomWorker } from "./build-custom-worker.js";
 import { getDefaultDocumentPage } from "./build-fallback-worker/get-default-document-page.js";
 import { buildFallbackWorker } from "./build-fallback-worker/index.js";
 import defaultCache from "./cache.js";
-import * as logger from "./logger.js";
 import type { SharedWorkboxOptionsKeys } from "./private-types.js";
 import type { PluginOptions } from "./types.js";
 import {
   isGenerateSWConfig,
   isInjectManifestConfig,
-  loadTSConfig,
   overrideAfterCalledMethod,
 } from "./utils.js";
 

@@ -3,10 +3,10 @@ import { createRequire } from "module";
 import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import { fileURLToPath } from "url";
+import { logger } from "utils";
 import webpack from "webpack";
 
 import swcRc from "../.swcrc.json";
-import * as logger from "../logger.js";
 import type { FallbackRoutes } from "../types.js";
 import { getFallbackEnvs } from "./get-fallback-envs.js";
 
