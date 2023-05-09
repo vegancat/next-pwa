@@ -1,5 +1,11 @@
 # @ducanh2912/next-pwa
 
+## 8.4.0
+
+### Minor Changes
+
+- 6f73e23: Feat: change logging style based on Next's version
+
 ## 8.3.0
 
 ### Minor Changes

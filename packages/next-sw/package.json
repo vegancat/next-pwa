@@ -1,6 +1,6 @@
 {
   "name": "@ducanh2912/next-sw",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0",
   "type": "module",
   "description": "PWA for Next.js, powered by pure ServiceWorker.",
   "repository": "https://github.com/DuCanhGH/next-pwa",
