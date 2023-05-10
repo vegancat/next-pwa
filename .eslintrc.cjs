@@ -18,6 +18,7 @@ module.exports = {
       "tsconfig.json",
       "tsconfig.eslint.json",
       "packages/*/tsconfig.json",
+      "examples/*/tsconfig.json",
     ],
     ecmaVersion: "latest",
     sourceType: "module",

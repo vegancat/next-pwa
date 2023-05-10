@@ -43,7 +43,7 @@ export default files.map(({ input, output, external, plugins }) =>
         noForceEmit: true,
         noEmitOnError: !isDev,
         outDir: "dist",
-        declaration: true,
+        declaration: false,
         noEmit: false,
       }),
       ...[plugins ?? []],

@@ -6,8 +6,12 @@
   "sideEffects": false,
   "type": "module",
   "main": "./dist/index.js",
+  "types": "./src/index.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   },
   "scripts": {
     "dev": "rimraf dist && rollup -c -w",
