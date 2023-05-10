@@ -1,4 +1,3 @@
-// @ts-check
 import { ESLint } from "eslint";
 import { quote } from "shell-quote";
 

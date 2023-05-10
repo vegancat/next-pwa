@@ -1,12 +1,5 @@
-// @ts-check
 import fg from "fast-glob";
-import ncu from "npm-check-updates";
-
-/**
- * @type {import("npm-check-updates").default}
- */
-// @ts-expect-error Wrong type provided by npm-check-updates.
-const run = ncu.run;
+import { run } from "npm-check-updates";
 
 /**
  * Update and then log updated dependencies.

@@ -1,3 +1,5 @@
+// @ts-check
+/** @type {import("eslint").Linter.BaseConfig} */
 module.exports = {
   parser: "@typescript-eslint/parser",
   env: {
@@ -12,7 +14,11 @@ module.exports = {
   ],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ["tsconfig.eslint.json", "tsconfig.json"],
+    project: [
+      "tsconfig.json",
+      "tsconfig.eslint.json",
+      "packages/*/tsconfig.json",
+    ],
     ecmaVersion: "latest",
     sourceType: "module",
   },
