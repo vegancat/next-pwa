@@ -169,9 +169,9 @@ const defaultCache: RuntimeCaching[] = [
         maxEntries: 32,
         maxAgeSeconds: 24 * 60 * 60, // 24 hours
       },
-      matchOptions: {
-        ignoreVary: true,
-      },
+      // matchOptions: {
+      //   ignoreVary: true,
+      // },
     },
   },
   {
