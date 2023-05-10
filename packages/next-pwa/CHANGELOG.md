@@ -1,5 +1,11 @@
 # @ducanh2912/next-pwa
 
+## 8.4.1
+
+### Patch Changes
+
+- 5c37579: fix(next-pwa): removed ignoreVary for pages-rsc
+
 ## 8.4.0
 
 ### Minor Changes
