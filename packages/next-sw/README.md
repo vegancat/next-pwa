@@ -1,3 +1,5 @@
+> **NOTE**: This package is not ready at the moment. Please use `@ducanh2912/next-pwa` instead.
+
 # Zero-config [PWA](https://web.dev/learn/pwa/) plugin for [Next.js](https://nextjs.org/)
 
 This plugin is powered by [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) and other good stuff.
