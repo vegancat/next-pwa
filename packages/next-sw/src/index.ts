@@ -171,3 +171,4 @@ const withPWAInit = (
 
 export default withPWAInit;
 export { DEFAULT_RUNTIME_CACHING as defaultRuntimeCaching };
+export * from "./types.js";

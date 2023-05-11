@@ -10,6 +10,7 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
+import dts from "rollup-plugin-dts";
 
 const isDev = process.env.NODE_ENV !== "production";
 
@@ -61,31 +62,65 @@ const files = [
   },
 ];
 
-export default files.map(({ input, output, external, plugins }) =>
-  defineConfig({
-    input,
-    output,
-    external,
-    watch: {
-      chokidar: {
-        usePolling: false,
+/** @type {FileEntry[]} */
+const declarations = [
+  {
+    input: "dist/dts/index.d.ts",
+    output: [{ format: "es", file: "dist/index.d.ts" }],
+  },
+];
+
+/**
+ * @type {import("rollup").RollupOptions[]}
+ */
+const rollupEntries = [];
+
+for (const { input, output, external, plugins } of files) {
+  rollupEntries.push(
+    defineConfig({
+      input,
+      output,
+      external,
+      watch: {
+        chokidar: {
+          usePolling: false,
+        },
       },
-    },
-    plugins: [
-      nodeResolve({
-        exportConditions: ["node"],
-        preferBuiltins: true,
-      }),
-      typescript({
-        noForceEmit: true,
-        noEmitOnError: !isDev,
-        outDir: "dist",
-        declaration: true,
-        noEmit: false,
-      }),
-      json(),
-      ...[process.env.NODE_ENV === "production" ? [terser()] : []],
-      ...[plugins ?? []],
-    ],
-  })
-);
+      plugins: [
+        nodeResolve({
+          exportConditions: ["node"],
+          preferBuiltins: true,
+        }),
+        typescript({
+          noForceEmit: true,
+          noEmitOnError: !isDev,
+          outDir: "dist",
+          declaration: true,
+          declarationDir: "dts",
+          noEmit: false,
+        }),
+        json(),
+        ...[process.env.NODE_ENV === "production" ? [terser()] : []],
+        ...[plugins ?? []],
+      ],
+    })
+  );
+}
+
+for (const { input, output, external, plugins } of declarations) {
+  rollupEntries.push(
+    defineConfig({
+      input,
+      output,
+      external,
+      watch: {
+        chokidar: {
+          usePolling: false,
+        },
+      },
+      plugins: [dts(), ...[plugins ?? []]],
+    })
+  );
+}
+
+export default rollupEntries;
