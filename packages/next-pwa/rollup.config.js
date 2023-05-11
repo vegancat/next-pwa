@@ -68,6 +68,10 @@ const declarations = [
     input: "dist/dts/index.d.ts",
     output: [{ format: "es", file: "dist/index.d.ts" }],
   },
+  {
+    input: "dist/dts/sw-entry.d.ts",
+    output: [{ format: "es", file: "dist/sw-entry.d.ts" }],
+  },
 ];
 
 /**

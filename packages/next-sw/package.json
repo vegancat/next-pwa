@@ -16,21 +16,11 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/next-sw.cjs",
       "default": "./dist/next-sw.module.js"
-    },
-    "./workbox": {
-      "types": "./dist/sw-entry.d.ts"
     }
   },
   "main": "./dist/next-sw.cjs",
   "module": "./dist/next-sw.module.js",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "workbox": [
-        "./dist/sw-entry.d.ts"
-      ]
-    }
-  },
   "keywords": [
     "next.js",
     "pwa",
